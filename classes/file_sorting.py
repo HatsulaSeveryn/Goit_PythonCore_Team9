@@ -52,7 +52,7 @@ class FileSorting:
             return None
         else:
             for key, val in self.types.items():
-                if file_ext in val:
+                if file_ext.lower() in val:
                     return key
             return None
 
@@ -128,7 +128,8 @@ class FileSorting:
                     if self.check_clear_folder(path_el):
                         is_remove = True
             if is_remove:
-                self.check_clear_folder(name_folder)    
+                self.check_clear_folder(name_folder)  
+                return True  
         
     def sorting(self):
         self.sorting_folder()
