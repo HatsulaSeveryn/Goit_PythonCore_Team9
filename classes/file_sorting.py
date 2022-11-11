@@ -17,31 +17,31 @@ class FileSorting:
         'archives': ['zip', 'gz', 'tar']
     }    
 
-    def __init__(self, dir_path=''):
-        self.check_path(dir_path)
-        self.name_folder = dir_path
+    def __init__(self, folder_path=''):
+        self.check_path(folder_path)
+        self.name_folder = folder_path
 
     @staticmethod
-    def check_path(dir_path):        
-        if not os.path.exists(dir_path):
-            raise FileNotFoundError(f'{dir_path} is not exist')
-        if not os.path.isdir(dir_path):
-            raise FileNotFoundError(f'{dir_path} is not a directory')
+    def check_path(folder_path):        
+        if not os.path.exists(folder_path):
+            raise FileNotFoundError(f'{folder_path} is not exist')
+        if not os.path.isdir(folder_path):
+            raise FileNotFoundError(f'{folder_path} is not a directory')
 
-    def read_folder(self, name_dir=None):
-        if not name_dir:
-            name_dir = self.name_folder
-        return os.listdir(name_dir)
+    def read_folder(self, name_folder=None):
+        if not name_folder:
+            name_folder = self.name_folder
+        return os.listdir(name_folder)
 
-    def is_free_dir(self, namedir):
-        lists_free_dir = (
+    def is_free_folder(self, name_folder):
+        lists_free_folder = (
             os.path.join(self.name_folder, 'images'),
             os.path.join(self.name_folder, 'video'),
             os.path.join(self.name_folder, 'documents'),
             os.path.join(self.name_folder, 'audio'),
             os.path.join(self.name_folder, 'archives'),
         )
-        return namedir in lists_free_dir
+        return name_folder in lists_free_folder
 
     def check_file_type(self, file):
         file_name_arr = file.split('.')
@@ -98,41 +98,41 @@ class FileSorting:
             new_name += f'_(copy_{datetime.now().microsecond})'
         return new_name + '.' + lists[-1]
 
-    def sorting_dir(self, name_dir=None):
-        if not name_dir:
-            name_dir = self.name_folder
-        lists = self.read_folder(name_dir)
+    def sorting_folder(self, name_folder=None):
+        if not name_folder:
+            name_folder = self.name_folder
+        lists = self.read_folder(name_folder)
         for el in lists:
-            path_file = os.path.join(name_dir, el)
-            if self.is_free_dir(path_file):
+            path_file = os.path.join(name_folder, el)
+            if self.is_free_folder(path_file):
                 continue
             if os.path.isdir(path_file):
-                self.sorting_dir(path_file)
+                self.sorting_folder(path_file)
             else:
                 folder = self.check_file_type(el)
                 if folder:
-                    self.rename_file(folder, name_dir, el)
+                    self.rename_file(folder, name_folder, el)
 
-    def check_clear_dir(self, name_dir=None):
-        if not name_dir:
-            name_dir = self.name_folder
+    def check_clear_folder(self, name_folder=None):
+        if not name_folder:
+            name_folder = self.name_folder
         is_remove = False
-        lists = os.listdir(name_dir)
-        if not lists and not self.is_free_dir(name_dir):
-            os.rmdir(name_dir)
+        lists = os.listdir(name_folder)
+        if not lists and not self.is_free_folder(name_folder):
+            os.rmdir(name_folder)
             return True
         else:
             for el in lists:
-                path_el = os.path.join(name_dir, el)
+                path_el = os.path.join(name_folder, el)
                 if os.path.isdir(path_el):
-                    if self.check_clear_dir(path_el):
+                    if self.check_clear_folder(path_el):
                         is_remove = True
             if is_remove:
-                self.check_clear_dir(name_dir)    
+                self.check_clear_folder(name_folder)    
         
     def sorting(self):
-        self.sorting_dir()
-        self.check_clear_dir()
+        self.sorting_folder()
+        self.check_clear_folder()
         print('All files was sort')
 
 
