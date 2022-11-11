@@ -90,7 +90,7 @@ class FileSorting:
         for el in name_file:
             if el in self.map:
                 new_name += self.map[el]
-            elif (ord('A') <= ord(el) <= ord('Z')) or (ord('a') <= ord(el) <= ord('z')) or el.isdigit():
+            elif el.isalnum():
                 new_name += el
             else:
                 new_name += '_'
