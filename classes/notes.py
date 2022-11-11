@@ -1,4 +1,3 @@
-
 class Notes:
     def __init__(self, note):
         self.note = note
