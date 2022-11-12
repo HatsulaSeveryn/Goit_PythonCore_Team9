@@ -12,13 +12,29 @@ class NoteBook(UserDict):
                 result.append(note)
         return result
 
-    def find_note_by_tag(self, tag):
+    def find_note_by_tag(self, tag, flag=None):
         result = []
         for note in self.data.values():
             new_note_tags = [x.lower() for x in note.tags]
             if tag.lower() in new_note_tags:
                 result.append(note)
-        return sorted(result, key=lambda x: x.title.lower())
+        if not flag:
+            return sorted(result, key=lambda x: x.title.lower())
+        elif flag == '-r':
+            return sorted(result, key=lambda x: x.title.lower(), reverse=True)
+        else:
+            return 'wrong command: try ''-r'' for reverse list'
+
+    def show_note(self, title):
+        result = self.data.get(title, 'no data, try again!')
+        return result
+
+    def delete_note(self, title):
+        try:
+            self.data.pop(title)
+            return self.data
+        except KeyError:
+            return 'This note doesnt exist, try again!'
 
 
 class Note:
@@ -52,4 +68,5 @@ notebook.add_note(six)
 nine = Note('Ellias', 'bad bad')
 nine.add_tags('PlaneT')
 notebook.add_note(nine)
-print(notebook.find_note_by_word('beautiful'))
+# print(notebook.data)
+print(notebook.find_note_by_tag('planet', '-r'))
