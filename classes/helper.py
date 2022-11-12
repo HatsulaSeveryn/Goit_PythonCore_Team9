@@ -352,6 +352,8 @@ class Helper:
 
     def handler(self, cmd):
         command =cmd.strip().split(' ')
+        for char in command[0]:
+            print(char)
         # same commands
         for i in range(self.max_length_cmd, 0, -1):
             if (' '.join(command[0:i]).lower()) in self.handler_command:
@@ -368,14 +370,15 @@ class Helper:
             if founded:
                 list_cmd.add(element_handler)
         # -- same words
-        if not list_cmd:
-            for i in range(self.max_length_cmd - 1, 0, -1):
-                for element in self.handler_command:
-                    if (' '.join(command[0:i]).lower()) in element:
-                        list_cmd.add(element)
-                if list_cmd:
-                    break
+        for i in range(self.max_length_cmd - 1, 0, -1):
+            for element in self.handler_command:
+                if element.startswith(' '.join(command[0:i]).lower()):
+                    list_cmd.add(element)
+            if list_cmd:
+                break
         # -- similar word
+        if not list_cmd:
+            pass
         if list_cmd:
             print('Maybe you wanted to use one of this commands:')
             for element in list_cmd:
