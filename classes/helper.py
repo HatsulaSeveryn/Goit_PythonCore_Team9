@@ -326,19 +326,7 @@ class Helper:
 
     def handler(self, cmd):
         command =cmd.strip().split(' ')
-        # for char in command[0]:
-        #     print(char)
         # same commands
-        print('1')
-        for el in self.handler_command:
-            count = len(el.split(' '))
-            print('2', count)
-            for i in range(count, 0, -1):
-                c = ' '.join(command[0:i]).lower()
-                result = self.levenstein(el, c)
-                if result < count:
-                    print('--------', el, c, result)
-
         for i in range(self.max_length_cmd, 0, -1):
             if (' '.join(command[0:i]).lower()) in self.handler_command:
                 return self.handler_command[' '.join(command[0:i]).lower()](*command[i:])
@@ -353,13 +341,20 @@ class Helper:
                     founded = False
             if founded:
                 list_cmd.add(element_handler)
+        for el in self.handler_command:
+            count = len(el.split(' '))
+            for i in range(count, 0, -1):
+                c = ' '.join(command[0:i]).lower()
+                result = self.levenstein(el, c) * 100 / len(el)
+                if result < 40:
+                    list_cmd.add(el)
         # -- same words
         for i in range(self.max_length_cmd - 1, 0, -1):
             for element in self.handler_command:
                 if element.startswith(' '.join(command[0:i]).lower()):
                     list_cmd.add(element)
             if list_cmd:
-                break
+                    break
         # -- similar word
         if not list_cmd:
             pass
@@ -367,7 +362,6 @@ class Helper:
             print('Maybe you wanted to use one of this commands:')
             for element in list_cmd:
                 print('     ', element)
-
         else:
             raise IndexError('Command is wrong')
     
@@ -385,13 +379,11 @@ class Helper:
             except Exception as e:
                 print(e)
     
-    def levenstein(self, str_1, str_2, *args):
-        print(str_1, str_2, args)
+    def levenstein(self, str_1, str_2):
         n, m = len(str_1), len(str_2)
         if n > m:
             str_1, str_2 = str_2, str_1
             n, m = m, n
-
         current_row = range(n + 1)
         for i in range(1, m + 1):
             previous_row, current_row = current_row, [i] + [0] * n
@@ -400,5 +392,4 @@ class Helper:
                 if str_1[j - 1] != str_2[i - 1]:
                     change += 1
                 current_row[j] = min(add, delete, change)
-
         return current_row[n]
