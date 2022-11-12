@@ -33,16 +33,6 @@ class FileSorting:
             name_folder = self.name_folder
         return os.listdir(name_folder)
 
-    def is_free_folder(self, name_folder):
-        lists_free_folder = (
-            os.path.join(self.name_folder, 'images'),
-            os.path.join(self.name_folder, 'video'),
-            os.path.join(self.name_folder, 'documents'),
-            os.path.join(self.name_folder, 'audio'),
-            os.path.join(self.name_folder, 'archives'),
-        )
-        return name_folder in lists_free_folder
-
     def check_file_type(self, file):
         file_name_arr = file.split('.')
         file_ext = ''
@@ -104,8 +94,6 @@ class FileSorting:
         lists = self.read_folder(name_folder)
         for el in lists:
             path_file = os.path.join(name_folder, el)
-            if self.is_free_folder(path_file):
-                continue
             if os.path.isdir(path_file):
                 self.sorting_folder(path_file)
             else:
@@ -118,7 +106,7 @@ class FileSorting:
             name_folder = self.name_folder
         is_remove = False
         lists = os.listdir(name_folder)
-        if not lists and not self.is_free_folder(name_folder):
+        if not lists:
             os.rmdir(name_folder)
             return True
         else:
