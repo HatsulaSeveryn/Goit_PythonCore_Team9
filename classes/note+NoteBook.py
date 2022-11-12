@@ -69,3 +69,10 @@ class Note:
 
 
 notebook = NoteBook()
+
+
+name = Note('One')
+name.add_text('hello world')
+notebook.add_note(name)
+notebook['One'].add_tag('yer')
+print(notebook['One'].tags)
