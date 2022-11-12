@@ -9,7 +9,7 @@
 
 
 # 1. INTRO:
-  The team POWER9 made this console assistant as part of the Goit course training.
+    # The team POWER9 made this console assistant as part of the Goit course training.
   
 # 2. FUNCTIONALITY:
     # Adress book - storage of contacts, which may contain name, address, email and phones.
@@ -53,5 +53,7 @@
     # change tag [title] [old tag] [new tag]             - changing tag in the note with given title
     
     # show note [title]                                  - printing note with given title
-    # show all note {-r}                                 - printing all notes in alpabetical order (-r is optional parameter for reversed order)
-    # find note [key] {-r}                               - printing all notes that contain the key in alpabetical order (-r is optional parameter for reversed order)
+    # show all note {-r}                                 - printing all notes in alpabetical order 
+                                                           (-r is optional parameter for reversed order)
+    # find note [key] {-r}                               - printing all notes that contain the key in alpabetical order 
+                                                           (-r is optional parameter for reversed order)
