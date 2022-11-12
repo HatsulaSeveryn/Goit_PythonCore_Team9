@@ -12,16 +12,13 @@ class NoteBook(UserDict):
                 result = note
         return result
 
-    def show_all_notes(self, page_number, page_size, flag=None):
+    def show_all_notes(self, page_number, page_size, flag=False):
+        if flag == '-r':
+            flag = True
         page_number, page_size = int(page_number), int(page_size)
         data_new = list(self.data.items())
         all_note = page_number * page_size
-        if not flag:
-            yield sorted(list(data_new[(all_note - page_size):all_note]), key=lambda x: x[0].lower())
-        elif flag == '-r':
-            yield sorted(list(data_new[(all_note - page_size):all_note]), key=lambda x: x[0].lower(), reverse=True)
-        else:
-            return 'wrong command: try ''-r'' for reverse list'
+        yield sorted(list(data_new[(all_note - page_size):all_note]), key=lambda x: x[0].lower(), reverse=flag)
 
     def find_note_by_title(self, word):
         result = []
@@ -30,18 +27,15 @@ class NoteBook(UserDict):
                 result.append(note)
         return result
 
-    def find_note_by_tag(self, tag, flag=None):
+    def find_note_by_tag(self, tag, flag=False):
+        if flag == '-r':
+            flag = True
         result = []
         for note in self.data.values():
             new_note_tags = [x.lower() for x in note.tags]
             if tag.lower() in new_note_tags:
                 result.append(note)
-        if not flag:
-            return sorted(result, key=lambda x: x.title.lower())
-        elif flag == '-r':
-            return sorted(result, key=lambda x: x.title.lower(), reverse=True)
-        else:
-            return 'wrong command: try ''-r'' for reverse list'
+        return sorted(result, key=lambda x: x.title.lower(), reverse=flag)
 
     def delete_note(self, title):
         for titl, note in self.data.items():
@@ -116,4 +110,4 @@ def change_tag():
 add_tagg()
 change_tag()
 
-print(notebook.data['animal'])
+print(next(notebook.show_all_notes('1', '5', '-r')))
