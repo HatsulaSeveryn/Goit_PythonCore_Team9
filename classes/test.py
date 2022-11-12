@@ -45,8 +45,5 @@ print(notebook.find_notes_by_tag('study'))
 
 
 a = {'1': 1, '2': 2}
-try:
-    a.pop('3')
-except KeyError:
-    print('this note doesnt exist, try again')
+a.pop('3')
 print(a)

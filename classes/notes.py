@@ -5,11 +5,11 @@ class NoteBook(UserDict):
     def add_note(self, note):
         self.data[note.title] = note
 
-    def find_note_by_word(self, word):
-        result = []
-        for title, note in self.data.items():
-            if word.lower() in title.lower():
-                result.append(note)
+    def show_note(self, title):
+        result = 'empty'
+        for titl, note in self.data.items():
+            if titl.lower() == title.lower():
+                result = note
         return result
 
     def find_note_by_tag(self, tag, flag=None):
@@ -25,16 +25,10 @@ class NoteBook(UserDict):
         else:
             return 'wrong command: try ''-r'' for reverse list'
 
-    def show_note(self, title):
-        result = self.data.get(title, 'no data, try again!')
-        return result
-
     def delete_note(self, title):
-        try:
-            self.data.pop(title)
-            return self.data
-        except KeyError:
-            return 'This note doesnt exist, try again!'
+        for titl, note in self.data.items():
+            if titl.lower() == title.lower():
+                self.data.pop(titl)
 
 
 class Note:
@@ -57,7 +51,7 @@ first.add_tags('Life')
 first.add_tags('Planet')
 second = Note('Animal', 'Need to by some puppy')
 second.add_tags('plaNET')
-fife = Note('Bear good', 'gooood')
+fife = Note('Bear', 'gooood')
 fife.add_tags('planet')
 six = Note('Ceylon tea', 'my favourite')
 six.add_tags('PLAnet')
@@ -69,4 +63,6 @@ nine = Note('Ellias', 'bad bad')
 nine.add_tags('PlaneT')
 notebook.add_note(nine)
 # print(notebook.data)
-print(notebook.find_note_by_tag('planet', '-r'))
+# print(notebook.show_note('Animal'))
+notebook.delete_note('bea')
+print(notebook.data)
