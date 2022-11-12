@@ -23,6 +23,13 @@ class NoteBook(UserDict):
         else:
             return 'wrong command: try ''-r'' for reverse list'
 
+    def find_note_by_title(self, word):
+        result = []
+        for title, note in self.data.items():
+            if word.lower() in title.lower():
+                result.append(note)
+        return result
+
     def find_note_by_tag(self, tag, flag=None):
         result = []
         for note in self.data.values():
@@ -76,4 +83,4 @@ notebook.add_note(nine)
 # print(notebook.data)
 # print(notebook.show_note('Animal'))
 # notebook.delete_note('bea')
-print(next(notebook.show_all_notes('1', '5', '-r')))
+print(notebook.find_note_by_title('ce'))
