@@ -42,9 +42,9 @@ class NoteBook(UserDict):
 
 
 class Note:
-    def __init__(self, title, note):
+    def __init__(self, title):
         self.title = title
-        self.note = note
+        self.text = ''
         self.tags = []
 
     def add_tag(self, tag):
@@ -61,51 +61,11 @@ class Note:
                 self.tags.remove(tg)
                 self.tags.append(new_tag)
 
+    def add_text(self, new_text):
+        self.text += ' '+new_text
+
     def __repr__(self):
-        return f'{self.title}, {self.note}, {self.tags}'
+        return f'{self.title}, {self.text}, {self.tags}'
 
 
 notebook = NoteBook()
-
-
-first = Note('life planet beautiful', 'Its about our life and other...')
-first.add_tag('Life')
-first.add_tag('Planet')
-second = Note('animal', 'Need to by some puppy')
-second.add_tag('plaNET')
-fife = Note('Bear', 'gooood')
-fife.add_tag('planet')
-six = Note('Ceylon tea', 'my favourite')
-six.add_tag('PLAnet')
-notebook.add_note(first)
-notebook.add_note(second)
-notebook.add_note(fife)
-notebook.add_note(six)
-nine = Note('Ellias', 'bad bad')
-nine.add_tag('PlaneT')
-notebook.add_note(nine)
-# print(notebook.data)
-# print(notebook.show_note('Animal'))
-# notebook.delete_note('bea')
-# print(notebook.find_note_by_title('ce'))
-
-
-def add_tagg():
-    adder = notebook.data['animal']
-    adder.add_tag('frog')
-
-
-def remove_tag():
-    adder = notebook.data['animal']
-    adder.remove_tag('plaN')
-
-
-def change_tag():
-    adder = notebook.data['animal']
-    adder.change_tag('planet', 'MINIMALIZM')
-
-
-add_tagg()
-change_tag()
-
-print(next(notebook.show_all_notes('1', '4', '-r')))
