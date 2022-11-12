@@ -2,27 +2,30 @@ import shutil
 import os
 from datetime import datetime
 
+
 class FileSorting:
-    map = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 
-        'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 
-        'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya', 'і': 'i',  'є': 'e', 'ї': 'i', 'А': 'A', 
-        'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'E', 'Ж': 'Zh', 'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 
-        'М': 'M', 'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U', 'Ф': 'F', 'Х': 'H', 'Ц': 'Ts', 'Ч': 'Ch', 
-        'Ш': 'Sh', 'Щ': 'Sch', 'Ъ': '', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya', 'І': 'I',  'Є': 'E',  'Ї': 'I'}
+    map = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i',
+           'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't',
+           'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '',
+           'э': 'e', 'ю': 'yu', 'я': 'ya', 'і': 'i', 'є': 'e', 'ї': 'i',
+           'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'E', 'Ж': 'Zh', 'З': 'Z', 'И': 'I',
+           'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M', 'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T',
+           'У': 'U', 'Ф': 'F', 'Х': 'H', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Sch', 'Ъ': '', 'Ы': 'Y', 'Ь': '',
+           'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya', 'І': 'I', 'Є': 'E', 'Ї': 'I'}
     types = {
         'images': ['jpeg', 'png', 'jpg', 'svg', 'webp'],
         'video': ['avi', 'mp4', 'mov', 'mkv'],
         'documents': ['doc', 'docx', 'txt', 'pdf', 'xls', 'xlsx', 'pptx'],
         'audio': ['mp3', 'ogg', 'mov', 'amr'],
         'archives': ['zip', 'gz', 'tar']
-    }    
+    }
 
     def __init__(self, folder_path=''):
         self.check_path(folder_path)
         self.name_folder = folder_path
 
     @staticmethod
-    def check_path(folder_path):        
+    def check_path(folder_path):
         if not os.path.exists(folder_path):
             raise FileNotFoundError(f'{folder_path} is not exist')
         if not os.path.isdir(folder_path):
@@ -73,7 +76,7 @@ class FileSorting:
             else:
                 os.remove(os.path.join(folder_from, file))
 
-    def normalize(self, file, is_copy = False):
+    def normalize(self, file, is_copy=False):
         lists = file.split('.')
         name_file = '.'.join(lists[0:-1])
         new_name = ''
@@ -116,13 +119,10 @@ class FileSorting:
                     if self.check_clear_folder(path_el):
                         is_remove = True
             if is_remove:
-                self.check_clear_folder(name_folder)  
-                return True  
-        
+                self.check_clear_folder(name_folder)
+                return True
+
     def sorting(self):
         self.sorting_folder()
         self.check_clear_folder()
         print('All files was sort')
-
-
-
