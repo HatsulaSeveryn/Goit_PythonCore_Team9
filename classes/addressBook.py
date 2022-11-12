@@ -30,6 +30,20 @@ class AddressBook(UserDict):
         for record in self.data.values():
             yield record
 
+    def add_address(self, name, addr):
+
+        if not name in self.data:
+            self.add_contact(name)
+
+        self.data[name].address = addr
+
+    def add_birthday(self, name, birthday):
+
+        if not name in self.data:
+            self.add_contact(name)
+
+        self.data[name].birthday = birthday
+
     def add_contact(self, name):
 
         if not name in self.data:
@@ -40,6 +54,20 @@ class AddressBook(UserDict):
         else:
             return f'Contact with this name exist. Try other name or other command'
 
+    def add_email(self, name, email):
+
+        if not name in self.data:
+            self.add_contact(name)
+
+        self.data[name].email = email
+
+    def add_phone(self, name, phone):
+
+        if not name in self.data:
+            self.add_contact(name)
+
+        self.data[name].add_phone(phone)
+
     def remove_contact(self, name):
 
         try:
@@ -48,18 +76,36 @@ class AddressBook(UserDict):
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
 
-    def add_phone(self, name, phone):
+    def remove_phone(self, name, phone=None):
 
-        if not name in self.data:
+        if phone:
 
-            self.add_contact(name)
-            self.data[name].add_phone(phone)
-        else:
+            try:
+                self.data[name].delite_phone(phone)
 
-            self.data[name].add_phone(phone)
+            except KeyError:
+                raise ValueError(f'Contact {name} has not been found')
+
+    def change_phone(self, name, old_phone, new_phone):
+        """Change old number phone  for name which is in Contacts to new phone"""
+
+        try:
+            self.data[name].edit_phone(old_phone, new_phone)
+
+        except KeyError:
+            raise ValueError(f'Contact {name} has not been found')
+
+
+#        if self.data[name].edit_phone(old_phone, new_phone):
+#            return f'For {name} has changed phone number {old_phone} at: {new_phone}'
+
+#        return f' {name} has not phone number {old_phone} in contact'
+
+#    return f'Contact {name_contact} not in phone book'
+
 
     def show_all_contact(self, number_on_page=None):
-        quantity_records_on_page = 2
+        quantity_records_on_page = 3
         stock = self.iterator()
         page = 1
         while True:
