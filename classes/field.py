@@ -3,7 +3,7 @@ class Field:
         self.__value = None
         self.value = value
 
-    def __str_(self):
+    def __str__(self):
         return self.value
 
     def is_contain(self, key):

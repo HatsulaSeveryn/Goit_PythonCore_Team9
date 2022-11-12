@@ -8,8 +8,8 @@ class Phone(Field):
 
     @value.setter
     def value(self, value):
-        if value.isnumeric():
-            self.__value = value
-        else:
-            print('Please for input phone use only number')
-            raise TypeError
+
+        if not value.isnumeric():
+            raise ValueError('Please for input phone use only number')
+
+        self.__value = value

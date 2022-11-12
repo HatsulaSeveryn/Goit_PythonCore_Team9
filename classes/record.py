@@ -32,7 +32,7 @@ class Record:
         #        if self.birthday:
         #            return f'NameContact {self.name.value} - tel:  {"; ".join([phone.value for phone in self.phones])}, birthday: {str(self.birthday)}, email: {self.email}, address: {self.address}'
         #        else:
-        return f'Name {self.name.value} - tel:  {"; ".join([phone.value for phone in self.phones])}, birthday: {str(self.birthday)}, email: {self.email}, address: {self.address}'
+        return f'Name {self.name.value} - tel:  {"; ".join([phone.value for phone in self.phones])}, birthday: {str(self.birthday)}, email: {str(self.email)}, address: {self.address}'
 
     def add_phone(self, phone):
         self.phones.append(Phone(phone))

@@ -1,3 +1,4 @@
+import re
 from classes.field import Field
 
 
@@ -9,10 +10,9 @@ class Email(Field):
     @value.setter
     def value(self, value):
 
-        try:
+        pattern = "[^@]+@[^@]+\.[^@]+"
 
-            self.__value = value
-        # If the date validation goes wrong
-        except:
-            print("Incorrect data format for email, should be ***@.***.**")
-            raise TypeError
+        if not re.match(pattern, value):
+            raise ValueError('This email is not correct')
+
+        self.__value = value

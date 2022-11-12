@@ -4,9 +4,15 @@ import pickle
 from classes.record import Record
 from classes.name import Name
 from classes.birthday import Birthday
+from classes.email import Email
 
 
 class AddressBook(UserDict):
+
+    def __init__(self, filename='adress_book.txt'):
+        super().__init__()
+        self.filename = filename
+        self.read_adress_book_from_file()
 
     def input_error(func):
 
@@ -31,12 +37,25 @@ class AddressBook(UserDict):
         for record in self.data.values():
             yield record
 
+    def write_adress_book_file(self):
+        with open('adress_book.txt', 'wb') as file:
+            pickle.dump(self.data, file)
+
+    def read_adress_book_from_file(self):
+        try:
+            with open('adress_book.txt', 'rb') as file:
+                self.data = pickle.load(file)
+                return self.data
+        except FileNotFoundError:
+            pass
+
     def add_address(self, name, addr):
 
         if not name in self.data:
             self.add_contact(name)
 
         self.data[name].address = addr
+        return True
 
     def add_birthday(self, name, birthday):
 
@@ -48,6 +67,7 @@ class AddressBook(UserDict):
         except TypeError:
             raise TypeError(
                 f'Format for birthday - dd.mm.YYYY, example 01.01.3333')
+        return True
 
     def add_contact(self, name):
 
@@ -58,13 +78,20 @@ class AddressBook(UserDict):
 
         else:
             return f'Contact with this name exist. Try other name or other command'
+        return True
 
     def add_email(self, name, email):
 
         if not name in self.data:
             self.add_contact(name)
 
-        self.data[name].email = email
+        try:
+
+            self.data[name].email = Email(email)
+
+        except ValueError:
+            raise "Mistake in email, example: my_email@pyton.com"
+        return True
 
     def add_phone(self, name, phone):
 
@@ -74,20 +101,23 @@ class AddressBook(UserDict):
         try:
 
             self.data[name].add_phone(phone)
-        except TypeError:
+        except ValueError:
             raise "Not correct format for phone"
+        return True
 
     def remove_address(self, name):
         try:
             self.data[name].address = ''
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
+        return True
 
     def remove_birthday(self, name):
         try:
             self.data[name].birthday = ''
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
+        return True
 
     def remove_contact(self, name):
 
@@ -96,12 +126,14 @@ class AddressBook(UserDict):
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
+        return True
 
     def remove_email(self, name):
         try:
             self.data[name].email = ''
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
+        return True
 
     def remove_phone(self, name, phone=None):
 
@@ -112,22 +144,29 @@ class AddressBook(UserDict):
 
             except KeyError:
                 raise ValueError(f'Contact {name} has not been found')
+            return True
 
     def change_address(self, name, address):
-        """Change old address  for name which is in Contacts to new address"""
+        """Change old address  for name which is in Contacts to new address. 
+        If contact has not old address - address will be add"""
 
         try:
             self.data[name].address = address
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
+        return True
 
     def change_email(self, name, email):
-        """Change old address  for name which is in Contacts to new address"""
+        """Change old mail  for name which is in Contacts to new mail. 
+        If contact has not old mail - mail will be add"""
 
         try:
-            self.data[name].email = email
+            self.data[name].email = Email(email)
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
+        except ValueError:
+            raise ValueError(f'Mistake in email')
+        return True
 
     def change_phone(self, name, old_phone, new_phone):
         """Change old number phone  for name which is in Contacts to new phone"""
@@ -137,9 +176,10 @@ class AddressBook(UserDict):
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
+        return True
 
     def change_birthday(self, name, birthday):
-        """Change old address  for name which is in Contacts to new address"""
+        """Change old birthday  for name which is in Contacts to new """
 
         try:
             self.data[name].birthday = Birthday(birthday)
@@ -148,13 +188,11 @@ class AddressBook(UserDict):
         except TypeError:
             raise TypeError(
                 f'Format for birthday - dd.mm.YYYY, example 01.01.3333')
+        return True
 
-            #        if self.data[name].edit_phone(old_phone, new_phone):
-            #            return f'For {name} has changed phone number {old_phone} at: {new_phone}'
-
-            #        return f' {name} has not phone number {old_phone} in contact'
-
-            #    return f'Contact {name_contact} not in phone book'
+    def save_to_file(self, file_name):
+        self.write_adress_book_file()
+        return 'Data has been saved'
 
     def show_all_contact(self, number_on_page=None):
         quantity_records_on_page = 3
@@ -169,3 +207,7 @@ class AddressBook(UserDict):
             except StopIteration:
                 print("it's end.No contacts in book")
                 break
+
+    def quit_func(self):
+        self.write_adress_book_file()
+        return 'Good bye!'
