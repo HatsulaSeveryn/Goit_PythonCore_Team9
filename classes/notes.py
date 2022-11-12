@@ -12,6 +12,17 @@ class NoteBook(UserDict):
                 result = note
         return result
 
+    def show_all_notes(self, page_number, page_size, flag=None):
+        page_number, page_size = int(page_number), int(page_size)
+        data_new = list(self.data.items())
+        all_note = page_number * page_size
+        if not flag:
+            yield sorted(list(data_new[(all_note - page_size):all_note]), key=lambda x: x[0].lower())
+        elif flag == '-r':
+            yield sorted(list(data_new[(all_note - page_size):all_note]), key=lambda x: x[0].lower(), reverse=True)
+        else:
+            return 'wrong command: try ''-r'' for reverse list'
+
     def find_note_by_tag(self, tag, flag=None):
         result = []
         for note in self.data.values():
@@ -49,7 +60,7 @@ notebook = NoteBook()
 first = Note('life planet beautiful', 'Its about our life and other...')
 first.add_tags('Life')
 first.add_tags('Planet')
-second = Note('Animal', 'Need to by some puppy')
+second = Note('animal', 'Need to by some puppy')
 second.add_tags('plaNET')
 fife = Note('Bear', 'gooood')
 fife.add_tags('planet')
@@ -64,5 +75,5 @@ nine.add_tags('PlaneT')
 notebook.add_note(nine)
 # print(notebook.data)
 # print(notebook.show_note('Animal'))
-notebook.delete_note('bea')
-print(notebook.data)
+# notebook.delete_note('bea')
+print(next(notebook.show_all_notes('1', '5', '-r')))
