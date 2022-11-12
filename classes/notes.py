@@ -12,9 +12,8 @@ class NoteBook(UserDict):
                 result = note
         return result
 
-    def show_all_notes(self, page_number, page_size, flag=False):
-        if flag == '-r':
-            flag = True
+    def show_all_notes(self, page_number, page_size, flag=None):
+        flag = True if flag == '-r' else False
         page_number, page_size = int(page_number), int(page_size)
         data_new = list(self.data.items())
         all_note = page_number * page_size
@@ -27,9 +26,8 @@ class NoteBook(UserDict):
                 result.append(note)
         return result
 
-    def find_note_by_tag(self, tag, flag=False):
-        if flag == '-r':
-            flag = True
+    def find_note_by_tag(self, tag, flag=None):
+        flag = True if flag == '-r' else False
         result = []
         for note in self.data.values():
             new_note_tags = [x.lower() for x in note.tags]
@@ -110,4 +108,4 @@ def change_tag():
 add_tagg()
 change_tag()
 
-print(next(notebook.show_all_notes('1', '5', '-r')))
+print(next(notebook.show_all_notes('1', '4', '-r')))
