@@ -55,8 +55,19 @@ class Note:
         self.note = note
         self.tags = []
 
-    def add_tags(self, tag):
+    def add_tag(self, tag):
         self.tags.append(tag)
+
+    def remove_tag(self, tag):
+        for tg in self.tags:
+            if tag.lower() == tg.lower():
+                self.tags.remove(tg)
+
+    def change_tag(self, old_tag, new_tag):
+        for tg in self.tags:
+            if old_tag.lower() == tg.lower():
+                self.tags.remove(tg)
+                self.tags.append(new_tag)
 
     def __repr__(self):
         return f'{self.title}, {self.note}, {self.tags}'
@@ -64,23 +75,45 @@ class Note:
 
 notebook = NoteBook()
 
+
 first = Note('life planet beautiful', 'Its about our life and other...')
-first.add_tags('Life')
-first.add_tags('Planet')
+first.add_tag('Life')
+first.add_tag('Planet')
 second = Note('animal', 'Need to by some puppy')
-second.add_tags('plaNET')
+second.add_tag('plaNET')
 fife = Note('Bear', 'gooood')
-fife.add_tags('planet')
+fife.add_tag('planet')
 six = Note('Ceylon tea', 'my favourite')
-six.add_tags('PLAnet')
+six.add_tag('PLAnet')
 notebook.add_note(first)
 notebook.add_note(second)
 notebook.add_note(fife)
 notebook.add_note(six)
 nine = Note('Ellias', 'bad bad')
-nine.add_tags('PlaneT')
+nine.add_tag('PlaneT')
 notebook.add_note(nine)
 # print(notebook.data)
 # print(notebook.show_note('Animal'))
 # notebook.delete_note('bea')
-print(notebook.find_note_by_title('ce'))
+# print(notebook.find_note_by_title('ce'))
+
+
+def add_tagg():
+    adder = notebook.data['animal']
+    adder.add_tag('frog')
+
+
+def remove_tag():
+    adder = notebook.data['animal']
+    adder.remove_tag('plaN')
+
+
+def change_tag():
+    adder = notebook.data['animal']
+    adder.change_tag('planet', 'MINIMALIZM')
+
+
+add_tagg()
+change_tag()
+
+print(notebook.data['animal'])
