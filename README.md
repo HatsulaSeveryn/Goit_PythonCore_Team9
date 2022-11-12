@@ -5,7 +5,7 @@
 # TOPICS
   1.  Intro.
   2.  Console assistant functionality.
-  3.  List of commands with desciptiom.
+  3.  List of commands with description.
 
 
 # 1. INTRO:
