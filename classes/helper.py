@@ -358,14 +358,24 @@ class Helper:
                 return self.handler_command[' '.join(command[0:i]).lower()](*command[i:])
         # similar command
         list_cmd = set()
-
+        # -- rearranged words
+        for element_handler in self.handler_command:
+            cmd_range = element_handler.split(' ')
+            founded = True
+            for element_cmd in command:
+                if element_cmd not in cmd_range:
+                    founded = False
+            if founded:
+                list_cmd.add(element_handler)
         # -- same words
-        for i in range(self.max_length_cmd - 1, 0, -1):
-            for element in self.handler_command:
-                if (' '.join(command[0:i]).lower()) in element:
-                    list_cmd.add(element)
-            if list_cmd:
-                break
+        if not list_cmd:
+            for i in range(self.max_length_cmd - 1, 0, -1):
+                for element in self.handler_command:
+                    if (' '.join(command[0:i]).lower()) in element:
+                        list_cmd.add(element)
+                if list_cmd:
+                    break
+        # -- similar word
         if list_cmd:
             print('Maybe you wanted to use one of this commands:')
             for element in list_cmd:
