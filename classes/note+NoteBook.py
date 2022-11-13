@@ -97,4 +97,6 @@ notebook.add_tag('Black', 'Other')
 notebook.add_tag('elliot', 'Colour')
 notebook.add_tag('Apple', 'colour')
 print(notebook.change_tag('Black', 'Colour', '!!!!!!!!!!!!!!!!'))
+
+print(notebook)
 print(notebook)
