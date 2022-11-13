@@ -111,7 +111,7 @@ class Helper:
         Creating new contact with given <name>
         <name> is a string without spaces
         """
-        err = "Give me contact's name. Contact's name can consist of 1 word only"
+        err = self.func_add_contact.__doc__
         self.check_args(1, 0, err, name, *args)
         # self.addressbook.add_contact(name)
         print(f'Contact {name} is added')
@@ -122,7 +122,7 @@ class Helper:
         Deleting contact with given <name>
         <name> is a string without spaces
         """
-        err = "Give me contact's name. Contact's name can consist of 1 word only"
+        err = self.func_remove_contact.__doc__
         self.check_args(1, 0, err, name, *args)
         # self.addressbook.remove_contact(name)
         print(f'Contact {name} deleted')
@@ -133,7 +133,7 @@ class Helper:
         Changing the name of the contact from <old name> to <new name>
         <old name> and <new name> both are strings without spaces
         """
-        err = "Give me old contact's name and new contact's name. Contact's name can consist of 1 word only"
+        err = self.func_change_contact.__doc__
         self.check_args(2, 0, err, name_old, name_new, *args)
         # self.addressbook.change_contact(name_old, name_new)
         print(f'Name of record {name_old} changed')
@@ -145,7 +145,7 @@ class Helper:
         <name> is a string without spaces
         <address> is a string of any length
         """
-        err = "Give me contact's name and address"
+        err = self.func_add_address.__doc__
         self.check_args(2, 1, err, name, *args)
         address = ' '.join(args)
         # self.addressbook.add_address(name, address)
@@ -157,7 +157,7 @@ class Helper:
         Deleting address from the contact with given <name>
         <name> is a string without spaces
         """
-        err = "Give me contact's name. Contact's name can consist of 1 word only"
+        err = self.func_remove_address.__doc__
         self.check_args(1, 0, err, name, *args)
         address = ' '.join(args)
         # self.addressbook.remove_address(name)
@@ -170,7 +170,7 @@ class Helper:
         <name> is a string without spaces
         <address> is a string of any length
         """
-        err = "Give me contact's name and address."
+        err = self.func_change_address.__doc__
         self.check_args(2, 1, err, name, *args)
         address = ' '.join(args)
         # self.addressbook.change_address(name, address)
@@ -182,7 +182,7 @@ class Helper:
         Adding <email> to the contact with given <name>
         <name> and <email> both are strings without spaces
         """
-        err = "Give me contact's name and email"
+        err = self.func_add_email.__doc__
         self.check_args(2, 0, err, name, email, *args)
         # self.addressbook.add_email(name, email)
         print(f'E-mail {email} added for contact {name}')
@@ -193,7 +193,7 @@ class Helper:
         Deleting email from the contact with given <name>
         <name> is a string without spaces
         """
-        err = "Give me contact's name. Contact's name can consist of 1 word only"
+        err = self.func_remove_email.__doc__
         self.check_args(1, 0, err, name, *args)
         # self.addressbook.remove_email(name)
         print(f'E-mail removed for contact {name}')
@@ -204,7 +204,7 @@ class Helper:
         Changing <email> in the contact with given <name>
         <name> and <email> both are strings without spaces
         """
-        err = "Give me contact's name and email."
+        err = self.func_change_email.__doc__
         self.check_args(2, 0, err, name, email, *args)
         # self.addressbook.change_email(name, email)
         print(f'E-mail changed for contact {name}')
@@ -216,7 +216,7 @@ class Helper:
         <name> is string without spaces
         <birthday> formats: dd/mm/yyyy, dd.mm.yyyy
         """
-        err = "Give me contact's name and date of birth."
+        err = self.func_add_birthday.__doc__
         self.check_args(2, 0, err, name, birthday, *args)
         # self.addressbook.add_birthday(name, birthday)
         print(f'Date of birth {birthday} added for contact {name}')
@@ -227,7 +227,7 @@ class Helper:
         Deleting birthday from the contact with given <name>
         <name> is string without spaces
         """
-        err = "Give me contact's name. Contact's name can consist of 1 word only"
+        err = self.func_remove_birthday.__doc__
         self.check_args(1, 0, err, name, *args)
         # self.addressbook.remove_birthday(name)
         print(f'Date of birth removed for contact {name}')
@@ -239,7 +239,7 @@ class Helper:
         <name> is string without spaces
         <birthday> formats: dd/mm/yyyy, dd.mm.yyyy
         """
-        err = "Give me contact's name and date of birth."
+        err = self.func_change_birthday.__doc__
         self.check_args(2, 0, err, name, birthday, *args)
         # self.addressbook.change_birthday(name, birthday)
         print(f'Date of birth changed for contact {name}')
@@ -251,7 +251,7 @@ class Helper:
         <name> is string without spaces
         <phone> is string without spaces, only digits as characters
         """
-        err = "Give me contact's name and phone."
+        err = self.func_add_phone.__doc__
         self.check_args(2, 0, err, name, phone, *args)
         # self.addressbook.add_phone(name, phone)
         print(f'Phone {phone} added for contact {name}')
@@ -263,7 +263,7 @@ class Helper:
         <name> is string without spaces
         <phone> is string without spaces, only digits as characters
         """
-        err = "Give me contact's name and phone."
+        err = self.func_remove_phone.__doc__
         self.check_args(2, 0, err, name, phone, *args)
         # self.addressbook.remove_phone(name, phone)
         print(f'Phone {phone} removed for contact {name}')
@@ -276,7 +276,7 @@ class Helper:
         <name> is string without spaces
         <old phone> and <new phone> both are strings without spaces, only digits as characters
         """
-        err = "Give me contact's name, old phone and new phone."
+        err = self.func_change_phone.__doc__
         self.check_args(3, 0, err, name, phone_old, phone_new, *args)
         # self.addressbook.change_phone(name, phone_old, phone_new)
         print(f'Phone {phone_old} changed for contact {name}')
@@ -295,7 +295,7 @@ class Helper:
         Printing contact with given <name>
         <name> is string without spaces
         """
-        err = "Give me contact's name. Contact's name can consist of 1 word only"
+        err = self.func_show_contact.__doc__
         self.check_args(1, 0, err, name, *args)
         # self.addressbook.show_contact(name)
 
@@ -306,7 +306,7 @@ class Helper:
         <key> is string without spaces
         """
         if args:
-            raise ValueError('Give me one key word.')
+            raise ValueError(self.func_find_contact.__doc__)
         # self.addressbook.find_contact(key)
 
     def func_show_birthdays(self, days, *args):
@@ -316,7 +316,7 @@ class Helper:
         <days> is integer
         """
         if args:
-            raise ValueError('Give me amount days to birthdays only.')
+            raise ValueError(self.func_show_birthdays.__doc__)
         # self.addressbook.show_birthdays(days)
 
     def func_add_note(self, title=None, *args):
@@ -325,7 +325,7 @@ class Helper:
         Creating new note with given <title>
         <title> is a string without spaces
         """
-        err = "Give me title for note. Title can consist of 1 word only"
+        err = self.func_add_note.__doc__
         self.check_args(1, 0, err, title, *args)
         # self.notebook.add_note(title)
         print(f'Note with title "{title}" added')
@@ -336,7 +336,7 @@ class Helper:
         Deleting note with given <title>
         <title> is a string without spaces
         """
-        err = "Give me title for note. Title can consist of 1 word only"
+        err = self.func_remove_note.__doc__
         self.check_args(1, 0, err, title, *args)
         # self.notebook.delete_note(title)
         print(f'Note with title "{title}" removed')
@@ -347,7 +347,7 @@ class Helper:
         Changing <old title> to the <new title> in the note
         <old title> and <new title> both are strings without spaces
         """
-        err = "Give me old title and new title for note. Title can consist of 1 word only"
+        err = self.func_change_note.__doc__
         self.check_args(2, 0, err, title_old, title_new, *args)
         # self.notebook.change_note(title, *args)
         print(f'Title "{title_old}" changed')
@@ -359,7 +359,7 @@ class Helper:
         <title> is string without spaces
         <text> is a string of any length
         """
-        err = "Give me title and text for note."
+        err = self.func_add_text.__doc__
         self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
         # self.notebook.add_text(title, text)
@@ -371,7 +371,7 @@ class Helper:
         Deleting <text> from the note with given <title>
         <title> is string without spaces
         """
-        err = "Give me title for note."
+        err = self.func_remove_text.__doc__
         self.check_args(1, 0, err, title, *args)
         # self.notebook.edit_text(title, '')
         print(f'Text for note with "{title}" removed')
@@ -383,7 +383,7 @@ class Helper:
         <title> is string without spaces
         <text> is a string of any length
         """
-        err = "Give me title and text for note."
+        err = self.func_change_text.__doc__
         self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
         # self.notebook.edit_text(title, text)
@@ -395,7 +395,7 @@ class Helper:
         Adding <tag> to the note with given <title>
         <title> and <tag> both are strings without spaces
         """
-        err = "Give me title and tag for note."
+        err = self.func_add_tag.__doc__
         self.check_args(2, 0, title, tag, *args)
         # self.notebook.add_tag(title, tag)
         print(f'Tag {tag} added for note with title "{title}"')
@@ -406,7 +406,7 @@ class Helper:
         Deleting <tag> from the note with given <title>
         <title> and <tag> both are strings without spaces
         """
-        err = "Give me title and tag for note."
+        err = self.func_remove_tag.__doc__
         self.check_args(2, 0, title, tag, *args)
         # self.notebook.remove_tag(name, tag)
         print(f'Tag {tag} removed for note with title "{title}"')
@@ -417,7 +417,7 @@ class Helper:
         Changing <old tag> to the <new tag> in the note
         <title>, <old tag> and <new tag> are strings without spaces
         """
-        err = "Give me title, old tag and new tag for note."
+        err = self.func_change_tag.__doc__
         self.check_args(3, 0, title, old_tag, new_tag, *args)
         # self.notebook.change_tag(name, old_tag, new_tag)
         print(f'Tag {old_tag} changed for note with title "{title}"')
@@ -436,31 +436,31 @@ class Helper:
         Printing note with give <title>
         <title> is string without spaces
         """
-        err = "Give me title for note."
+        err = self.func_show_note.__doc__
         self.check_args(1, 0, err, title, *args)
         # print(self.notebook.show_note(title))
 
     def func_find_note(self, key=None, flag=None, *args):
-        if (flag != '-r' and flag) or args:
         """
         Command: find note <key> {-r}
         Printing the sorted list of notes by the given <key>
         <key> is string without spaces
         {-r} is optional flag for reverse sorting
         """
-            raise ValueError('Give me one key word and if its need flag(-r for reverse sort).')
+        if (flag and flag != '-r') or args:
+            raise ValueError(self.func_find_note.__doc__)
         # result = self.notebook.find_note_by_title(key, flag)
         # print(result)
 
     def func_find_tag(self, tag=None, flag=None, *args):
-        if (flag != '-r' and flag) or args:
         """
         Command: find note <tag> {-r}
         Printing the sorted list of notes by the given <tag>
         <tag> is string without spaces
         {-r} is optional flag for reverse sorting
         """
-            raise ValueError('Give me one tag and if its need flag(-r for reverse sort).')
+        if ( flag and flag != '-r') or args:
+            raise ValueError(self.func_find_tag.__doc__)
         # result = self.notebook.find_note_by_tag(tag, flag)
         # self.notebook.print_addressbook(result)
 
@@ -471,7 +471,7 @@ class Helper:
         Files organised by type and moved the specific folder assign to the file type
         Empty folders will be deleted
         """
-        err = 'Give me one folder for sorting'
+        err = self.func_sort_folder.__doc__
         self.check_args(1, 0, err, folder, *args)
         sorter = FileSorting(folder)
         sorter.sorting()
@@ -676,11 +676,8 @@ class Helper:
             string = "|{:^"+str(table_width - 2)+"}|"
             print(string.format(', '.join(note['tags'])))
             print('-'*table_width)
-            idx_begin = 0
-            idx_end = table_width - 4
-            while idx_begin <= len(note['text']):
+            texts = self.delimiter_text(note['text'], table_width - 4)
+            for text in texts:
                 string = "| {:<"+str(table_width - 4)+"} |"
-                print(string.format(note['text'][idx_begin: idx_end]))
-                idx_begin = idx_end
-                idx_end += table_width - 4
+                print(string.format(text))
             print('-'*table_width, '\n\n')
