@@ -387,15 +387,9 @@ class Helper:
             cmd = input('Enter command (help - show all commands): ')
             try:
                 self.handler(cmd)
-            except ValueError as e:
-                print(e)
-            except IndexError as e:
-                print(e)
-            except KeyError as e:
-                print(e)
             except Exception as e:
                 print(e)
-    
+           
     def levenstein(self, str_1, str_2):
         n, m = len(str_1), len(str_2)
         if n > m:
