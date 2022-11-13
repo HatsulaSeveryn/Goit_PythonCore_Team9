@@ -125,4 +125,4 @@ class FileSorting:
     def sorting(self):
         self.sorting_folder()
         self.check_clear_folder()
-        print('All files was sort')
+        print(f'Folder "{self.name_folder}" was sort')

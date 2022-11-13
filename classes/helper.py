@@ -1,5 +1,6 @@
 import os
 import pickle
+from classes.file_sorting import FileSorting
 # from classes.addressBook import AddressBook
 
 class Helper:
@@ -45,15 +46,15 @@ class Helper:
             'show all notes': self.func_show_all_notes,
             'show note': self.func_show_note,
             'find note': self.func_find_note,
+            'find tag': self.func_find_tag,
             'sort folder': self.func_sort_folder,
             'exit': self.func_exit, 
             'close': self.func_exit, 
             'good buy': self.func_exit,
             'help': self.func_help
             }
-
         self.max_length_cmd = 3
-
+        self.sorter = None
         # self.addressbook = AddressBook()
         self.addressbook_path = os.path.join('data', 'addressbook.bin')
         if os.path.exists(self.addressbook_path) and os.path.isfile(self.addressbook_path) and os.stat(self.addressbook_path).st_size > 0:
@@ -93,95 +94,95 @@ class Helper:
     def func_add(self, name=None, *args):
         err = "Give me contact's name. Contact's name can consist of 1 word only"
         self.check_args(1, 0, err, name, *args)
-        # self.addressbook.add_record(name, *args)
-        print(f'Record {name} is add')
+        # self.addressbook.add_contact(name)
+        print(f'Contact {name} is added')
 
     def func_remove(self, name=None, *args):
         err = "Give me contact's name. Contact's name can consist of 1 word only"
         self.check_args(1, 0, err, name, *args)
-        # self.addressbook.remove_record(name)
-        print(f'Record {name} is delete')
+        # self.addressbook.remove_contact(name)
+        print(f'Contact {name} deleteed')
 
     def func_change_name(self, name_old=None, new_name=None, *args):
         err = "Give me old contact's name and new contact's name. Contact's name can consist of 1 word only"
         self.check_args(2, 0, err, *args)
-        # self.addressbook.change_name(name_old, new_name)
-        print(f'Name of record {name_old} is change')
+        # self.addressbook.change_contact(name_old, new_name)
+        print(f'Name of record {name_old} changed')
 
     def func_add_address(self, name=None, *args):
         err = "Give me contact's name and address"
         self.check_args(2, 1, err, name, *args)
         address = ' '.join(args)
         # self.addressbook.add_address(name, address)
-        print(f'Address {address} add for record {name}')
+        print(f'Address {address} added for contact {name}')
 
     def func_remove_address(self, name=None, *args):
-        err = "Give me contact's name and address"
+        err = "Give me contact's name. Contact's name can consist of 1 word only"
         self.check_args(1, 0, err, name, *args)
         address = ' '.join(args)
         # self.addressbook.remove_address(name)
         print(f'Address {address} remove for record {name}')
 
     def func_change_addrees(self, name=None, *args):
-        err = "Give me contact's name and address"
+        err = "Give me contact's name and address."
         self.check_args(2, 1, err, name, *args)
         address = ' '.join(args)
         # self.addressbook.change_address(name, address)
-        print(f'Address change for record {name}')
+        print(f'Address changed for contact {name}')
 
     def func_add_email(self, name=None, email=None, *args):
         err = "Give me contact's name and email"
         self.check_args(2, 0, err, name, email, *args)
         # self.addressbook.add_email(name, email)
-        print(f'E-mail {email} add for record {name}')
+        print(f'E-mail {email} added for contact {name}')
 
     def func_remove_email(self, name=None, *args):
         err = "Give me contact's name. Contact's name can consist of 1 word only"
         self.check_args(1, 0, err, name, *args)
         # self.addressbook.remove_email(name)
-        print(f'E-mail remove for record {name}')
+        print(f'E-mail removed for contact {name}')
 
     def func_change_email(self, name=None, email=None, *args):
-        err = "Give me contact's name and email"
+        err = "Give me contact's name and email."
         self.check_args(2, 0, err, name, email, *args)
         # self.addressbook.change_email(name, email)
-        print(f'E-mail changed for record {name}')
+        print(f'E-mail changed for contact {name}')
 
     def func_add_birthday(self, name=None, birthday=None, *args):
         err = "Give me contact's name and date of birth."
         self.check_args(2, 0, name, birthday, *args)
         # self.addressbook.add_birthday(name, birthday)
-        print(f'Date of birth {birthday} added for record {name}')
+        print(f'Date of birth {birthday} added for contact {name}')
 
     def func_remove_birthday(self, name=None, *args):
-        err = "Give me contact's name and date of birth."
+        err = "Give me contact's name. Contact's name can consist of 1 word only"
         self.check_args(1, 0, name, *args)
         # self.addressbook.remove_birthday(name)
-        print(f'Date of birth removeed for record {name}')
+        print(f'Date of birth removed for contact {name}')
 
     def func_change_birthday(self, name=None, birthday=None, *args):
         err = "Give me contact's name and date of birth."
         self.check_args(2, 0, name, birthday, *args)
         # self.addressbook.change_birthday(name, birthday)
-        print(f'Date of birth changed for record {name}')
+        print(f'Date of birth changed for contact {name}')
 
     def func_add_phone(self, name=None, phone=None, *args):
         err = "Give me contact's name and phone."
         self.check_args(2, 0, name, phone, *args)
         # self.addressbook.add_phone(name, phone)
-        print(f'Phone {phone} added for record {name}')
+        print(f'Phone {phone} added for contact {name}')
 
     def func_remove_phone(self, name=None, phone=None, *args):
         err = "Give me contact's name and phone."
         self.check_args(2, 0, name, phone, *args)
         # self.addressbook.remove_phone(name, phone)
-        print(f'Phone {phone} removed for record {name}')
+        print(f'Phone {phone} removed for contact {name}')
 
     def func_change_phone(self, name=None, phone_old=None, phone_new=None, *args):
         err = "Give me contact's name, old phone and new phone."
         self.check_args(3, 0, name, phone_old, phone_new, *args)
         # self.addressbook.change_phone(name, phone_old, phone_new)
-        print(f'Phone {phone_old} changed for record {name}')
+        print(f'Phone {phone_old} changed for contact {name}')
 
     def func_show_all_contact(self):
         pass
@@ -195,22 +196,23 @@ class Helper:
     def func_find_contact(self, key='', *args):
         if args:
             raise ValueError('Give me one key word.')
-        # result = self.addressbook.find(key)
-        # self.addressbook.print_addressbook(result)
+        # self.addressbook.find_contact(key)
 
-    def func_show_birthdays(self, days):
-        pass
+    def func_show_birthdays(self, days, *args):
+        if args:
+            raise ValueError('Give me amount days to birthdays only.')
+        # self.addressbook.show_birthdays(days)
 
     def func_add_note(self, title=None, *args):
         err = "Give me title for note. Title can consist of 1 word only"
         self.check_args(1, 0, err, title, *args)
-        # self.notebook.add_note(title, *args)
+        # self.notebook.add_note(title)
         print(f'Note with title "{title}" added')
 
     def func_remove_note(self, title=None, *args):
         err = "Give me title for note. Title can consist of 1 word only"
         self.check_args(1, 0, err, title, *args)
-        # self.notebook.remove_note(title, *args)
+        # self.notebook.delete_note(title)
         print(f'Note with title "{title}" added')
 
     def func_change_note(self, title_old=None, title_new=None, *args):
@@ -229,32 +231,32 @@ class Helper:
     def func_remove_text(self, title=None, *args):
         err = "Give me title for note."
         self.check_args(1, 0, err, title, *args)
-        # self.notebook.remove_text(title, text)
+        # self.notebook.edit_text(title, '')
         print(f'Text for note with "{title}" added')
 
     def func_change_text(self, title=None, *args):
         err = "Give me title and text for note."
         self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
-        # self.notebook.change_text(title, text)
+        # self.notebook.edit_text(title, text)
         print(f'Text for note with "{title}" added')
 
     def func_add_tag(self, title=None, tag=None, *args):
         err = "Give me title and tag for note."
         self.check_args(2, 0, title, tag, *args)
-        # self.addressbook.add_tag(name, tag)
+        # self.notebook.add_tag(title, tag)
         print(f'Tag {tag} added for note with title "{title}"')
 
     def func_remove_tag(self, title=None, tag=None, *args):
         err = "Give me title and tag for note."
         self.check_args(2, 0, title, tag, *args)
-        # self.addressbook.remove_tag(name, tag)
+        # self.notebook.remove_tag(name, tag)
         print(f'Tag {tag} removed for note with title "{title}"')
 
     def func_change_tag(self, title=None, old_tag=None, new_tag=None, *args):
         err = "Give me title, old tag and new tag for note."
         self.check_args(3, 0, title, old_tag, new_tag, *args)
-        # self.addressbook.change_tag(name, old_tag, new_tag)
+        # self.notebook.change_tag(name, old_tag, new_tag)
         print(f'Tag {old_tag} changed for note with title "{title}"')
 
     def func_show_all_notes(self):
@@ -264,18 +266,25 @@ class Helper:
     def func_show_note(self, title=None, *args):
         err = "Give me title for note."
         self.check_args(1, 0, title, *args)
-        # self.notebook.show_note(name, tag)
+        # print(self.notebook.show_note(title))
 
-    def func_find_note(self, key=None, *args):
-        if args:
-            raise ValueError('Give me one key word.')
-        # result = self.notebook.find(key)
+    def func_find_note(self, key=None, flag=None, *args):
+        if flag != '-r' or args:
+            raise ValueError('Give me one key word and if its need flag(-r for reverse sort).')
+        # result = self.notebook.find_note_by_title(key, flag)
+        # print(result)
+
+    def func_find_tag(self, tag=None, flag=None, *args):
+        if flag != '-r' or args:
+            raise ValueError('Give me one tag and if its need flag(-r for reverse sort).')
+        # result = self.notebook.find_note_by_tag(tag, flag)
         # self.notebook.print_addressbook(result)
 
     def func_sort_folder(self, folder, *args):
         err = 'Give me one folder for sorting'
-        self.check_args(1, 0, folder, *args)
-        print('Folder {} sorted.')
+        self.check_args(1, 0, err, folder, *args)
+        sorter = FileSorting(folder)
+        sorter.sorting()
 
     def func_help(self):
         print('Commands:')
@@ -319,7 +328,8 @@ class Helper:
 
         print(' - show all notes')
         print(' - show note <title>')
-        print(' - find note <keys charachters>')
+        print(' - find note <keys charachters> {-r (for reverse sort)}')
+        print(' - find tag <tag> {-r (for reverse sort)}')
 
         print(' - sort folder <folder>')
         print(' - good by || close || exit')
