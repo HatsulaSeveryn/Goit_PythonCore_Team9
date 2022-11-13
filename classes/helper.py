@@ -37,7 +37,7 @@ class Helper:
             'add note': self.func_add_note,
             'remove note': self.func_remove_note,
             'delete note': self.func_remove_note,
-            'change note': self.func_change_note,
+            'change title': self.func_change_title,
             'add text': self.func_add_text,
             'remove text': self.func_remove_text,
             'delete text': self.func_remove_text,
@@ -341,7 +341,7 @@ class Helper:
         # self.notebook.delete_note(title)
         print(f'Note with title "{title}" removed')
 
-    def func_change_note(self, title_old=None, title_new=None, *args):
+    def func_change_title(self, title_old=None, title_new=None, *args):
         """
         Command: change note <old title> <new title>
         Changing <old title> to the <new title> in the note
