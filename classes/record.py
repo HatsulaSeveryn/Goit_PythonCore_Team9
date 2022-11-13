@@ -15,13 +15,14 @@ class Record:
 
         return f'Name {self.name.value} - tel:  {", ".join([phone.value for phone in self.phones])}; birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address} '
 
-    def add_phone(self, phone):
-        self.phones.append(Phone(phone))
+    def add_new_phone(self, phone_new):
+
+        self.phones.append(Phone(phone_new))
 
     def delete_phone(self, old_phone):
         for phone in self.phones:
-            if phone == old_phone:
-                self.phones.remove(old_phone)
+            if phone.value == old_phone:
+                self.phones.remove(phone)
 
     def edit_phone(self, old_phone, new_phone):
         self.delete_phone(old_phone)

@@ -58,7 +58,7 @@ class AddressBook(UserDict):
 
         try:
 
-            self.data[name].add_phone(phone)
+            self.data[name].add_new_phone(phone)
             print(f'For {name} add phone {phone} at AddressBook')
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
