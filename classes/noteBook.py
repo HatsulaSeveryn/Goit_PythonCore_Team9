@@ -6,6 +6,7 @@ def check_title(func):
         flag = self.data.get(args[0], None)
         if flag:
             return func(self, *args)
+        raise IndexError('Wrong title, try something else!')
     return inner
 
 
@@ -63,6 +64,8 @@ class NoteBook(UserDict):
                                      == x.lower(), self.data[title].tags)))
         if result:
             self.data[title].tags.remove(result)
+        else:
+            raise ValueError('This tag doesnt exist!')
 
     @ check_title
     def change_tag(self, title, old_tag, new_tag):
@@ -71,6 +74,8 @@ class NoteBook(UserDict):
         if result:
             self.data[title].tags.remove(result)
             self.data[title].tags.append(new_tag)
+        else:
+            raise ValueError('This tag doesnt exist!')
 
     @check_title
     def change_title(self, old_title, new_title):
@@ -111,5 +116,5 @@ notebook.add_tag('Banderol', 'People')
 notebook.add_tag('3', 'People')
 notebook.add_tag('4', 'People')
 
-
-notebook.find_note_by_word('apple', '-r')
+notebook.change_tag('3', 'people', 'human')
+print(notebook)
