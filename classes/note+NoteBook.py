@@ -2,9 +2,6 @@ from collections import UserDict
 
 
 class NoteBook(UserDict):
-    def add_note(self, note):
-        self.data[note.title] = note
-
     @staticmethod
     def check_title(func):
         def inner(self, *args):
@@ -12,6 +9,9 @@ class NoteBook(UserDict):
             if flag:
                 return func(self, *args)
         return inner
+
+    def add_note(self, note):
+        self.data[note.title] = note
 
     def show_note(self, title):
         return self.data.get(title, 'this note doesnt exist')
@@ -25,19 +25,12 @@ class NoteBook(UserDict):
         yield sorted(list(data_new[(all_note - page_size):all_note]), key=lambda x: x[0].lower(), reverse=flag)
 
     def find_note_by_title(self, word):
-        result = []
-        for title, note in self.data.items():
-            if word.lower() in title.lower():
-                result.append(note)
-        return result
+        return [note for title, note in self.data.items() if word.lower() in title.lower()]
 
     def find_note_by_tag(self, tag, flag=None):
         flag = True if flag == '-r' else False
-        result = []
-        for note in self.data.values():
-            new_note_tags = [x.lower() for x in note.tags]
-            if tag.lower() in new_note_tags:
-                result.append(note)
+        result = [note for note in self.data.values() if tag.lower() in [
+            x.lower() for x in note.tags]]
         return sorted(result, key=lambda x: x.title.lower(), reverse=flag)
 
     @check_title
@@ -94,10 +87,13 @@ notebook.add_note(two)
 notebook.add_note(three)
 notebook.add_note(four)
 notebook.add_note(five)
+notebook.add_tag('Cat', 'colour')
 notebook.edit_text('Black', 'hello world')
 notebook.add_text('Black', 'and go hell all')
 notebook.add_tag('Black', 'Colour')
 notebook.add_tag('Black', 'Other')
+notebook.add_tag('elliot', 'Colour')
+notebook.add_tag('Apple', 'colour')
 notebook.change_tag('black', 'other', '777')
-notebook.change_tag('Black', 'Colour', '0000000000')
-print(notebook)
+print(notebook.find_note_by_tag('Colour', '-r'))
+# print(notebook)
