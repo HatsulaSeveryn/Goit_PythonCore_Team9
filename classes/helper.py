@@ -2,8 +2,6 @@ import os
 import pickle
 
 from classes.file_sorting import FileSorting
-from data import constants
-
 # from classes.addressBook import AddressBook
 
 class Helper:
@@ -268,7 +266,7 @@ class Helper:
 
     def func_show_note(self, title=None, *args):
         err = "Give me title for note."
-        self.check_args(1, 0, title, *args)
+        self.check_args(1, 0, err, title, *args)
         # print(self.notebook.show_note(title))
 
     def func_find_note(self, key=None, flag=None, *args):
