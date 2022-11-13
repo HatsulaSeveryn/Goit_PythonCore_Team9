@@ -10,9 +10,6 @@ class NoteBook(UserDict):
                 return func(self, *args)
         return inner
 
-    # def add_note(self, note):
-    #     self.data[note.title] = note
-
     def add_note(self, title):
         self.data[title] = Note(title)
 
@@ -70,7 +67,7 @@ class NoteBook(UserDict):
 
 class Note:
     def __init__(self, title):
-        self.title = title.capitalize()
+        self.title = title
         self.text = ''
         self.tags = []
 
@@ -81,27 +78,26 @@ class Note:
 notebook = NoteBook()
 
 
-one = Note('Black')
-two = Note('Apple')
-three = Note('Cat')
-four = Note('elliot')
-five = Note('doctor')
+notebook.add_note('Apple')
+notebook.add_note('Candy')
+notebook.add_note('Bridge')
+notebook.add_note('ellisium')
+notebook.add_note('doctor')
 
-# notebook.add_note(one)
-# notebook.add_note(two)
-# notebook.add_note(three)
-# notebook.add_note(four)
-# notebook.add_note(five)
-# notebook.add_tag('Cat', 'colour')
-# notebook.edit_text('Black', 'hello world')
-# notebook.add_text('Black', 'and go hell all')
-# notebook.add_tag('Black', 'Colour')
-# notebook.add_tag('Black', 'Other')
-# notebook.add_tag('elliot', 'Colour')
-# notebook.add_tag('Apple', 'colour')
-# # print(notebook.change_tag('Black', 'Colour', '!!!!!!!!!!!!!!!!'))
 
-# print(notebook)
-# print(notebook)
-notebook.add_note('weather')
+notebook.edit_text('Apple', 'Very good fruit')
+notebook.edit_text('Candy', 'my favourite')
+notebook.edit_text('Bridge', 'Souzh bridge')
+notebook.edit_text('ellisium', 'good place')
+notebook.edit_text('doctor', 'visit in monday')
+
+notebook.add_tag('Apple', 'fruit')
+notebook.add_tag('Candy', 'candy')
+notebook.add_tag('Bridge', 'bridge')
+notebook.add_tag('ellisium', 'place')
+notebook.add_tag('doctor', 'people')
+notebook.add_tag('Bridge', 'place')
+notebook.add_tag('Apple', 'place')
+
+notebook.change_tag('doctor', 'peopLE', 'HUMANS')
 print(notebook)
