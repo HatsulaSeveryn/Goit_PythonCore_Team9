@@ -12,15 +12,18 @@ class Record:
         self.email = ''
 
     def __str__(self):
-        return f'Name {self.name.value} - tel:  {", ".join([phone.value for phone in self.phones])}; birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address}'
+        return (
+            f'Name {self.name.value} - tel:  {", ".join([phone.value for phone in self.phones])}
+            f'birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address}'
+        )
 
     def add_phone(self, phone):
         self.phones.append(Phone(phone))
 
-    def delete_phone(self, phone):
+    def delete_phone(self, old_phone):
         for phone in self.phones:
-            if phone.value == phone:
-                self.phones.remove(phone)
+            if phone.value == old_phone:
+                self.phones.remove(old_phone)
 
     def edit_phone(self, old_phone, new_phone):
         self.delete_phone(old_phone)
