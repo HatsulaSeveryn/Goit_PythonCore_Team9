@@ -466,7 +466,7 @@ class Helper:
 
     def print_notes(self, notes=[]):
         notes = [
-            {'title':'note 1', 'tags': ['1', '2'], 'text': 'text '*220}
+            {'title':'note 1', 'tags': ['1', '2'], 'text': 'text '*120}
         ]
         table_width = os.get_terminal_size().columns - 2
         string=''
