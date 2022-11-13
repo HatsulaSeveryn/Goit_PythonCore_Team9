@@ -51,16 +51,18 @@ class NoteBook(UserDict):
 
     @check_title
     def remove_tag(self, title, target_tag):
-        for tag in self.data[title].tags:
-            if target_tag.lower() == tag.lower():
-                self.data[title].tags.remove(tag)
+        result = ''.join(list(filter(lambda x: target_tag.lower()
+                                     == x.lower(), self.data[title].tags)))
+        if result:
+            self.data[title].tags.remove(result)
 
     @check_title
     def change_tag(self, title, old_tag, new_tag):
-        for tag in self.data[title].tags:
-            if old_tag.lower() == tag.lower():
-                self.data[title].tags.remove(tag)
-                self.data[title].tags.append(new_tag)
+        result = ''.join(list(filter(lambda x: old_tag.lower()
+                                     == x.lower(), self.data[title].tags)))
+        if result:
+            self.data[title].tags.remove(result)
+            self.data[title].tags.append(new_tag)
 
 
 class Note:
@@ -94,6 +96,5 @@ notebook.add_tag('Black', 'Colour')
 notebook.add_tag('Black', 'Other')
 notebook.add_tag('elliot', 'Colour')
 notebook.add_tag('Apple', 'colour')
-notebook.change_tag('black', 'other', '777')
-print(notebook.find_note_by_tag('Colour', '-r'))
-# print(notebook)
+print(notebook.change_tag('Black', 'Colour', '!!!!!!!!!!!!!!!!'))
+print(notebook)
