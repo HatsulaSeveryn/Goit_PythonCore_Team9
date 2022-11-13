@@ -168,9 +168,10 @@ class AddressBook(UserDict):
      #       contacts = {}
         print(f'Result of search on key "{key}":')
         count = 0
-        key_is = False
+        key_all = False
 # if key in name or key in phone.value or key in str(data.email) or key in data.address:
         for name, data in self.data.items():
+            key_is = False
             if key in name:
                 key_is = True
             elif key in str(data.email):
@@ -183,12 +184,13 @@ class AddressBook(UserDict):
                 for phone in data.phones:
                     if key in phone.value:
                         key_is = True
+            key_all = key_all or key_is
 
             if key_is:
-                break
-        if key_is:
-            print(f'{self.data[name]}')
-        else:
+                print(f'{self.data[name]}')
+
+        if not key_all:
+
             print(f'Contacts for {key} not found')
 
     def save_to_file(self, file_name):
