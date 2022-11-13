@@ -20,11 +20,13 @@ class NoteBook(UserDict):
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
         count = 0
-        constant_number = 3
+        constant_number = 5
         data_new = sorted(list(self.data.items()), reverse=flag)
         while count < len(data_new):
             print(data_new[count:count + constant_number])
-            user_input = input('nex 5 ?  ')
+            if len(data_new[count + constant_number + 1:]) == 0:
+                break
+            user_input = input('enter -> exit\nelse -> next 5 notes   ')
             if user_input.lower() == 'exit':
                 break
             else:
@@ -117,4 +119,4 @@ notebook.add_tag('3', 'People')
 notebook.add_tag('4', 'People')
 
 notebook.change_tag('3', 'people', 'human')
-print(notebook)
+notebook.show_all_notes()
