@@ -367,7 +367,7 @@ class Helper:
             for element in self.handler_command:
                 check_cmd = ' '.join(command[0:i]).lower()
                 cnt = len(element.split(' ')[0])
-                if element.startswith(check_cmd[0:cnt]):
+                if element.startswith(check_cmd[0:cnt]) or element.split(' ')[0] in check_cmd:
                 # if element.startswith(' '.join(command[0:i]).lower()):
                     list_cmd.add(element)
             if list_cmd:
