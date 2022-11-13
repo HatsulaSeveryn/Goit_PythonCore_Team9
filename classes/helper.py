@@ -289,7 +289,7 @@ class Helper:
         sorter = FileSorting(folder)
         sorter.sorting()
 
-    def func_help(self):
+    def func_help(self, *args):
         print('Commands:')
         print(' - hello')
         print(" - add contact <name> ")
@@ -370,6 +370,9 @@ class Helper:
                 if element.startswith(check_cmd[0:cnt]) or element.split(' ')[0] in check_cmd:
                 # if element.startswith(' '.join(command[0:i]).lower()):
                     list_cmd.add(element)
+                result = self.levenstein(element.split(' ')[0], check_cmd[0:cnt]) * 100 / len(el)
+                if result < 40:
+                    list_cmd.add(element)
             if list_cmd:
                     break
         # -- similar word
@@ -404,3 +407,11 @@ class Helper:
                     change += 1
                 current_row[j] = min(add, delete, change)
         return current_row[n]
+
+    def print_contacts(self, contacts):
+        table_width = os.get_terminal_size().columns
+        pass
+
+    def print_notes(self, notes):
+        pass
+
