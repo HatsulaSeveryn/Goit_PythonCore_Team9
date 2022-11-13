@@ -7,9 +7,9 @@ class Helper:
     def __init__(self):
         self.handler_command = {
             'hello': self.func_hello, 
-            'add contact': self.func_add,
-            'remove contact':  self.func_remove,
-            'delete contact':  self.func_remove,
+            'add contact': self.func_add_contact,
+            'remove contact':  self.func_remove_contact,
+            'delete contact':  self.func_remove_contact,
             'change contact': self.func_change_name,
             'add address': self.func_add_address,
             'remove address': self.func_remove_address,
@@ -91,22 +91,22 @@ class Helper:
         print('Good bye!')
         quit()
 
-    def func_add(self, name=None, *args):
+    def func_add_contact(self, name=None, *args):
         err = "Give me contact's name. Contact's name can consist of 1 word only"
         self.check_args(1, 0, err, name, *args)
         # self.addressbook.add_contact(name)
         print(f'Contact {name} is added')
 
-    def func_remove(self, name=None, *args):
+    def func_remove_contact(self, name=None, *args):
         err = "Give me contact's name. Contact's name can consist of 1 word only"
         self.check_args(1, 0, err, name, *args)
         # self.addressbook.remove_contact(name)
         print(f'Contact {name} deleteed')
 
-    def func_change_name(self, name_old=None, new_name=None, *args):
+    def func_change_name(self, name_old=None, name_new=None, *args):
         err = "Give me old contact's name and new contact's name. Contact's name can consist of 1 word only"
-        self.check_args(2, 0, err, *args)
-        # self.addressbook.change_contact(name_old, new_name)
+        self.check_args(2, 0, err, name_old, name_new, *args)
+        # self.addressbook.change_contact(name_old, name_new)
         print(f'Name of record {name_old} changed')
 
     def func_add_address(self, name=None, *args):
@@ -150,37 +150,37 @@ class Helper:
 
     def func_add_birthday(self, name=None, birthday=None, *args):
         err = "Give me contact's name and date of birth."
-        self.check_args(2, 0, name, birthday, *args)
+        self.check_args(2, 0, err, name, birthday, *args)
         # self.addressbook.add_birthday(name, birthday)
         print(f'Date of birth {birthday} added for contact {name}')
 
     def func_remove_birthday(self, name=None, *args):
         err = "Give me contact's name. Contact's name can consist of 1 word only"
-        self.check_args(1, 0, name, *args)
+        self.check_args(1, 0, err, name, *args)
         # self.addressbook.remove_birthday(name)
         print(f'Date of birth removed for contact {name}')
 
     def func_change_birthday(self, name=None, birthday=None, *args):
         err = "Give me contact's name and date of birth."
-        self.check_args(2, 0, name, birthday, *args)
+        self.check_args(2, 0, err, name, birthday, *args)
         # self.addressbook.change_birthday(name, birthday)
         print(f'Date of birth changed for contact {name}')
 
     def func_add_phone(self, name=None, phone=None, *args):
         err = "Give me contact's name and phone."
-        self.check_args(2, 0, name, phone, *args)
+        self.check_args(2, 0, err, name, phone, *args)
         # self.addressbook.add_phone(name, phone)
         print(f'Phone {phone} added for contact {name}')
 
     def func_remove_phone(self, name=None, phone=None, *args):
         err = "Give me contact's name and phone."
-        self.check_args(2, 0, name, phone, *args)
+        self.check_args(2, 0, err, name, phone, *args)
         # self.addressbook.remove_phone(name, phone)
         print(f'Phone {phone} removed for contact {name}')
 
     def func_change_phone(self, name=None, phone_old=None, phone_new=None, *args):
         err = "Give me contact's name, old phone and new phone."
-        self.check_args(3, 0, name, phone_old, phone_new, *args)
+        self.check_args(3, 0, err, name, phone_old, phone_new, *args)
         # self.addressbook.change_phone(name, phone_old, phone_new)
         print(f'Phone {phone_old} changed for contact {name}')
 
@@ -232,7 +232,7 @@ class Helper:
         err = "Give me title for note."
         self.check_args(1, 0, err, title, *args)
         # self.notebook.edit_text(title, '')
-        print(f'Text for note with "{title}" added')
+        print(f'Text for note with "{title}" removed')
 
     def func_change_text(self, title=None, *args):
         err = "Give me title and text for note."
