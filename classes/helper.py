@@ -81,7 +81,7 @@ class Helper:
             pickle.dump(self.notebook, f)
 
     def check_args(self, count_args=None, more=None, text_err='Invalid number of arguments.', *args):
-        args = [value for value in args if value != None and value !='']
+        args = [value for value in args if value and value !='']
         if (more == 0 and (len(args) != count_args)) or (more == 1 and (len(args) <= count_args)):
             raise ValueError(text_err)
 
@@ -270,13 +270,13 @@ class Helper:
         # print(self.notebook.show_note(title))
 
     def func_find_note(self, key=None, flag=None, *args):
-        if (flag != '-r' and flag != None) or args:
+        if (flag != '-r' and flag) or args:
             raise ValueError('Give me one key word and if its need flag(-r for reverse sort).')
         # result = self.notebook.find_note_by_title(key, flag)
         # print(result)
 
     def func_find_tag(self, tag=None, flag=None, *args):
-        if (flag != '-r' and flag != None) or args:
+        if (flag != '-r' and flag) or args:
             raise ValueError('Give me one tag and if its need flag(-r for reverse sort).')
         # result = self.notebook.find_note_by_tag(tag, flag)
         # self.notebook.print_addressbook(result)
@@ -406,10 +406,91 @@ class Helper:
                 current_row[j] = min(add, delete, change)
         return current_row[n]
 
-    def print_contacts(self, contacts):
-        table_width = os.get_terminal_size().columns
-        pass
+    def delimiter_text(self, text, length):
+        idx_begin = 0
+        idx_end = length
+        lists = []
+        while idx_begin <= len(text):
+            lists.append(text[idx_begin: idx_end])
+            idx_begin = idx_end
+            idx_end += length
+        return lists
 
-    def print_notes(self, notes):
-        pass
+    def print_contacts(self, contacts=[]):
+        contacts = [
+            {
+                'name': 'Ivan',
+                'email': 'asdfghjkdkffjekfj@gmail.com',
+                'address': 'v.fkldjfslkdfj frhhjhj jdskjdhfksdf 8fj fjf 08987',
+                'birthday': '23.56.7890',
+                'phones': ['212(123)123-56-67', '12(123)123-56-67', '12(123)123-56-67']
+            }
+        ]
+        columns = ['Name', 'Address', 'Email', 'Birthday', 'Phones']
+        table_width = os.get_terminal_size().columns - 3
+        column_width = (os.get_terminal_size().columns - 2) // 5 - 1
+        print('-'*table_width)
+        string = '|'
+        for col in columns:
+            string += ' {:^'+ str(column_width -2) +'} |'
+        print(string.format(*columns))
+        print('-'*table_width)
+        for contact in contacts:
+            cnt_rows = 0
+            contact['name'] = self.delimiter_text(contact['name'], column_width - 2)
+            if len(contact['name']) > cnt_rows:
+                cnt_rows = len(contact['name'])
+            contact['address'] =  self.delimiter_text(contact['address'], column_width - 2)
+            if len(contact['address']) > cnt_rows:
+                cnt_rows = len(contact['address'])
+            contact['email'] =  self.delimiter_text(contact['email'], column_width - 2)
+            if len(contact['email']) > cnt_rows:
+                cnt_rows = len(contact['email'])
+            contact['birthday'] =  self.delimiter_text(contact['birthday'], column_width - 2)
+            if len(contact['birthday']) > cnt_rows:
+                cnt_rows = len(contact['birthday'])
+            for i in range(0, cnt_rows):
+                name = contact['name'][i] if i < len(contact['name']) else ''
+                address = contact['address'][i] if i < len(contact['address']) else ''
+                email = contact['email'][i] if i < len(contact['email']) else ''
+                birthday = contact['birthday'][i] if i < len(contact['birthday']) else ''
+                phones = contact['phones'][i] if i < len(contact['phones']) else ''
+                print(string.format(
+                    name, 
+                    address, 
+                    email,
+                    birthday,
+                    phones
+                ))
+            print('-'*table_width)
+
+    def print_notes(self, notes=[]):
+        notes = [
+            {'title':'note 1', 'tags': ['1', '2'], 'text': 'text '*220}
+        ]
+        table_width = os.get_terminal_size().columns - 2
+        string=''
+        if not notes:
+            print('-'*table_width)
+            string = "|{:^"+str(table_width - 2)+"}|"
+            print(string.format('No notes'))
+            print('-'*table_width)
+        for note in notes:
+            print('-'*table_width)
+            string = "|{:^"+str(table_width - 2)+"}|"
+            print(string.format(note['title']))
+            print('-'*table_width)
+            string = "|{:^"+str(table_width - 2)+"}|"
+            print(string.format(', '.join(note['tags'])))
+            print('-'*table_width)
+            idx_begin = 0
+            idx_end = table_width - 4
+            while idx_begin <= len(note['text']):
+                string = "| {:<"+str(table_width - 4)+"} |"
+                print(string.format(note['text'][idx_begin: idx_end]))
+                idx_begin = idx_end
+                idx_end += table_width - 4
+            print('-'*table_width, '\n\n')
+
+        
 
