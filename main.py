@@ -1,52 +1,13 @@
-from classes import AddressBook
 
-contacts_book = AddressBook()
+from classes import Helper
+import os
 
-# contacts_book.show_all_contact()
-#print('It is my contants for now')
-contacts_book.add_contact('Tom')
-contacts_book.add_contact('Jec')
-contacts_book.add_phone('Tom', '111')
-contacts_book.remove_phone('Tom', '111')
-contacts_book.show_contact('Jec')
-#print('It is Tom')
-contacts_book.find_contact('Jec')
-contacts_book.add_contact('Tom')
-contacts_book.add_contact('ggg')
-contacts_book.add_contact('ter')
-contacts_book.add_birthday('ter', '15.11.1998')
-#contacts_book.add_email('rewt', 'fss@ddfs.ff')
-contacts_book.add_phone('ggg', '334')
-contacts_book.change_contact('ter', 'Nat')
+def main():
+    with Helper() as helper:
+        helper.print_notes()
+        helper.print_contacts()
+        helper.running()
+    
+if __name__ == '__main__':
+    main()
 
-contacts_book.add_birthday('Jec', '29.02.1980')
-#contacts_book.add_birthday('yyy', '17.03.1998')
-#contacts_book.add_phone('gdg', '111')
-#contacts_book.change_phone('Tom', '334', '333')
-contacts_book.add_address('ggg', 'brodway')
-contacts_book.show_all_contact()
-
-contacts_book.add_contact('rewt')
-
-contacts_book.change_phone('Tom', '334', '777')
-contacts_book.change_address('Tom', 'erwew')
-#contacts_book.change_email('yyy', 'yyy@fdsg.h')
-contacts_book.add_email('rewt', 'eer@brd.gh')
-contacts_book.find_contact('br')
-contacts_book.change_birthday('Tom', '11.12.2002')
-contacts_book.how_many_days_to_birthday('Tom')
-contacts_book.show_birthdays(110)
-contacts_book.remove_contact('ggg')
-contacts_book.remove_phone('Tom', '333')
-contacts_book.remove_phone('Tom', '111')
-contacts_book.remove_address('Tom')
-contacts_book.remove_email('rewt')
-# contacts_book.remove_birthday('yyy')
-#contacts_book.add_phone('gdg', 'fdg')
-#contacts_book.change_birthday('Tom', '444')
-#contacts_book.add_birthday('we', '2403..98')
-#contacts_book.remove_phone('ewqttqq', '222')
-# print(contacts_book.values)
-
-# contacts_book.show_all_contact()
-# contacts_book.quit_func()
