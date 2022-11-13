@@ -1,5 +1,6 @@
 from collections import UserDict
 
+
 def check_title(func):
     def inner(self, *args):
         flag = self.data.get(args[0], None)
@@ -7,20 +8,13 @@ def check_title(func):
             return func(self, *args)
     return inner
 
-class NoteBook(UserDict):
-    #@staticmethod
-    #def check_title(func):
-        #def inner(self, *args):
-            #flag = self.data.get(args[0], None)
-            #if flag:
-                #return func(self, *args)
-        #return inner
 
+class NoteBook(UserDict):
     def add_note(self, title):
         self.data[title] = Note(title)
 
     def show_note(self, title):
-        return self.data.get(title, 'this note doesnt exist')
+        print(self.data.get(title, 'this note doesnt exist'))
 
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
@@ -36,7 +30,8 @@ class NoteBook(UserDict):
                 count += constant_number
 
     def find_note_by_title(self, word):
-        return [note for title, note in self.data.items() if word.lower() in title.lower()]
+        print([note for title, note in self.data.items()
+              if word.lower() in title.lower()])
 
     def find_note_by_tag(self, tag, flag=None):
         flag = True if flag == '-r' else False
@@ -84,3 +79,26 @@ class Note:
 
     def __repr__(self):
         return f'{self.title}, {self.text}, {self.tags}'
+
+
+notebook = NoteBook()
+notebook.add_note('Apple')
+notebook.add_note('Banderol')
+notebook.add_note('doctor')
+notebook.add_note('Ellisium')
+notebook.add_note('Concord')
+notebook.add_note('1')
+notebook.add_note('2')
+notebook.add_note('3')
+notebook.add_note('4')
+notebook.add_note('5')
+
+notebook.edit_text('Apple', 'AAAAAAAA')
+notebook.edit_text('Banderol', 'BBbbbbb')
+notebook.edit_text('doctor', 'DDDDDDD')
+notebook.edit_text('Ellisium', 'EEEEEE')
+notebook.edit_text('Concord', 'CCCCCC')
+
+notebook.show_note('Doctor')
+
+# print(notebook)
