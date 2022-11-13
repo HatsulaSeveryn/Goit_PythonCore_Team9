@@ -1,14 +1,20 @@
 from collections import UserDict
 
+def check_title(func):
+    def inner(self, *args):
+        flag = self.data.get(args[0], None)
+        if flag:
+            return func(self, *args)
+    return inner
 
 class NoteBook(UserDict):
-    @staticmethod
-    def check_title(func):
-        def inner(self, *args):
-            flag = self.data.get(args[0], None)
-            if flag:
-                return func(self, *args)
-        return inner
+    #@staticmethod
+    #def check_title(func):
+        #def inner(self, *args):
+            #flag = self.data.get(args[0], None)
+            #if flag:
+                #return func(self, *args)
+        #return inner
 
     def add_note(self, title):
         self.data[title] = Note(title)
@@ -78,37 +84,3 @@ class Note:
 
     def __repr__(self):
         return f'{self.title}, {self.text}, {self.tags}'
-
-
-notebook = NoteBook()
-
-
-notebook.add_note('Apple')
-notebook.add_note('Candy')
-notebook.add_note('Bridge')
-notebook.add_note('ellisium')
-notebook.add_note('doctor')
-
-notebook.add_note('1')
-notebook.add_note('2')
-notebook.add_note('3')
-notebook.add_note('4')
-notebook.add_note('5')
-
-
-notebook.edit_text('Apple', 'Very good fruit')
-notebook.edit_text('Candy', 'my favourite')
-notebook.edit_text('Bridge', 'Souzh bridge')
-notebook.edit_text('ellisium', 'good place')
-notebook.edit_text('doctor', 'visit in monday')
-
-notebook.add_tag('Apple', 'fruit')
-notebook.add_tag('Candy', 'candy')
-notebook.add_tag('Bridge', 'bridge')
-notebook.add_tag('ellisium', 'place')
-notebook.add_tag('doctor', 'people')
-notebook.add_tag('Bridge', 'place')
-notebook.add_tag('Apple', 'place')
-
-notebook.change_tag('doctor', 'peopLE', 'HUMANS')
-notebook.show_all_notes('-r')

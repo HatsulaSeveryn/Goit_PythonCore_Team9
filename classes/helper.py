@@ -1,12 +1,10 @@
 import os
 import pickle
 
-from classes.file_sorting import FileSorting
 from classes.addressBook import AddressBook
+from classes.file_sorting import FileSorting
 from classes.noteBook import NoteBook
 
-
-from classes.addressBook import AddressBook
 
 class Helper:
     def __init__(self):
@@ -60,14 +58,13 @@ class Helper:
         }
         self.max_length_cmd = 3
         self.sorter = None
-        self.addressbook = AddressBook()
         self.addressbook_path = os.path.join('data', 'addressbook.bin')
         if os.path.exists(self.addressbook_path) and os.path.isfile(self.addressbook_path) and os.stat(
                 self.addressbook_path).st_size > 0:
             with open(self.addressbook_path, 'rb') as f:
                 self.addressbook = pickle.load(f)
         else:
-            self.addressbook = None
+            self.addressbook = AddressBook()
 
         self.notebook_path = os.path.join('data', 'notebook.bin')
         if os.path.exists(self.notebook_path) and os.path.isfile(self.notebook_path) and os.stat(
@@ -75,7 +72,7 @@ class Helper:
             with open(self.notebook_path, 'rb') as f:
                 self.notebook = pickle.load(f)
         else:
-            self.notebook = None
+            self.notebook = NoteBook()
 
     def __enter__(self):
         return self
@@ -87,7 +84,7 @@ class Helper:
             pickle.dump(self.notebook, f)
 
     def check_args(self, count_args=None, more=None, text_err='Invalid number of arguments.', *args):
-        args = [value for value in args if value and value !='']
+        args = [value for value in args if value and value != '']
         if (more == 0 and (len(args) != count_args)) or (more == 1 and (len(args) <= count_args)):
             raise ValueError(text_err)
 
@@ -350,7 +347,7 @@ class Helper:
         """
         err = self.func_change_note.__doc__
         self.check_args(2, 0, err, title_old, title_new, *args)
-        self.notebook.change_note(title, *args)
+        self.notebook.change_note(title_old, title_new)
         print(f'Title "{title_old}" changed')
 
     def func_add_text(self, title=None, *args):
@@ -397,7 +394,7 @@ class Helper:
         <title> and <tag> both are strings without spaces
         """
         err = self.func_add_tag.__doc__
-        self.check_args(2, 0, title, tag, *args)
+        self.check_args(2, 0, err, title, tag, *args)
         self.notebook.add_tag(title, tag)
         print(f'Tag {tag} added for note with title "{title}"')
 
@@ -408,8 +405,8 @@ class Helper:
         <title> and <tag> both are strings without spaces
         """
         err = self.func_remove_tag.__doc__
-        self.check_args(2, 0, title, tag, *args)
-        self.notebook.remove_tag(name, tag)
+        self.check_args(2, 0, err, title, tag, *args)
+        self.notebook.remove_tag(title, tag)
         print(f'Tag {tag} removed for note with title "{title}"')
 
     def func_change_tag(self, title=None, old_tag=None, new_tag=None, *args):
@@ -419,8 +416,8 @@ class Helper:
         <title>, <old tag> and <new tag> are strings without spaces
         """
         err = self.func_change_tag.__doc__
-        self.check_args(3, 0, title, old_tag, new_tag, *args)
-        self.notebook.change_tag(name, old_tag, new_tag)
+        self.check_args(3, 0, err, title, old_tag, new_tag, *args)
+        self.notebook.change_tag(title, old_tag, new_tag)
         print(f'Tag {old_tag} changed for note with title "{title}"')
 
     def func_show_all_notes(self):
@@ -450,7 +447,7 @@ class Helper:
         """
         if (flag and flag != '-r') or args:
             raise ValueError(self.func_find_note.__doc__)
-        #self.notebook.find_note_by_title(key, flag)
+        # self.notebook.find_note_by_title(key, flag)
 
     def func_find_tag(self, tag=None, flag=None, *args):
         """
@@ -459,7 +456,7 @@ class Helper:
         <tag> is string without spaces
         {-r} is optional flag for reverse sorting
         """
-        if ( flag and flag != '-r') or args:
+        if (flag and flag != '-r') or args:
             raise ValueError(self.func_find_tag.__doc__)
         self.notebook.find_note_by_tag(tag, flag)
 
@@ -620,24 +617,24 @@ class Helper:
         columns = ['Name', 'Address', 'Email', 'Birthday', 'Phones']
         table_width = os.get_terminal_size().columns - 3
         column_width = (os.get_terminal_size().columns - 2) // 5 - 1
-        print('-'*table_width)
+        print('-' * table_width)
         string = '|'
         for col in columns:
-            string += ' {:^'+ str(column_width -2) +'} |'
+            string += ' {:^' + str(column_width - 2) + '} |'
         print(string.format(*columns))
-        print('-'*table_width)
+        print('-' * table_width)
         for contact in contacts:
             cnt_rows = 0
             contact['name'] = self.delimiter_text(contact['name'], column_width - 2)
             if len(contact['name']) > cnt_rows:
                 cnt_rows = len(contact['name'])
-            contact['address'] =  self.delimiter_text(contact['address'], column_width - 2)
+            contact['address'] = self.delimiter_text(contact['address'], column_width - 2)
             if len(contact['address']) > cnt_rows:
                 cnt_rows = len(contact['address'])
-            contact['email'] =  self.delimiter_text(contact['email'], column_width - 2)
+            contact['email'] = self.delimiter_text(contact['email'], column_width - 2)
             if len(contact['email']) > cnt_rows:
                 cnt_rows = len(contact['email'])
-            contact['birthday'] =  self.delimiter_text(contact['birthday'], column_width - 2)
+            contact['birthday'] = self.delimiter_text(contact['birthday'], column_width - 2)
             if len(contact['birthday']) > cnt_rows:
                 cnt_rows = len(contact['birthday'])
             for i in range(0, cnt_rows):
@@ -647,35 +644,35 @@ class Helper:
                 birthday = contact['birthday'][i] if i < len(contact['birthday']) else ''
                 phones = contact['phones'][i] if i < len(contact['phones']) else ''
                 print(string.format(
-                    name, 
-                    address, 
+                    name,
+                    address,
                     email,
                     birthday,
                     phones
                 ))
-            print('-'*table_width)
+            print('-' * table_width)
 
     def print_notes(self, notes=[]):
         notes = [
-            {'title':'note 1', 'tags': ['1', '2'], 'text': 'text '*120}
+            {'title': 'note 1', 'tags': ['1', '2'], 'text': 'text ' * 120}
         ]
         table_width = os.get_terminal_size().columns - 2
-        string=''
+        string = ''
         if not notes:
-            print('-'*table_width)
-            string = "|{:^"+str(table_width - 2)+"}|"
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
             print(string.format('No notes'))
-            print('-'*table_width)
+            print('-' * table_width)
         for note in notes:
-            print('-'*table_width)
-            string = "|{:^"+str(table_width - 2)+"}|"
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
             print(string.format(note['title']))
-            print('-'*table_width)
-            string = "|{:^"+str(table_width - 2)+"}|"
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
             print(string.format(', '.join(note['tags'])))
-            print('-'*table_width)
+            print('-' * table_width)
             texts = self.delimiter_text(note['text'], table_width - 4)
             for text in texts:
-                string = "| {:<"+str(table_width - 4)+"} |"
+                string = "| {:<" + str(table_width - 4) + "} |"
                 print(string.format(text))
-            print('-'*table_width, '\n\n')
+            print('-' * table_width, '\n\n')
