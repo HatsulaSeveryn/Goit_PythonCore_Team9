@@ -3,7 +3,6 @@ import pickle
 from classes.birthday import Birthday
 from classes.email import Email
 from classes.record import Record
-from classes.name import Name
 
 
 class AddressBook(UserDict):
@@ -130,6 +129,18 @@ class AddressBook(UserDict):
             self.data[name].address = address
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
+
+    def change_contact(self, old_name, new_name):
+
+        try:
+            record = self.data[old_name]
+        except KeyError:
+            raise ValueError(f'Contact {old_name} has not been found')
+
+        record.name.value = new_name
+        self.data.__delitem__(old_name)
+        self.data.__setitem__(new_name, record)
+        print(f"Contact's name Name {old_name} has been changed at {new_name}")
 
     def change_email(self, name, email):
 

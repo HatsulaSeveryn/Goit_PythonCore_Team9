@@ -12,16 +12,18 @@ contacts_book.show_contact('Jec')
 contacts_book.find_contact('Jec')
 contacts_book.add_contact('Tom')
 contacts_book.add_contact('ggg')
+contacts_book.add_contact('ter')
+contacts_book.add_birthday('ter', '15.11.1998')
 #contacts_book.add_email('rewt', 'fss@ddfs.ff')
 contacts_book.add_phone('ggg', '334')
-
+contacts_book.change_contact('ter', 'Nat')
 
 contacts_book.add_birthday('Jec', '11.03.1998')
 #contacts_book.add_birthday('yyy', '17.03.1998')
 #contacts_book.add_phone('gdg', '111')
 #contacts_book.change_phone('Tom', '334', '333')
 contacts_book.add_address('ggg', 'brodway')
-# contacts_book.show_all_contact()
+contacts_book.show_all_contact()
 
 contacts_book.add_contact('rewt')
 
@@ -44,4 +46,4 @@ contacts_book.remove_email('rewt')
 # print(contacts_book.values)
 
 # contacts_book.show_all_contact()
-contacts_book.quit_func()
+# contacts_book.quit_func()
