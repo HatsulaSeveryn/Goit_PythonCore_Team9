@@ -24,7 +24,7 @@ class NoteBook(UserDict):
         while count < len(data_new):
             print(data_new[count:count + constant_number])
             user_input = input('nex 5 ?  ')
-            if user_input == 'exit':
+            if user_input.lower() == 'exit':
                 break
             else:
                 count += constant_number
