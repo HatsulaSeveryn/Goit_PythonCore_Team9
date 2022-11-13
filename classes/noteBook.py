@@ -37,7 +37,7 @@ class NoteBook(UserDict):
         flag = True if flag == '-r' else False
         result = [note for note in self.data.values() if tag.lower() in [
             x.lower() for x in note.tags]]
-        return sorted(result, key=lambda x: x.title.lower(), reverse=flag)
+        print(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
 
     @ check_title
     def delete_note(self, title):
@@ -70,6 +70,11 @@ class NoteBook(UserDict):
             self.data[title].tags.remove(result)
             self.data[title].tags.append(new_tag)
 
+    @check_title
+    def change_title(self, old_title, new_title):
+        self.data[new_title] = self.data.pop(old_title)
+        self.data[new_title].title = new_title
+
 
 class Note:
     def __init__(self, title):
@@ -83,22 +88,27 @@ class Note:
 
 notebook = NoteBook()
 notebook.add_note('Apple')
-notebook.add_note('Banderol')
-notebook.add_note('doctor')
-notebook.add_note('Ellisium')
-notebook.add_note('Concord')
-notebook.add_note('1')
-notebook.add_note('2')
-notebook.add_note('3')
-notebook.add_note('4')
-notebook.add_note('5')
+# notebook.add_note('Banderol')
+# notebook.add_note('doctor')
+# notebook.add_note('Ellisium')
+# notebook.add_note('Concord')
+# notebook.add_note('1')
+# notebook.add_note('2')
+# notebook.add_note('3')
+# notebook.add_note('4')
+# notebook.add_note('5')
 
 notebook.edit_text('Apple', 'AAAAAAAA')
-notebook.edit_text('Banderol', 'BBbbbbb')
-notebook.edit_text('doctor', 'DDDDDDD')
-notebook.edit_text('Ellisium', 'EEEEEE')
-notebook.edit_text('Concord', 'CCCCCC')
+# notebook.edit_text('Banderol', 'BBbbbbb')
+# notebook.edit_text('doctor', 'DDDDDDD')
+# notebook.edit_text('Ellisium', 'EEEEEE')
+# notebook.edit_text('Concord', 'CCCCCC')
+# notebook.add_tag('doctor', 'People')
+notebook.add_tag('Apple', 'People')
+# notebook.add_tag('Banderol', 'People')
+# notebook.add_tag('3', 'People')
+# notebook.add_tag('4', 'People')
 
-notebook.show_note('Doctor')
+notebook.change_title('Apple', 'Apelsin')
 
-# print(notebook)
+print(notebook)
