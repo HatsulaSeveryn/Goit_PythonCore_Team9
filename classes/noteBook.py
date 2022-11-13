@@ -29,9 +29,11 @@ class NoteBook(UserDict):
             else:
                 count += constant_number
 
-    def find_note_by_title(self, word):
-        print([note for title, note in self.data.items()
-              if word.lower() in title.lower()])
+    def find_note_by_word(self, word, flag=None):
+        flag = True if flag == '-r' else False
+        result = [note for title, note in self.data.items()
+                  if word.lower() in title.lower() or word.lower() in note.text.lower()]
+        print(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
 
     def find_note_by_tag(self, tag, flag=None):
         flag = True if flag == '-r' else False
@@ -88,27 +90,26 @@ class Note:
 
 notebook = NoteBook()
 notebook.add_note('Apple')
-# notebook.add_note('Banderol')
-# notebook.add_note('doctor')
-# notebook.add_note('Ellisium')
-# notebook.add_note('Concord')
-# notebook.add_note('1')
-# notebook.add_note('2')
-# notebook.add_note('3')
-# notebook.add_note('4')
-# notebook.add_note('5')
+notebook.add_note('Banderol')
+notebook.add_note('doctor')
+notebook.add_note('Ellisium')
+notebook.add_note('Concord')
+notebook.add_note('1')
+notebook.add_note('2')
+notebook.add_note('3')
+notebook.add_note('4')
+notebook.add_note('5')
 
 notebook.edit_text('Apple', 'AAAAAAAA')
-# notebook.edit_text('Banderol', 'BBbbbbb')
-# notebook.edit_text('doctor', 'DDDDDDD')
-# notebook.edit_text('Ellisium', 'EEEEEE')
-# notebook.edit_text('Concord', 'CCCCCC')
-# notebook.add_tag('doctor', 'People')
+notebook.edit_text('Banderol', 'BBbbbbb')
+notebook.edit_text('doctor', 'DDDDDDD')
+notebook.edit_text('Ellisium', 'EErappleE3EEE')
+notebook.edit_text('Concord', 'CCCCCC')
+notebook.add_tag('doctor', 'People')
 notebook.add_tag('Apple', 'People')
-# notebook.add_tag('Banderol', 'People')
-# notebook.add_tag('3', 'People')
-# notebook.add_tag('4', 'People')
+notebook.add_tag('Banderol', 'People')
+notebook.add_tag('3', 'People')
+notebook.add_tag('4', 'People')
 
-notebook.change_title('Apple', 'Apelsin')
 
-print(notebook)
+notebook.find_note_by_word('apple', '-r')
