@@ -10,8 +10,11 @@ class NoteBook(UserDict):
                 return func(self, *args)
         return inner
 
-    def add_note(self, note):
-        self.data[note.title] = note
+    # def add_note(self, note):
+    #     self.data[note.title] = note
+
+    def add_note(self, title):
+        self.data[title] = Note(title)
 
     def show_note(self, title):
         return self.data.get(title, 'this note doesnt exist')
@@ -84,19 +87,21 @@ three = Note('Cat')
 four = Note('elliot')
 five = Note('doctor')
 
-notebook.add_note(one)
-notebook.add_note(two)
-notebook.add_note(three)
-notebook.add_note(four)
-notebook.add_note(five)
-notebook.add_tag('Cat', 'colour')
-notebook.edit_text('Black', 'hello world')
-notebook.add_text('Black', 'and go hell all')
-notebook.add_tag('Black', 'Colour')
-notebook.add_tag('Black', 'Other')
-notebook.add_tag('elliot', 'Colour')
-notebook.add_tag('Apple', 'colour')
-print(notebook.change_tag('Black', 'Colour', '!!!!!!!!!!!!!!!!'))
+# notebook.add_note(one)
+# notebook.add_note(two)
+# notebook.add_note(three)
+# notebook.add_note(four)
+# notebook.add_note(five)
+# notebook.add_tag('Cat', 'colour')
+# notebook.edit_text('Black', 'hello world')
+# notebook.add_text('Black', 'and go hell all')
+# notebook.add_tag('Black', 'Colour')
+# notebook.add_tag('Black', 'Other')
+# notebook.add_tag('elliot', 'Colour')
+# notebook.add_tag('Apple', 'colour')
+# # print(notebook.change_tag('Black', 'Colour', '!!!!!!!!!!!!!!!!'))
 
-print(notebook)
+# print(notebook)
+# print(notebook)
+notebook.add_note('weather')
 print(notebook)
