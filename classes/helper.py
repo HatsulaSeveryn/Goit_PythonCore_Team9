@@ -2,9 +2,11 @@ import os
 import pickle
 
 from classes.file_sorting import FileSorting
+from classes.addressBook import AddressBook
+from classes.noteBook import NoteBook
 
 
-# from classes.addressBook import AddressBook
+from classes.addressBook import AddressBook
 
 class Helper:
     def __init__(self):
@@ -58,7 +60,7 @@ class Helper:
         }
         self.max_length_cmd = 3
         self.sorter = None
-        # self.addressbook = AddressBook()
+        self.addressbook = AddressBook()
         self.addressbook_path = os.path.join('data', 'addressbook.bin')
         if os.path.exists(self.addressbook_path) and os.path.isfile(self.addressbook_path) and os.stat(
                 self.addressbook_path).st_size > 0:
@@ -113,7 +115,7 @@ class Helper:
         """
         err = self.func_add_contact.__doc__
         self.check_args(1, 0, err, name, *args)
-        # self.addressbook.add_contact(name)
+        self.addressbook.add_contact(name)
         print(f'Contact {name} is added')
 
     def func_remove_contact(self, name=None, *args):
@@ -124,7 +126,7 @@ class Helper:
         """
         err = self.func_remove_contact.__doc__
         self.check_args(1, 0, err, name, *args)
-        # self.addressbook.remove_contact(name)
+        self.addressbook.remove_contact(name)
         print(f'Contact {name} deleted')
 
     def func_change_contact(self, name_old=None, name_new=None, *args):
@@ -135,7 +137,7 @@ class Helper:
         """
         err = self.func_change_contact.__doc__
         self.check_args(2, 0, err, name_old, name_new, *args)
-        # self.addressbook.change_contact(name_old, name_new)
+        self.addressbook.change_contact(name_old, name_new)
         print(f'Name of record {name_old} changed')
 
     def func_add_address(self, name=None, *args):
@@ -148,7 +150,7 @@ class Helper:
         err = self.func_add_address.__doc__
         self.check_args(2, 1, err, name, *args)
         address = ' '.join(args)
-        # self.addressbook.add_address(name, address)
+        self.addressbook.add_address(name, address)
         print(f'Address {address} added for contact {name}')
 
     def func_remove_address(self, name=None, *args):
@@ -160,7 +162,7 @@ class Helper:
         err = self.func_remove_address.__doc__
         self.check_args(1, 0, err, name, *args)
         address = ' '.join(args)
-        # self.addressbook.remove_address(name)
+        self.addressbook.remove_address(name)
         print(f'Address {address} remove for record {name}')
 
     def func_change_address(self, name=None, *args):
@@ -173,7 +175,7 @@ class Helper:
         err = self.func_change_address.__doc__
         self.check_args(2, 1, err, name, *args)
         address = ' '.join(args)
-        # self.addressbook.change_address(name, address)
+        self.addressbook.change_address(name, address)
         print(f'Address changed for contact {name}')
 
     def func_add_email(self, name=None, email=None, *args):
@@ -184,7 +186,7 @@ class Helper:
         """
         err = self.func_add_email.__doc__
         self.check_args(2, 0, err, name, email, *args)
-        # self.addressbook.add_email(name, email)
+        self.addressbook.add_email(name, email)
         print(f'E-mail {email} added for contact {name}')
 
     def func_remove_email(self, name=None, *args):
@@ -195,7 +197,7 @@ class Helper:
         """
         err = self.func_remove_email.__doc__
         self.check_args(1, 0, err, name, *args)
-        # self.addressbook.remove_email(name)
+        self.addressbook.remove_email(name)
         print(f'E-mail removed for contact {name}')
 
     def func_change_email(self, name=None, email=None, *args):
@@ -206,7 +208,7 @@ class Helper:
         """
         err = self.func_change_email.__doc__
         self.check_args(2, 0, err, name, email, *args)
-        # self.addressbook.change_email(name, email)
+        self.addressbook.change_email(name, email)
         print(f'E-mail changed for contact {name}')
 
     def func_add_birthday(self, name=None, birthday=None, *args):
@@ -218,7 +220,7 @@ class Helper:
         """
         err = self.func_add_birthday.__doc__
         self.check_args(2, 0, err, name, birthday, *args)
-        # self.addressbook.add_birthday(name, birthday)
+        self.addressbook.add_birthday(name, birthday)
         print(f'Date of birth {birthday} added for contact {name}')
 
     def func_remove_birthday(self, name=None, *args):
@@ -229,7 +231,7 @@ class Helper:
         """
         err = self.func_remove_birthday.__doc__
         self.check_args(1, 0, err, name, *args)
-        # self.addressbook.remove_birthday(name)
+        self.addressbook.remove_birthday(name)
         print(f'Date of birth removed for contact {name}')
 
     def func_change_birthday(self, name=None, birthday=None, *args):
@@ -241,7 +243,7 @@ class Helper:
         """
         err = self.func_change_birthday.__doc__
         self.check_args(2, 0, err, name, birthday, *args)
-        # self.addressbook.change_birthday(name, birthday)
+        self.addressbook.change_birthday(name, birthday)
         print(f'Date of birth changed for contact {name}')
 
     def func_add_phone(self, name=None, phone=None, *args):
@@ -253,7 +255,7 @@ class Helper:
         """
         err = self.func_add_phone.__doc__
         self.check_args(2, 0, err, name, phone, *args)
-        # self.addressbook.add_phone(name, phone)
+        self.addressbook.add_phone(name, phone)
         print(f'Phone {phone} added for contact {name}')
 
     def func_remove_phone(self, name=None, phone=None, *args):
@@ -265,7 +267,7 @@ class Helper:
         """
         err = self.func_remove_phone.__doc__
         self.check_args(2, 0, err, name, phone, *args)
-        # self.addressbook.remove_phone(name, phone)
+        self.addressbook.remove_phone(name, phone)
         print(f'Phone {phone} removed for contact {name}')
 
     def func_change_phone(self, name=None, phone_old=None, phone_new=None, *args):
@@ -278,7 +280,7 @@ class Helper:
         """
         err = self.func_change_phone.__doc__
         self.check_args(3, 0, err, name, phone_old, phone_new, *args)
-        # self.addressbook.change_phone(name, phone_old, phone_new)
+        self.addressbook.change_phone(name, phone_old, phone_new)
         print(f'Phone {phone_old} changed for contact {name}')
 
     def func_show_all_contact(self):
@@ -286,8 +288,7 @@ class Helper:
         Command: show all contact
         Printing all contacts stored by POWER9 bot
         """
-        pass
-        # self.addressbook.print_addressbook()
+        self.addressbook.show_all_contact()
 
     def func_show_contact(self, name=None, *args):
         """
@@ -297,7 +298,7 @@ class Helper:
         """
         err = self.func_show_contact.__doc__
         self.check_args(1, 0, err, name, *args)
-        # self.addressbook.show_contact(name)
+        self.addressbook.show_contact(name)
 
     def func_find_contact(self, key='', *args):
         """
@@ -307,7 +308,7 @@ class Helper:
         """
         if args:
             raise ValueError(self.func_find_contact.__doc__)
-        # self.addressbook.find_contact(key)
+        self.addressbook.find_contact(key)
 
     def func_show_birthdays(self, days, *args):
         """
@@ -317,7 +318,7 @@ class Helper:
         """
         if args:
             raise ValueError(self.func_show_birthdays.__doc__)
-        # self.addressbook.show_birthdays(days)
+        self.addressbook.show_birthdays(days)
 
     def func_add_note(self, title=None, *args):
         """
@@ -327,7 +328,7 @@ class Helper:
         """
         err = self.func_add_note.__doc__
         self.check_args(1, 0, err, title, *args)
-        # self.notebook.add_note(title)
+        self.notebook.add_note(title)
         print(f'Note with title "{title}" added')
 
     def func_remove_note(self, title=None, *args):
@@ -338,7 +339,7 @@ class Helper:
         """
         err = self.func_remove_note.__doc__
         self.check_args(1, 0, err, title, *args)
-        # self.notebook.delete_note(title)
+        self.notebook.delete_note(title)
         print(f'Note with title "{title}" removed')
 
     def func_change_title(self, title_old=None, title_new=None, *args):
@@ -349,7 +350,7 @@ class Helper:
         """
         err = self.func_change_note.__doc__
         self.check_args(2, 0, err, title_old, title_new, *args)
-        # self.notebook.change_note(title, *args)
+        self.notebook.change_note(title, *args)
         print(f'Title "{title_old}" changed')
 
     def func_add_text(self, title=None, *args):
@@ -362,7 +363,7 @@ class Helper:
         err = self.func_add_text.__doc__
         self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
-        # self.notebook.add_text(title, text)
+        self.notebook.add_text(title, text)
         print(f'Text for note with "{title}" added')
 
     def func_remove_text(self, title=None, *args):
@@ -373,7 +374,7 @@ class Helper:
         """
         err = self.func_remove_text.__doc__
         self.check_args(1, 0, err, title, *args)
-        # self.notebook.edit_text(title, '')
+        self.notebook.edit_text(title, '')
         print(f'Text for note with "{title}" removed')
 
     def func_change_text(self, title=None, *args):
@@ -386,7 +387,7 @@ class Helper:
         err = self.func_change_text.__doc__
         self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
-        # self.notebook.edit_text(title, text)
+        self.notebook.edit_text(title, text)
         print(f'Text for note with "{title}" added')
 
     def func_add_tag(self, title=None, tag=None, *args):
@@ -397,7 +398,7 @@ class Helper:
         """
         err = self.func_add_tag.__doc__
         self.check_args(2, 0, title, tag, *args)
-        # self.notebook.add_tag(title, tag)
+        self.notebook.add_tag(title, tag)
         print(f'Tag {tag} added for note with title "{title}"')
 
     def func_remove_tag(self, title=None, tag=None, *args):
@@ -408,7 +409,7 @@ class Helper:
         """
         err = self.func_remove_tag.__doc__
         self.check_args(2, 0, title, tag, *args)
-        # self.notebook.remove_tag(name, tag)
+        self.notebook.remove_tag(name, tag)
         print(f'Tag {tag} removed for note with title "{title}"')
 
     def func_change_tag(self, title=None, old_tag=None, new_tag=None, *args):
@@ -419,7 +420,7 @@ class Helper:
         """
         err = self.func_change_tag.__doc__
         self.check_args(3, 0, title, old_tag, new_tag, *args)
-        # self.notebook.change_tag(name, old_tag, new_tag)
+        self.notebook.change_tag(name, old_tag, new_tag)
         print(f'Tag {old_tag} changed for note with title "{title}"')
 
     def func_show_all_notes(self):
@@ -428,7 +429,7 @@ class Helper:
         Printing all notes stored by POWER9 bot
         """
         pass
-        # self.notebook.show_all_notes()
+        self.notebook.show_all_notes()
 
     def func_show_note(self, title=None, *args):
         """
@@ -438,7 +439,7 @@ class Helper:
         """
         err = self.func_show_note.__doc__
         self.check_args(1, 0, err, title, *args)
-        # print(self.notebook.show_note(title))
+        print(self.notebook.show_note(title))
 
     def func_find_note(self, key=None, flag=None, *args):
         """
@@ -449,8 +450,7 @@ class Helper:
         """
         if (flag and flag != '-r') or args:
             raise ValueError(self.func_find_note.__doc__)
-        # result = self.notebook.find_note_by_title(key, flag)
-        # print(result)
+        #self.notebook.find_note_by_title(key, flag)
 
     def func_find_tag(self, tag=None, flag=None, *args):
         """
@@ -461,8 +461,7 @@ class Helper:
         """
         if ( flag and flag != '-r') or args:
             raise ValueError(self.func_find_tag.__doc__)
-        # result = self.notebook.find_note_by_tag(tag, flag)
-        # self.notebook.print_addressbook(result)
+        self.notebook.find_note_by_tag(tag, flag)
 
     def func_sort_folder(self, folder, *args):
         """
@@ -559,7 +558,6 @@ class Helper:
                 check_cmd = ' '.join(command[0:i]).lower()
                 cnt = len(element.split(' ')[0])
                 if element.startswith(check_cmd[0:cnt]) or element.split(' ')[0] in check_cmd:
-                    # if element.startswith(' '.join(command[0:i]).lower()):
                     list_cmd.add(element)
                 result = self.levenshtein(element.split(' ')[0], check_cmd[0:cnt]) * 100 / len(el)
                 if result < 40:
