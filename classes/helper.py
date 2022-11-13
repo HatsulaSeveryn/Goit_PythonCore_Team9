@@ -345,6 +345,14 @@ class Helper:
                 return self.handler_command[' '.join(command[0:i]).lower()](*command[i:])
         # similar command
         list_cmd = set()
+        # -- Levenstain
+        for el in self.handler_command:
+            count = len(el.split(' '))
+            for i in range(count, 0, -1):
+                c = ' '.join(command[0:i]).lower()
+                result = self.levenstein(el, c) * 100 / len(el)
+                if result < 40:
+                    list_cmd.add(el)
         # -- rearranged words
         for element_handler in self.handler_command:
             cmd_range = element_handler.split(' ')
@@ -354,17 +362,13 @@ class Helper:
                     founded = False
             if founded:
                 list_cmd.add(element_handler)
-        for el in self.handler_command:
-            count = len(el.split(' '))
-            for i in range(count, 0, -1):
-                c = ' '.join(command[0:i]).lower()
-                result = self.levenstein(el, c) * 100 / len(el)
-                if result < 40:
-                    list_cmd.add(el)
         # -- same words
         for i in range(self.max_length_cmd - 1, 0, -1):
             for element in self.handler_command:
-                if element.startswith(' '.join(command[0:i]).lower()):
+                check_cmd = ' '.join(command[0:i]).lower()
+                cnt = len(element.split(' ')[0])
+                if element.startswith(check_cmd[0:cnt]):
+                # if element.startswith(' '.join(command[0:i]).lower()):
                     list_cmd.add(element)
             if list_cmd:
                     break
