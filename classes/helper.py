@@ -216,7 +216,7 @@ class Helper:
         err = "Give me title for note. Title can consist of 1 word only"
         self.check_args(1, 0, err, title, *args)
         # self.notebook.delete_note(title)
-        print(f'Note with title "{title}" added')
+        print(f'Note with title "{title}" removed')
 
     def func_change_note(self, title_old=None, title_new=None, *args):
         err = "Give me old title and new title for note. Title can consist of 1 word only"
@@ -272,13 +272,13 @@ class Helper:
         # print(self.notebook.show_note(title))
 
     def func_find_note(self, key=None, flag=None, *args):
-        if flag != '-r' or args:
+        if (flag != '-r' and flag != None) or args:
             raise ValueError('Give me one key word and if its need flag(-r for reverse sort).')
         # result = self.notebook.find_note_by_title(key, flag)
         # print(result)
 
     def func_find_tag(self, tag=None, flag=None, *args):
-        if flag != '-r' or args:
+        if (flag != '-r' and flag != None) or args:
             raise ValueError('Give me one tag and if its need flag(-r for reverse sort).')
         # result = self.notebook.find_note_by_tag(tag, flag)
         # self.notebook.print_addressbook(result)
