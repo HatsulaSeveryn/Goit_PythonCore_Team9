@@ -5,6 +5,14 @@ class NoteBook(UserDict):
     def add_note(self, note):
         self.data[note.title] = note
 
+    @staticmethod
+    def check_title(func):
+        def inner(self, *args):
+            flag = self.data.get(args[0], None)
+            if flag:
+                return func(self, *args)
+        return inner
+
     def show_note(self, title):
         return self.data.get(title, 'this note doesnt exist')
 
@@ -32,40 +40,34 @@ class NoteBook(UserDict):
                 result.append(note)
         return sorted(result, key=lambda x: x.title.lower(), reverse=flag)
 
+    @check_title
     def delete_note(self, title):
-        result = self.data.get(title, None)
-        if result:
-            self.data.pop(title)
+        self.data.pop(title)
 
+    @check_title
     def edit_text(self, title, new_text):
-        result = self.data.get(title, None)
-        if result:
-            self.data[title].text = new_text
+        self.data[title].text = new_text
 
-    def add_piece_to_text(self, title, new_words):
-        result = self.data.get(title, None)
-        if result:
-            self.data[title].text += '. ' + new_words
+    @check_title
+    def add_text(self, title, new_words):
+        self.data[title].text += '. ' + new_words
 
+    @check_title
     def add_tag(self, title, new_tag):
-        result = self.data.get(title, None)
-        if result:
-            self.data[title].tags.append(new_tag)
+        self.data[title].tags.append(new_tag)
 
+    @check_title
     def remove_tag(self, title, target_tag):
-        result = self.data.get(title, None)
-        if result:
-            for tag in self.data[title].tags:
-                if target_tag.lower() == tag.lower():
-                    self.data[title].tags.remove(tag)
+        for tag in self.data[title].tags:
+            if target_tag.lower() == tag.lower():
+                self.data[title].tags.remove(tag)
 
+    @check_title
     def change_tag(self, title, old_tag, new_tag):
-        result = self.data.get(title, None)
-        if result:
-            for tag in self.data[title].tags:
-                if old_tag.lower() == tag.lower():
-                    self.data[title].tags.remove(tag)
-                    self.data[title].tags.append(new_tag)
+        for tag in self.data[title].tags:
+            if old_tag.lower() == tag.lower():
+                self.data[title].tags.remove(tag)
+                self.data[title].tags.append(new_tag)
 
 
 class Note:
@@ -93,8 +95,9 @@ notebook.add_note(three)
 notebook.add_note(four)
 notebook.add_note(five)
 notebook.edit_text('Black', 'hello world')
-notebook.add_piece_to_text('Black', 'and go hell all')
+notebook.add_text('Black', 'and go hell all')
 notebook.add_tag('Black', 'Colour')
 notebook.add_tag('Black', 'Other')
 notebook.change_tag('black', 'other', '777')
+notebook.change_tag('Black', 'Colour', '0000000000')
 print(notebook)
