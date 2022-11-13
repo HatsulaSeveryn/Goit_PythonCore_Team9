@@ -11,11 +11,11 @@ class Birthday(Field):
     def value(self, value):
 
         date_format = '%d.%m.%Y'
-        # using try-except blocks for handling the exceptions
+
         try:
             date_birthday = datetime.strptime(value, date_format)
             self.__value = date_birthday
-        # If the date validation goes wrong
+
         except:
             print("Incorrect data format for birthday, should be DD.MM.YYYY")
             raise TypeError

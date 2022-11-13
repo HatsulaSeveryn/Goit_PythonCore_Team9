@@ -1,10 +1,9 @@
 from collections import UserDict
-from datetime import datetime
 import pickle
-from classes.record import Record
-from classes.name import Name
 from classes.birthday import Birthday
 from classes.email import Email
+from classes.record import Record
+from classes.name import Name
 
 
 class AddressBook(UserDict):
@@ -13,25 +12,6 @@ class AddressBook(UserDict):
         super().__init__()
         self.filename = filename
         self.read_adress_book_from_file()
-
-    def input_error(func):
-
-        def inner(*args, **kwargs):
-
-            try:
-                return func(*args, **kwargs)
-            except KeyError:
-                return "Wrong name"
-            except TypeError:
-                return "Wrong command"
-            except IndexError:
-                return "Enter name and phone"
-            except ValueError as e:
-                return e.args[0]
-            except Exception as e:
-                return e.args
-
-        return inner
 
     def iterator(self):
         for record in self.data.values():
@@ -50,24 +30,25 @@ class AddressBook(UserDict):
             pass
 
     def add_address(self, name, addr):
-
-        if not name in self.data:
-            self.add_contact(name)
-
-        self.data[name].address = addr
-        return True
+        try:
+            self.data[name].address = addr
+            print(f'For {name} add address {addr} at AdressBook')
+        except KeyError:
+            raise ValueError(f'Contact {name} has not been found')
 
     def add_birthday(self, name, birthday):
 
-        if not name in self.data:
-            self.add_contact(name)
         try:
 
             self.data[name].birthday = Birthday(birthday)
+            print(f'For {name} add birthday {birthday} at AdressBook')
+
+        except KeyError:
+            raise ValueError(f'Contact {name} has not been found')
+
         except TypeError:
             raise TypeError(
                 f'Format for birthday - dd.mm.YYYY, example 01.01.3333')
-        return True
 
     def add_contact(self, name):
 
@@ -77,132 +58,167 @@ class AddressBook(UserDict):
             print(f'For {name} add contact at AdressBook')
 
         else:
-            return f'Contact with this name exist. Try other name or other command'
-        return True
+            print(f'Contact with this name exist. Try other name or other command')
 
     def add_email(self, name, email):
-
-        if not name in self.data:
-            self.add_contact(name)
 
         try:
 
             self.data[name].email = Email(email)
+            print(f'For {name} add email {email} at AdressBook')
+
+        except KeyError:
+            raise ValueError(f'Contact {name} has not been found')
 
         except ValueError:
-            raise "Mistake in email, example: my_email@pyton.com"
-        return True
+            raise ValueError("Mistake in email, example: my_email@pyton.com")
 
     def add_phone(self, name, phone):
-
-        if not name in self.data:
-            self.add_contact(name)
 
         try:
 
             self.data[name].add_phone(phone)
+            print(f'For {name} add phone {phone} at AdressBook')
+        except KeyError:
+            raise ValueError(f'Contact {name} has not been found')
         except ValueError:
-            raise "Not correct format for phone"
-        return True
+            raise ValueError("Not correct format for phone......")
 
     def remove_address(self, name):
         try:
             self.data[name].address = ''
+            print(f'For {name} delete address at AdressBook')
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
-        return True
 
     def remove_birthday(self, name):
         try:
             self.data[name].birthday = ''
+            print(f'For {name} delete birthday at AdressBook')
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
-        return True
 
     def remove_contact(self, name):
 
         try:
             self.data.__delitem__(name)
+            print(f'Contact {name} has been deleted')
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
-        return True
 
     def remove_email(self, name):
         try:
             self.data[name].email = ''
+            print(f'For {name} delete email')
+
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
-        return True
 
-    def remove_phone(self, name, phone=None):
+    def remove_phone(self, name, phone):
 
-        if phone:
+        try:
+            self.data[name].delete_phone(phone)
+            print(f'For {name} delete phone {phone}')
 
-            try:
-                self.data[name].delite_phone(phone)
-
-            except KeyError:
-                raise ValueError(f'Contact {name} has not been found')
-            return True
+        except KeyError:
+            raise ValueError(f'Contact {name} has not been found')
 
     def change_address(self, name, address):
-        """Change old address  for name which is in Contacts to new address. 
-        If contact has not old address - address will be add"""
 
         try:
             self.data[name].address = address
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
-        return True
 
     def change_email(self, name, email):
-        """Change old mail  for name which is in Contacts to new mail. 
-        If contact has not old mail - mail will be add"""
 
         try:
             self.data[name].email = Email(email)
+            print(f'For {name} add email: {email} ')
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
         except ValueError:
             raise ValueError(f'Mistake in email')
-        return True
 
     def change_phone(self, name, old_phone, new_phone):
-        """Change old number phone  for name which is in Contacts to new phone"""
 
         try:
             self.data[name].edit_phone(old_phone, new_phone)
+            print(f'For {name} phone {old_phone} has changed on {new_phone} ')
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
-        return True
+        except ValueError:
+            raise ValueError(f'Phone {old_phone} has not been found')
 
     def change_birthday(self, name, birthday):
         """Change old birthday  for name which is in Contacts to new """
 
         try:
             self.data[name].birthday = Birthday(birthday)
+            print(f'For {name} add birthday {birthday}')
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
         except TypeError:
             raise TypeError(
                 f'Format for birthday - dd.mm.YYYY, example 01.01.3333')
-        return True
+
+    def find_contact(self, key):
+     #       contacts = {}
+        print(f'Result of search on key "{key}":')
+        count = 0
+        key_is = False
+# if key in name or key in phone.value or key in str(data.email) or key in data.address:
+        for name, data in self.data.items():
+            if key in name:
+                key_is = True
+            elif key in str(data.email):
+                key_is = True
+            elif key in data.address:
+                key_is = True
+            elif key in str(data.birthday):
+                key_is = True
+            else:
+                for phone in data.phones:
+                    if key in phone.value:
+                        key_is = True
+
+            if key_is:
+                break
+        if key_is:
+            print(f'{self.data[name]}')
+        else:
+            print(f'Contacts for {key} not found')
 
     def save_to_file(self, file_name):
         self.write_adress_book_file()
-        return 'Data has been saved'
+        print('Data has been saved')
+
+    def show_birthdays(self, days):
+        pass
+
+    def show_contact(self, name):
+
+        if name in self.data:
+            print(self.data[name])
+        else:
+            print(
+                f'Contact with name {name} not exist. Try other name or other command')
 
     def show_all_contact(self, number_on_page=None):
-        quantity_records_on_page = 3
+        if not number_on_page:
+            number_on_page = 3
+
         stock = self.iterator()
         page = 1
+
         while True:
             try:
-                for _ in range(quantity_records_on_page):
-                    print(next(stock))
                 print(f"Page:   {page}")
+                for _ in range(number_on_page):
+                    print(next(stock))
+
                 page += 1
             except StopIteration:
                 print("it's end.No contacts in book")
