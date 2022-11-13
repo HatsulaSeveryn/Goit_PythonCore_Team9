@@ -19,7 +19,7 @@ class NoteBook(UserDict):
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
         count = 0
-        constant_number = 5
+        constant_number = 3
         data_new = sorted(list(self.data.items()), reverse=flag)
         while count < len(data_new):
             print(data_new[count:count + constant_number])
