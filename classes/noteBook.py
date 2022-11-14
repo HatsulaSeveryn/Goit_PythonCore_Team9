@@ -35,7 +35,7 @@ class NoteBook(UserDict):
             print(data_new[count:count + constant_number])
             if len(data_new[count + constant_number + 1:]) == 0:
                 break
-            user_input = input('enter -> exit\nelse -> next 5 notes   ')
+            user_input = input('Press any button or ''exit''')
             if user_input.lower() == 'exit':
                 break
             else:
