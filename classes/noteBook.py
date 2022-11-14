@@ -93,30 +93,3 @@ class Note:
 
     def __repr__(self):
         return f'{self.title}, {self.text}, {self.tags}'
-
-
-notebook = NoteBook()
-notebook.add_note('Apple')
-notebook.add_note('Banderol')
-notebook.add_note('doctor')
-notebook.add_note('Ellisium')
-notebook.add_note('Concord')
-notebook.add_note('1')
-notebook.add_note('2')
-notebook.add_note('3')
-notebook.add_note('4')
-notebook.add_note('5')
-
-notebook.edit_text('Apple', 'AAAAAAAA')
-notebook.edit_text('Banderol', 'BBbbbbb')
-notebook.edit_text('doctor', 'DDDDDDD')
-notebook.edit_text('Ellisium', 'EErappleE3EEE')
-notebook.edit_text('Concord', 'CCCCCC')
-notebook.add_tag('doctor', 'People')
-notebook.add_tag('Apple', 'People')
-notebook.add_tag('Banderol', 'People')
-notebook.add_tag('3', 'People')
-notebook.add_tag('4', 'People')
-
-notebook.change_tag('3', 'people', 'human')
-notebook.show_all_notes()
