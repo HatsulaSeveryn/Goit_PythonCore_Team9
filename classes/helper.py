@@ -315,7 +315,7 @@ class Helper:
         """
         if args:
             raise ValueError(self.func_show_birthdays.__doc__)
-        self.addressbook.show_birthdays(days)
+        self.addressbook.show_birthdays(int(days))
 
     def func_add_note(self, title=None, *args):
         """
@@ -556,7 +556,8 @@ class Helper:
                 cnt = len(element.split(' ')[0])
                 if element.startswith(check_cmd[0:cnt]) or element.split(' ')[0] in check_cmd:
                     list_cmd.add(element)
-                result = self.levenshtein(element.split(' ')[0], check_cmd[0:cnt]) * 100 / len(el)
+                result = self.levenshtein(element.split(
+                    ' ')[0], check_cmd[0:cnt]) * 100 / len(el)
                 if result < 40:
                     list_cmd.add(element)
             if list_cmd:
@@ -588,7 +589,8 @@ class Helper:
         for i in range(1, m + 1):
             previous_row, current_row = current_row, [i] + [0] * n
             for j in range(1, n + 1):
-                add, delete, change = previous_row[j] + 1, current_row[j - 1] + 1, previous_row[j - 1]
+                add, delete, change = previous_row[j] + \
+                    1, current_row[j - 1] + 1, previous_row[j - 1]
                 if str_1[j - 1] != str_2[i - 1]:
                     change += 1
                 current_row[j] = min(add, delete, change)
@@ -625,24 +627,32 @@ class Helper:
         print('-' * table_width)
         for contact in contacts:
             cnt_rows = 0
-            contact['name'] = self.delimiter_text(contact['name'], column_width - 2)
+            contact['name'] = self.delimiter_text(
+                contact['name'], column_width - 2)
             if len(contact['name']) > cnt_rows:
                 cnt_rows = len(contact['name'])
-            contact['address'] = self.delimiter_text(contact['address'], column_width - 2)
+            contact['address'] = self.delimiter_text(
+                contact['address'], column_width - 2)
             if len(contact['address']) > cnt_rows:
                 cnt_rows = len(contact['address'])
-            contact['email'] = self.delimiter_text(contact['email'], column_width - 2)
+            contact['email'] = self.delimiter_text(
+                contact['email'], column_width - 2)
             if len(contact['email']) > cnt_rows:
                 cnt_rows = len(contact['email'])
-            contact['birthday'] = self.delimiter_text(contact['birthday'], column_width - 2)
+            contact['birthday'] = self.delimiter_text(
+                contact['birthday'], column_width - 2)
             if len(contact['birthday']) > cnt_rows:
                 cnt_rows = len(contact['birthday'])
             for i in range(0, cnt_rows):
                 name = contact['name'][i] if i < len(contact['name']) else ''
-                address = contact['address'][i] if i < len(contact['address']) else ''
-                email = contact['email'][i] if i < len(contact['email']) else ''
-                birthday = contact['birthday'][i] if i < len(contact['birthday']) else ''
-                phones = contact['phones'][i] if i < len(contact['phones']) else ''
+                address = contact['address'][i] if i < len(
+                    contact['address']) else ''
+                email = contact['email'][i] if i < len(
+                    contact['email']) else ''
+                birthday = contact['birthday'][i] if i < len(
+                    contact['birthday']) else ''
+                phones = contact['phones'][i] if i < len(
+                    contact['phones']) else ''
                 print(string.format(
                     name,
                     address,
