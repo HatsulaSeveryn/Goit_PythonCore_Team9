@@ -1,5 +1,5 @@
 from collections import UserDict
-
+from shutil import get_terminal_size
 
 def check_title(func):
     def inner(self, *args):
@@ -32,7 +32,7 @@ class NoteBook(UserDict):
         data_new = sorted(list(self.data.values()),
                           key=lambda x: x.title.lower(), reverse=flag)
         while count < len(data_new):
-            print(data_new[count:count + constant_number])
+            self.print_notes(data_new[count:count + constant_number])
             if len(data_new[count + constant_number + 1:]) == 0:
                 break
             user_input = input('Press any button or ''exit''')
@@ -100,6 +100,38 @@ class NoteBook(UserDict):
         self.data[new_title] = self.data.pop(old_title)
         self.data[new_title].title = new_title
 
+    def delimiter_text(self, text, length):
+        idx_begin = 0
+        idx_end = length
+        lists = []
+        while idx_begin <= len(text):
+            lists.append(text[idx_begin: idx_end])
+            idx_begin = idx_end
+            idx_end += length
+        return lists
+
+    def print_notes(self, notes=[]):
+        table_width = get_terminal_size().columns - 2
+        string = ''
+        if not notes:
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
+            print(string.format('No notes'))
+            print('-' * table_width)
+        for note in notes:
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
+            print(string.format(note.title))
+            print('-' * table_width)
+            texts = self.delimiter_text(note.text, table_width - 4)
+            for text in texts:
+                string = "| {:<" + str(table_width - 4) + "} |"
+                print(string.format(text))
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
+            print(string.format(', '.join(note.tags)))
+            print('-' * table_width)
+
 
 class Note:
     def __init__(self, title):
@@ -109,3 +141,16 @@ class Note:
 
     def __repr__(self):
         return f'| Title: {self.title} : Text: {self.text} : Tags: {self.tags} |'
+
+
+notebook = NoteBook()
+notebook.add_note('Bob')
+notebook.add_note('ceotan')
+notebook.add_note('alex')
+notebook.add_note('Don')
+notebook.add_text('Don', 'Its a good boy')
+notebook.add_tag('alex', 'Human')
+notebook.add_tag('ceotan', 'Human')
+notebook.add_tag('Bob', 'Human')
+notebook.add_tag('Don', 'Human')
+notebook.show_all_notes()
