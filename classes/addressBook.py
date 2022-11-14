@@ -11,42 +11,53 @@ class AddressBook(UserDict):
             yield record
 
     def add_address(self, name, addr):
+
+        if self.data[name].address:
+            raise ValueError(
+                f'Contact already have address. Did you want to change it? Use change address command instead')
+
         try:
             self.data[name].address = addr
-            print(f'For {name} add address {addr} at AddressBook')
+
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
 
     def add_birthday(self, name, birthday):
 
+        if self.data[name].birthday:
+            raise ValueError(
+                f'Contact already have birthday. Did you want to change it? Use change birthday command instead')
+
         try:
 
             self.data[name].birthday = Birthday(birthday)
-            print(f'For {name} add birthday {birthday} at AddressBook')
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
 
         except TypeError:
             raise TypeError(
-                f'Format for birthday - dd.mm.YYYY, example 01.01.3333')
+                f'Format for birthday - dd.mm.YYYY, example 01.01.1970')
 
     def add_contact(self, name):
 
         if name not in self.data:
             new_record = Record(name)
             self.data[new_record.name.value] = new_record
-            print(f'For {name} add contact at AddressBook')
 
         else:
-            print(f'Contact with this name exist. Try other name or other command')
+            raise ValueError(
+                f'Contact with this name exist. Try other name or other command')
 
     def add_email(self, name, email):
+
+        if self.data[name].email:
+            raise ValueError(
+                f'Contact already have email. Did you want to change it? Use change email command instead')
 
         try:
 
             self.data[name].email = Email(email)
-            print(f'For {name} add email {email} at AddressBook')
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
@@ -56,14 +67,19 @@ class AddressBook(UserDict):
 
     def add_phone(self, name, phone):
 
+        for ph in self.data[name].phones:
+            if ph.value == phone:
+                raise ValueError(
+                    f'Contact already have that phone. Did you want to change it? Use change phone command instead')
+
         try:
 
             self.data[name].add_new_phone(phone)
-            print(f'For {name} add phone {phone} at AddressBook')
+
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
         except ValueError:
-            raise ValueError("Not correct format for phone......")
+            raise ValueError("Use only number for phone. Example: 32457")
 
     def change_address(self, name, address):
 
@@ -77,7 +93,7 @@ class AddressBook(UserDict):
 
         try:
             self.data[name].birthday = Birthday(birthday)
-            print(f'For {name} add birthday {birthday}')
+
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
         except TypeError:
@@ -94,13 +110,12 @@ class AddressBook(UserDict):
         record.name.value = new_name
         self.data.__delitem__(old_name)
         self.data.__setitem__(new_name, record)
-        print(f"Contact's name Name {old_name} has been changed at {new_name}")
 
     def change_email(self, name, email):
 
         try:
             self.data[name].email = Email(email)
-            print(f'For {name} add email: {email} ')
+
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
         except ValueError:
@@ -110,7 +125,6 @@ class AddressBook(UserDict):
 
         try:
             self.data[name].edit_phone(old_phone, new_phone)
-            print(f'For {name} phone {old_phone} has changed on {new_phone} ')
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
@@ -156,14 +170,14 @@ class AddressBook(UserDict):
     def remove_address(self, name):
         try:
             self.data[name].address = ''
-            print(f'For {name} delete address at AddressBook')
+
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
 
     def remove_birthday(self, name):
         try:
             self.data[name].birthday = ''
-            print(f'For {name} delete birthday at AddressBook')
+
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
 
@@ -171,7 +185,6 @@ class AddressBook(UserDict):
 
         try:
             self.data.__delitem__(name)
-            print(f'Contact {name} has been deleted')
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
@@ -179,7 +192,6 @@ class AddressBook(UserDict):
     def remove_email(self, name):
         try:
             self.data[name].email = ''
-            print(f'For {name} delete email')
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
@@ -188,7 +200,6 @@ class AddressBook(UserDict):
 
         try:
             self.data[name].delete_phone(phone)
-            print(f'For {name} delete phone {phone}')
 
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
@@ -215,14 +226,28 @@ class AddressBook(UserDict):
 
         list_birthday = []
 
-        for name in self.data:
-            if self.data[name].birthday:
-                days_to = self.how_many_days_to_birthday(name)
+       # self.data[name].birthday
+
+        # for rec in self.data.values():
+        for rec in self.data.values():
+
+            if rec.birthday:
+                days_to = rec.days_to_birthday()
+
                 if days_to <= days:
-                    list_birthday.append(name)
-                    print(f'Day to birthday {name} is {days_to}')
+                    list_birthday.append(rec)
+                    print(f'Day to birthday {rec.name} is {str(days_to)}')
 
         return list_birthday
+
+        # for name in self.data:
+        #
+        #         days_to = self.how_many_days_to_birthday(name)
+        #         if days_to <= days:
+        #             list_birthday.append(name)
+        #             print(f'Day to birthday {name} is {days_to}')
+
+        # return list_birthday
 
     def show_contact(self, name):
 
@@ -238,7 +263,7 @@ class AddressBook(UserDict):
         super().__init__()
         self.filename = filename
         self.read_address_book_from_file()
- 
+
    def quit_func(self):
         self.write_address_book_file()
         return 'Good bye!'
@@ -255,6 +280,6 @@ class AddressBook(UserDict):
             pass
     def save_to_file(self, file_name):
         self.write_address_book_file()
-        print('Data has been saved')       
-        
+        print('Data has been saved')
+
          '''
