@@ -13,7 +13,7 @@ class Record:
 
     def __str__(self):
 
-        return f'Name {self.name.value.capitalize()} - tel:  {", ".join([phone.value for phone in self.phones])}; birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address} '
+        return f'Name {self.name.value} - tel:  {", ".join([phone.value for phone in self.phones])}; birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address} '
 
     def add_new_phone(self, phone_new):
 
@@ -33,7 +33,7 @@ class Record:
         try:
             next_birthday = datetime(
                 year=current_date.year, month=self.birthday.value.month, day=self.birthday.value.day)
-        except:
+        except ValueError:
             next_birthday = datetime(
                 year=current_date.year, month=self.birthday.value.month, day=self.birthday.value.day-1)  # for date 29.02
 
@@ -41,7 +41,7 @@ class Record:
             try:
                 next_birthday = datetime(
                     year=current_date.year+1, month=self.birthday.value.month, day=self.birthday.value.day)
-            except:
+            except ValueError:
                 next_birthday = datetime(
                     year=current_date.year+1, month=self.birthday.value.month, day=self.birthday.value.day-1)
 
