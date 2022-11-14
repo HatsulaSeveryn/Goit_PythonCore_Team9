@@ -1,48 +1,48 @@
 from collections import UserDict
 
+
 def check_title(func):
     def inner(self, *args):
         flag = self.data.get(args[0], None)
         if flag:
             return func(self, *args)
+        raise IndexError('Wrong title, try something else!')
     return inner
 
-class NoteBook(UserDict):
-    #@staticmethod
-    #def check_title(func):
-        #def inner(self, *args):
-            #flag = self.data.get(args[0], None)
-            #if flag:
-                #return func(self, *args)
-        #return inner
 
+class NoteBook(UserDict):
     def add_note(self, title):
         self.data[title] = Note(title)
 
     def show_note(self, title):
-        return self.data.get(title, 'this note doesnt exist')
+        print(self.data.get(title, 'this note doesnt exist'))
 
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
         count = 0
-        constant_number = 3
+        constant_number = 5
         data_new = sorted(list(self.data.items()), reverse=flag)
         while count < len(data_new):
             print(data_new[count:count + constant_number])
-            user_input = input('nex 5 ?  ')
+            if len(data_new[count + constant_number + 1:]) == 0:
+                break
+            user_input = input('enter -> exit\nelse -> next 5 notes   ')
             if user_input.lower() == 'exit':
                 break
             else:
                 count += constant_number
 
-    def find_note_by_title(self, word):
-        return [note for title, note in self.data.items() if word.lower() in title.lower()]
+    def find_note_by_word(self, word, flag=None):
+        flag = True if flag == '-r' else False
+        result = [note for title, note in self.data.items()
+                  if word.lower() in title.lower() or word.lower() in note.text.lower()]
+        print(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
 
     def find_note_by_tag(self, tag, flag=None):
         flag = True if flag == '-r' else False
         result = [note for note in self.data.values() if tag.lower() in [
             x.lower() for x in note.tags]]
-        return sorted(result, key=lambda x: x.title.lower(), reverse=flag)
+        print(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
 
     @check_title
     def delete_note(self, title):
@@ -66,6 +66,8 @@ class NoteBook(UserDict):
                                      == x.lower(), self.data[title].tags)))
         if result:
             self.data[title].tags.remove(result)
+        else:
+            raise ValueError('This tag doesnt exist!')
 
     @check_title
     def change_tag(self, title, old_tag, new_tag):
@@ -74,6 +76,13 @@ class NoteBook(UserDict):
         if result:
             self.data[title].tags.remove(result)
             self.data[title].tags.append(new_tag)
+        else:
+            raise ValueError('This tag doesnt exist!')
+
+    @check_title
+    def change_title(self, old_title, new_title):
+        self.data[new_title] = self.data.pop(old_title)
+        self.data[new_title].title = new_title
 
 
 class Note:
@@ -84,3 +93,30 @@ class Note:
 
     def __repr__(self):
         return f'{self.title}, {self.text}, {self.tags}'
+
+
+notebook = NoteBook()
+notebook.add_note('Apple')
+notebook.add_note('Banderol')
+notebook.add_note('doctor')
+notebook.add_note('Ellisium')
+notebook.add_note('Concord')
+notebook.add_note('1')
+notebook.add_note('2')
+notebook.add_note('3')
+notebook.add_note('4')
+notebook.add_note('5')
+
+notebook.edit_text('Apple', 'AAAAAAAA')
+notebook.edit_text('Banderol', 'BBbbbbb')
+notebook.edit_text('doctor', 'DDDDDDD')
+notebook.edit_text('Ellisium', 'EErappleE3EEE')
+notebook.edit_text('Concord', 'CCCCCC')
+notebook.add_tag('doctor', 'People')
+notebook.add_tag('Apple', 'People')
+notebook.add_tag('Banderol', 'People')
+notebook.add_tag('3', 'People')
+notebook.add_tag('4', 'People')
+
+notebook.change_tag('3', 'people', 'human')
+notebook.show_all_notes()
