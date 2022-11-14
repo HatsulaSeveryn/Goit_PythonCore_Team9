@@ -1,4 +1,5 @@
 import os
+from shutil import get_terminal_size
 import pickle
 
 from classes.addressBook import AddressBook
@@ -113,7 +114,7 @@ class Helper:
         err = self.func_add_contact.__doc__
         self.check_args(1, 0, err, name, *args)
         self.addressbook.add_contact(name)
-        print(f'Contact {name} is added')
+        print(f'Contact {name} added to the book')
 
     def func_remove_contact(self, name=None, *args):
         """
@@ -124,7 +125,7 @@ class Helper:
         err = self.func_remove_contact.__doc__
         self.check_args(1, 0, err, name, *args)
         self.addressbook.remove_contact(name)
-        print(f'Contact {name} deleted')
+        print(f'Contact {name} removed from the book')
 
     def func_change_contact(self, name_old=None, name_new=None, *args):
         """
@@ -135,7 +136,7 @@ class Helper:
         err = self.func_change_contact.__doc__
         self.check_args(2, 0, err, name_old, name_new, *args)
         self.addressbook.change_contact(name_old, name_new)
-        print(f'Name of record {name_old} changed')
+        print(f"{name_old}'s contact name has been changed")
 
     def func_add_address(self, name=None, *args):
         """
@@ -148,7 +149,7 @@ class Helper:
         self.check_args(2, 0, err, name, *args)
         address = ' '.join(args)
         self.addressbook.add_address(name, address)
-        print(f'Address {address} added for contact {name}')
+        print(f"Address '{address}' added to {name}'s contact")
 
     def func_remove_address(self, name=None, *args):
         """
@@ -160,7 +161,7 @@ class Helper:
         self.check_args(1, 0, err, name, *args)
         address = ' '.join(args)
         self.addressbook.remove_address(name)
-        print(f'Address {address} remove for record {name}')
+        print(f"Address '{address}' removed from {name}'s contact")
 
     def func_change_address(self, name=None, *args):
         """
@@ -173,7 +174,7 @@ class Helper:
         self.check_args(2, 1, err, name, *args)
         address = ' '.join(args)
         self.addressbook.change_address(name, address)
-        print(f'Address changed for contact {name}')
+        print(f"{name}'s contact address has been changed to '{address}'")
 
     def func_add_email(self, name=None, email=None, *args):
         """
@@ -184,7 +185,7 @@ class Helper:
         err = self.func_add_email.__doc__
         self.check_args(2, 0, err, name, email, *args)
         self.addressbook.add_email(name, email)
-        print(f'E-mail {email} added for contact {name}')
+        print(f"E-mail '{email}' added to {name}'s contact")
 
     def func_remove_email(self, name=None, *args):
         """
@@ -195,7 +196,7 @@ class Helper:
         err = self.func_remove_email.__doc__
         self.check_args(1, 0, err, name, *args)
         self.addressbook.remove_email(name)
-        print(f'E-mail removed for contact {name}')
+        print(f"E-mail removed from {name}'s contact")
 
     def func_change_email(self, name=None, email=None, *args):
         """
@@ -206,7 +207,7 @@ class Helper:
         err = self.func_change_email.__doc__
         self.check_args(2, 0, err, name, email, *args)
         self.addressbook.change_email(name, email)
-        print(f'E-mail changed for contact {name}')
+        print(f"{name}'s contact e-mail has been changed to '{email}'")
 
     def func_add_birthday(self, name=None, birthday=None, *args):
         """
@@ -218,7 +219,7 @@ class Helper:
         err = self.func_add_birthday.__doc__
         self.check_args(2, 0, err, name, birthday, *args)
         self.addressbook.add_birthday(name, birthday)
-        print(f'Date of birth {birthday} added for contact {name}')
+        print(f"Date of birthday '{birthday}' added to {name}'s contact")
 
     def func_remove_birthday(self, name=None, *args):
         """
@@ -229,7 +230,7 @@ class Helper:
         err = self.func_remove_birthday.__doc__
         self.check_args(1, 0, err, name, *args)
         self.addressbook.remove_birthday(name)
-        print(f'Date of birth removed for contact {name}')
+        print(f"Date of birthday removed from {name}'s contact")
 
     def func_change_birthday(self, name=None, birthday=None, *args):
         """
@@ -241,7 +242,7 @@ class Helper:
         err = self.func_change_birthday.__doc__
         self.check_args(2, 0, err, name, birthday, *args)
         self.addressbook.change_birthday(name, birthday)
-        print(f'Date of birth changed for contact {name}')
+        print(f"{name}'s contact birthday has been changed to '{birthday}'")
 
     def func_add_phone(self, name=None, phone=None, *args):
         """
@@ -253,7 +254,7 @@ class Helper:
         err = self.func_add_phone.__doc__
         self.check_args(2, 0, err, name, phone, *args)
         self.addressbook.add_phone(name, phone)
-        print(f'Phone {phone} added for contact {name}')
+        print(f"Phone '{phone}' added to {name}'s contact")
 
     def func_remove_phone(self, name=None, phone=None, *args):
         """
@@ -265,7 +266,7 @@ class Helper:
         err = self.func_remove_phone.__doc__
         self.check_args(2, 0, err, name, phone, *args)
         self.addressbook.remove_phone(name, phone)
-        print(f'Phone {phone} removed for contact {name}')
+        print(f"Phone '{phone}' removed from {name}'s contact")
 
     def func_change_phone(self, name=None, phone_old=None, phone_new=None, *args):
         """
@@ -278,7 +279,7 @@ class Helper:
         err = self.func_change_phone.__doc__
         self.check_args(3, 0, err, name, phone_old, phone_new, *args)
         self.addressbook.change_phone(name, phone_old, phone_new)
-        print(f'Phone {phone_old} changed for contact {name}')
+        print(f"Contact {name}'s phone number '{phone_old}' has been changed to '{phone_new}'")
 
     def func_show_all_contact(self):
         """
@@ -319,7 +320,7 @@ class Helper:
             days = int(days)
         except Exception:
             raise ValueError('Day to birthday must be number.')
-        self.addressbook.show_birthdays(int(days))
+        self.addressbook.show_birthdays(days)
 
     def func_add_note(self, title=None, *args):
         """
@@ -330,7 +331,7 @@ class Helper:
         err = self.func_add_note.__doc__
         self.check_args(1, 0, err, title, *args)
         self.notebook.add_note(title)
-        print(f'Note with title "{title}" added')
+        print(f"Added note with title '{title}'")
 
     def func_remove_note(self, title=None, *args):
         """
@@ -341,7 +342,7 @@ class Helper:
         err = self.func_remove_note.__doc__
         self.check_args(1, 0, err, title, *args)
         self.notebook.delete_note(title)
-        print(f'Note with title "{title}" removed')
+        print(f"The note with the title '{title}' has been deleted")
 
     def func_change_title(self, title_old=None, title_new=None, *args):
         """
@@ -352,7 +353,7 @@ class Helper:
         err = self.func_change_note.__doc__
         self.check_args(2, 0, err, title_old, title_new, *args)
         self.notebook.change_note(title_old, title_new)
-        print(f'Title "{title_old}" changed')
+        print(f"'{title_old}' note has its title changed to '{title_new}'")
 
     def func_add_text(self, title=None, *args):
         """
@@ -560,7 +561,8 @@ class Helper:
                 cnt = len(element.split(' ')[0])
                 if element.startswith(check_cmd[0:cnt]) or element.split(' ')[0] in check_cmd:
                     list_cmd.add(element)
-                result = self.levenshtein(element.split(' ')[0], check_cmd[0:cnt]) * 100 / len(el)
+                result = self.levenshtein(element.split(
+                    ' ')[0], check_cmd[0:cnt]) * 100 / len(el)
                 if result < 40:
                     list_cmd.add(element)
             if list_cmd:
@@ -592,7 +594,8 @@ class Helper:
         for i in range(1, m + 1):
             previous_row, current_row = current_row, [i] + [0] * n
             for j in range(1, n + 1):
-                add, delete, change = previous_row[j] + 1, current_row[j - 1] + 1, previous_row[j - 1]
+                add, delete, change = previous_row[j] + \
+                    1, current_row[j - 1] + 1, previous_row[j - 1]
                 if str_1[j - 1] != str_2[i - 1]:
                     change += 1
                 current_row[j] = min(add, delete, change)
@@ -619,8 +622,8 @@ class Helper:
             }
         ]
         columns = ['Name', 'Address', 'Email', 'Birthday', 'Phones']
-        table_width = os.get_terminal_size().columns - 3
-        column_width = (os.get_terminal_size().columns - 2) // 5 - 1
+        table_width = get_terminal_size().columns - 3
+        column_width = (get_terminal_size().columns - 2) // 5 - 1
         print('-' * table_width)
         string = '|'
         for col in columns:
@@ -629,24 +632,32 @@ class Helper:
         print('-' * table_width)
         for contact in contacts:
             cnt_rows = 0
-            contact['name'] = self.delimiter_text(contact['name'], column_width - 2)
+            contact['name'] = self.delimiter_text(
+                contact['name'], column_width - 2)
             if len(contact['name']) > cnt_rows:
                 cnt_rows = len(contact['name'])
-            contact['address'] = self.delimiter_text(contact['address'], column_width - 2)
+            contact['address'] = self.delimiter_text(
+                contact['address'], column_width - 2)
             if len(contact['address']) > cnt_rows:
                 cnt_rows = len(contact['address'])
-            contact['email'] = self.delimiter_text(contact['email'], column_width - 2)
+            contact['email'] = self.delimiter_text(
+                contact['email'], column_width - 2)
             if len(contact['email']) > cnt_rows:
                 cnt_rows = len(contact['email'])
-            contact['birthday'] = self.delimiter_text(contact['birthday'], column_width - 2)
+            contact['birthday'] = self.delimiter_text(
+                contact['birthday'], column_width - 2)
             if len(contact['birthday']) > cnt_rows:
                 cnt_rows = len(contact['birthday'])
             for i in range(0, cnt_rows):
                 name = contact['name'][i] if i < len(contact['name']) else ''
-                address = contact['address'][i] if i < len(contact['address']) else ''
-                email = contact['email'][i] if i < len(contact['email']) else ''
-                birthday = contact['birthday'][i] if i < len(contact['birthday']) else ''
-                phones = contact['phones'][i] if i < len(contact['phones']) else ''
+                address = contact['address'][i] if i < len(
+                    contact['address']) else ''
+                email = contact['email'][i] if i < len(
+                    contact['email']) else ''
+                birthday = contact['birthday'][i] if i < len(
+                    contact['birthday']) else ''
+                phones = contact['phones'][i] if i < len(
+                    contact['phones']) else ''
                 print(string.format(
                     name,
                     address,
@@ -660,7 +671,7 @@ class Helper:
         notes = [
             {'title': 'note 1', 'tags': ['1', '2'], 'text': 'text ' * 120}
         ]
-        table_width = os.get_terminal_size().columns - 2
+        table_width = get_terminal_size().columns - 2
         string = ''
         if not notes:
             print('-' * table_width)
