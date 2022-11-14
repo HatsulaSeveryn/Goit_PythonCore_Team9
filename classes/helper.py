@@ -146,7 +146,7 @@ class Helper:
         <address> is a string of any length
         """
         err = self.func_add_address.__doc__
-        self.check_args(2, 1, err, name, *args)
+        self.check_args(2, 0, err, name, *args)
         address = ' '.join(args)
         self.addressbook.add_address(name, address)
         print(f"Address '{address}' added to {name}'s contact")
@@ -316,7 +316,11 @@ class Helper:
         """
         if args:
             raise ValueError(self.func_show_birthdays.__doc__)
-        self.addressbook.show_birthdays(int(days))
+        try:
+            days = int(days)
+        except Exception:
+            raise ValueError('Day to birthday must be number.')
+        self.addressbook.show_birthdays(days)
 
     def func_add_note(self, title=None, *args):
         """
@@ -359,7 +363,7 @@ class Helper:
         <text> is a string of any length
         """
         err = self.func_add_text.__doc__
-        self.check_args(2, 1, err, title, *args)
+        self.check_args(2, 0, err, title, *args)
         text = ' '.join(args)
         self.notebook.add_text(title, text)
         print(f'Text for note with "{title}" added')
@@ -383,7 +387,7 @@ class Helper:
         <text> is a string of any length
         """
         err = self.func_change_text.__doc__
-        self.check_args(2, 1, err, title, *args)
+        self.check_args(2, 0, err, title, *args)
         text = ' '.join(args)
         self.notebook.edit_text(title, text)
         print(f'Text for note with "{title}" added')
@@ -461,7 +465,7 @@ class Helper:
             raise ValueError(self.func_find_tag.__doc__)
         self.notebook.find_note_by_tag(tag, flag)
 
-    def func_sort_folder(self, folder, *args):
+    def func_sort_folder(self, folder=None, *args):
         """
         Command: sort folder <path>
         Sorting folders, sub-folders and files in given <path> if path exists
@@ -469,7 +473,7 @@ class Helper:
         Empty folders will be deleted
         """
         err = self.func_sort_folder.__doc__
-        self.check_args(1, 0, err, folder, *args)
+        self.check_args(1, 1, err, folder, *args)
         sorter = FileSorting(folder)
         sorter.sorting()
 
