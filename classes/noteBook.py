@@ -23,7 +23,7 @@ class NoteBook(UserDict):
         self.data.clear()
 
     def show_note(self, title):
-        print(self.data.get(title, 'This note doesnt exist'))
+        return self.data.get(title, 'This note doesnt exist')
 
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
@@ -53,19 +53,22 @@ class NoteBook(UserDict):
             x.lower() for x in note.tags]]
         print(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
 
-    @ check_title
+    @check_title
     def delete_note(self, title):
         self.data.pop(title)
 
-    @ check_title
+    @check_title
     def edit_text(self, title, new_text):
         self.data[title].text = new_text
 
-    @ check_title
+    @check_title
     def add_text(self, title, new_words):
-        self.data[title].text += '. ' + new_words
+        if self.data[title].text:
+            self.data[title].text += ' ' + new_words
+        else:
+            self.data[title].text = new_words
 
-    @ check_title
+    @check_title
     def add_tag(self, title, new_tag):
         existing_tags = [x.lower() for x in self.data[title].tags]
         if new_tag.lower() not in existing_tags:
@@ -73,7 +76,7 @@ class NoteBook(UserDict):
         else:
             raise ValueError('This tag is exist')
 
-    @ check_title
+    @check_title
     def remove_tag(self, title, target_tag):
         result = ''.join(list(filter(lambda x: target_tag.lower()
                                      == x.lower(), self.data[title].tags)))
@@ -82,7 +85,7 @@ class NoteBook(UserDict):
         else:
             raise ValueError('This tag doesnt exist!')
 
-    @ check_title
+    @check_title
     def change_tag(self, title, old_tag, new_tag):
         result = ''.join(list(filter(lambda x: old_tag.lower()
                                      == x.lower(), self.data[title].tags)))
@@ -93,7 +96,7 @@ class NoteBook(UserDict):
             raise ValueError('This tag doesnt exist!')
 
     @check_title
-    def change_title(self, old_title, new_title):
+    def change_note(self, old_title, new_title):
         self.data[new_title] = self.data.pop(old_title)
         self.data[new_title].title = new_title
 
@@ -105,4 +108,4 @@ class Note:
         self.tags = []
 
     def __repr__(self):
-        return f'{self.title}, {self.text}, {self.tags}'
+        return f'| Title: {self.title} | Text: {self.text} | Tags: {self.tags} |'

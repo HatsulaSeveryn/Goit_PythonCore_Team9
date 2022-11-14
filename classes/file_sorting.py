@@ -5,6 +5,11 @@ from data import constants
 
 
 class FileSorting:
+    """
+    Sorting folders, sub-folders and files in given <path> if path exists
+    Files organised by type and moved the specific folder assign to the file type
+    Empty folders will be deleted
+    """
     map = constants.CYRILLIC_TO_LATIN
     types = constants.FILE_TYPES
 
@@ -14,17 +19,27 @@ class FileSorting:
 
     @staticmethod
     def check_path(folder_path):
+        """
+        Raising error if <path> is not a directory or does not exist
+        """
         if not os.path.exists(folder_path):
-            raise FileNotFoundError(f'{folder_path} is not exist')
+            raise FileNotFoundError(f'{folder_path} directory does not exist')
         if not os.path.isdir(folder_path):
-            raise FileNotFoundError(f'{folder_path} is not a directory')
+            raise FileNotFoundError(f'{folder_path} path is not a directory')
 
     def read_folder(self, name_folder=None):
+        """
+        Returning a list of files and directories in <name_folder> directory
+        """
         if not name_folder:
             name_folder = self.name_folder
         return os.listdir(name_folder)
 
     def check_file_type(self, file):
+        """
+        Checking the file type and returning its suffix
+        If suffix is unknown function will return None
+        """
         file_name_arr = file.split('.')
         file_ext = ''
         if len(file_name_arr) > 1:
@@ -38,6 +53,9 @@ class FileSorting:
             return None
 
     def rename_file(self, folder_to, folder_from, file):
+        """
+        File rename function
+        """
         path_to = os.path.join(self.name_folder, folder_to)
         if not os.path.exists(path_to):
             os.makedirs(path_to)
@@ -65,6 +83,10 @@ class FileSorting:
                 os.remove(os.path.join(folder_from, file))
 
     def normalize(self, file, is_copy=False):
+        """
+        Function will swap cyrillic characters with latin
+        All other non-alphanumeric characters will be swapped with _
+        """
         lists = file.split('.')
         name_file = '.'.join(lists[0:-1])
         new_name = ''
@@ -80,6 +102,9 @@ class FileSorting:
         return new_name + '.' + lists[-1]
 
     def sorting_folder(self, name_folder=None):
+        """
+        Recursive sorting
+        """
         if not name_folder:
             name_folder = self.name_folder
         lists = self.read_folder(name_folder)
@@ -93,6 +118,9 @@ class FileSorting:
                     self.rename_file(folder, name_folder, el)
 
     def check_clear_folder(self, name_folder=None):
+        """
+        Deleting empty folders
+        """
         if not name_folder:
             name_folder = self.name_folder
         is_remove = False
@@ -111,6 +139,9 @@ class FileSorting:
                 return True
 
     def sorting(self):
+        """
+        Main function
+        """
         self.sorting_folder()
         self.check_clear_folder()
-        print(f'Folder "{self.name_folder}" was sort')
+        print(f'Folder "{self.name_folder}" was sorted')

@@ -10,9 +10,9 @@ class Email(Field):
     @value.setter
     def value(self, value):
 
-        pattern = "[^@]+@[^@]+\.[^@]+"
+        pattern = r"[^@]+@[^@]+\.[^@]+"
 
         if not re.match(pattern, value):
-            raise ValueError('This email is not correct')
+            raise ValueError('You tried to enter incorrect e-mail. Please try again')
 
         self.__value = value
