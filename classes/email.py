@@ -13,6 +13,6 @@ class Email(Field):
         pattern = r"[^@]+@[^@]+\.[^@]+"
 
         if not re.match(pattern, value):
-            raise ValueError('This email is not correct')
+            raise ValueError('You tried to enter incorrect e-mail. Please try again')
 
         self.__value = value

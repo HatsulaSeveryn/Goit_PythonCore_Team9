@@ -11,6 +11,9 @@ class AddressBook(UserDict):
             yield record
 
     def add_address(self, name, addr):
+        """
+        Adding <address> to the contact <name>
+        """
         try:
             if self.data[name].address:
                 raise ValueError(
@@ -22,7 +25,9 @@ class AddressBook(UserDict):
             raise ValueError(f'Contact {name} has not been found')
 
     def add_birthday(self, name, birthday):
-
+        """
+        Adding <birthday> to the contact <name>
+        """
         try:
             if self.data[name].birthday:
                 raise ValueError(
@@ -38,7 +43,9 @@ class AddressBook(UserDict):
                 f'Format for birthday - dd.mm.YYYY, example 01.01.1970')
 
     def add_contact(self, name):
-
+        """
+        Creating new contact with given <name>
+        """
         if name not in self.data:
             new_record = Record(name)
             self.data[new_record.name.value] = new_record
@@ -48,7 +55,9 @@ class AddressBook(UserDict):
                 f'Contact with this name exist. Try other name or other command')
 
     def add_email(self, name, email):
-
+        """
+        Adding <email> to the contact <name>
+        """
         try:
             if self.data[name].email:
                 raise ValueError(
@@ -63,7 +72,9 @@ class AddressBook(UserDict):
             raise ValueError("Mistake in email, example: my_email@pyton.com")
 
     def add_phone(self, name, phone):
-
+        """
+        Adding <phone> to the contact <name>
+        """
         try:
             for ph in self.data[name].phones:
                 if ph.value == phone:
@@ -78,15 +89,18 @@ class AddressBook(UserDict):
             raise ValueError("Use only number for phone. Example: 32457")
 
     def change_address(self, name, address):
-
+        """
+        Changing <address> in the contact <name>
+        """
         try:
             self.data[name].address = address
         except KeyError:
             raise ValueError(f'Contact {name} has not been found')
 
     def change_birthday(self, name, birthday):
-        """Change old birthday  for name which is in Contacts to new """
-
+        """
+        Changing <birthday> in the contact <name>
+        """
         try:
             self.data[name].birthday = Birthday(birthday)
 
@@ -97,7 +111,9 @@ class AddressBook(UserDict):
                 f'Format for birthday - dd.mm.YYYY, example 01.01.3333')
 
     def change_contact(self, old_name, new_name):
-
+        """
+        Changing <old name> to <new name> in the contact
+        """
         try:
             record = self.data[old_name]
         except KeyError:
@@ -108,7 +124,9 @@ class AddressBook(UserDict):
         self.data.__setitem__(new_name, record)
 
     def change_email(self, name, email):
-
+        """
+        Changing <email> in the contact <name>
+        """
         try:
             self.data[name].email = Email(email)
 
@@ -118,7 +136,9 @@ class AddressBook(UserDict):
             raise ValueError(f'Mistake in email')
 
     def change_phone(self, name, old_phone, new_phone):
-
+        """
+        Changing <old phone> to <new phone> in the contact <name>
+        """
         try:
             self.data[name].edit_phone(old_phone, new_phone)
 
@@ -128,8 +148,10 @@ class AddressBook(UserDict):
             raise ValueError(f'Phone {old_phone} has not been found')
 
     def find_contact(self, key):
-        # if key in name or key in phone.value or key in str(data.email) or key in data.address:
-        print(f'Result of search on key "{key}" :')
+        """
+        Find all contact with give <key>
+        """
+        print(f'Results of search by the key "{key}" :')
 
         key_all = False
 
@@ -156,6 +178,9 @@ class AddressBook(UserDict):
             print(f'Contacts for {key} not found')
 
     def remove_address(self, name):
+        """
+        Deleting address from the contact
+        """
         try:
             self.data[name].address = ''
 
@@ -163,6 +188,9 @@ class AddressBook(UserDict):
             raise ValueError(f'Contact {name} has not been found')
 
     def remove_birthday(self, name):
+        """
+        Deleting birthday from the contact
+        """
         try:
             self.data[name].birthday = ''
 
@@ -170,7 +198,9 @@ class AddressBook(UserDict):
             raise ValueError(f'Contact {name} has not been found')
 
     def remove_contact(self, name):
-
+        """
+        Deleting contact
+        """
         try:
             self.data.__delitem__(name)
 
@@ -178,6 +208,9 @@ class AddressBook(UserDict):
             raise ValueError(f'Contact {name} has not been found')
 
     def remove_email(self, name):
+        """
+        Deleting email from the contact
+        """
         try:
             self.data[name].email = ''
 
@@ -185,7 +218,9 @@ class AddressBook(UserDict):
             raise ValueError(f'Contact {name} has not been found')
 
     def remove_phone(self, name, phone):
-
+        """
+        Deleting <phone> from the contact
+        """
         try:
             self.data[name].delete_phone(phone)
 
@@ -193,6 +228,9 @@ class AddressBook(UserDict):
             raise ValueError(f'Contact {name} has not been found')
 
     def show_all_contact(self, number_on_page=None):
+        """
+        Printing all contacts
+        """
         if not number_on_page:
             number_on_page = 3
 
@@ -211,7 +249,9 @@ class AddressBook(UserDict):
                 break
 
     def show_birthdays(self, days):
-
+        """
+        Printing all contacts who will have birthday in <days>
+        """
         list_birthday = []
 
         for rec in self.data.values():
@@ -225,11 +265,13 @@ class AddressBook(UserDict):
                         f"{rec.name}'s birthday is in {str(days_to)} days")
 
     def show_contact(self, name):
-
+        """
+        Printing contact with given <name>
+        """
         if name in self.data:
             print(self.data[name])
         else:
-            print(
+            raise ValueError(
                 f"Contact with the name '{name}' does not exist. Try a different name.")
 
 
