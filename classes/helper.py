@@ -146,7 +146,7 @@ class Helper:
         <address> is a string of any length
         """
         err = self.func_add_address.__doc__
-        self.check_args(2, 0, err, name, *args)
+        self.check_args(2, 1, err, name, *args)
         address = ' '.join(args)
         self.addressbook.add_address(name, address)
         print(f"Address '{address}' added to {name}'s contact")
@@ -363,7 +363,7 @@ class Helper:
         <text> is a string of any length
         """
         err = self.func_add_text.__doc__
-        self.check_args(2, 0, err, title, *args)
+        self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
         self.notebook.add_text(title, text)
         print(f'Text for note with "{title}" added')
@@ -387,7 +387,7 @@ class Helper:
         <text> is a string of any length
         """
         err = self.func_change_text.__doc__
-        self.check_args(2, 0, err, title, *args)
+        self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
         self.notebook.edit_text(title, text)
         print(f'Text for note with "{title}" added')
