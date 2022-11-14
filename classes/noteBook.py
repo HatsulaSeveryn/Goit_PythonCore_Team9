@@ -29,8 +29,8 @@ class NoteBook(UserDict):
         flag = True if flag == '-r' else False
         count = 0
         constant_number = 5
-        data_new = sorted(list(self.data.items()),
-                          key=lambda x: x[0].lower(), reverse=flag)
+        data_new = sorted(list(self.data.values()),
+                          key=lambda x: x.title.lower(), reverse=flag)
         while count < len(data_new):
             print(data_new[count:count + constant_number])
             if len(data_new[count + constant_number + 1:]) == 0:
@@ -108,4 +108,4 @@ class Note:
         self.tags = []
 
     def __repr__(self):
-        return f'| Title: {self.title} | Text: {self.text} | Tags: {self.tags} |'
+        return f'| Title: {self.title} : Text: {self.text} : Tags: {self.tags} |'
