@@ -31,7 +31,7 @@ class Helper:
             'remove phone': self.func_remove_phone,
             'delete phone': self.func_remove_phone,
             'change phone': self.func_change_phone,
-            'show all contact': self.func_show_all_contact,
+            'show all contacts': self.func_show_all_contacts,
             'show contact': self.func_show_contact,
             'show birthdays': self.func_show_birthdays,
             'find contact': self.func_find_contact,
@@ -281,7 +281,7 @@ class Helper:
         self.addressbook.change_phone(name, phone_old, phone_new)
         print(f"Contact {name}'s phone number '{phone_old}' has been changed to '{phone_new}'")
 
-    def func_show_all_contact(self):
+    def func_show_all_contacts(self):
         """
         Command: show all contact
         Printing all contacts stored by POWER9 bot
@@ -430,7 +430,6 @@ class Helper:
         Command: show all notes
         Printing all notes stored by POWER9 bot
         """
-        pass
         self.notebook.show_all_notes()
 
     def func_show_note(self, title=None, *args):
@@ -452,7 +451,7 @@ class Helper:
         """
         if (flag and flag != '-r') or args:
             raise ValueError(self.func_find_note.__doc__)
-        # self.notebook.find_note_by_title(key, flag)
+        self.notebook.find_note_by_title(key, flag)
 
     def func_find_tag(self, tag=None, flag=None, *args):
         """
@@ -473,7 +472,7 @@ class Helper:
         Empty folders will be deleted
         """
         err = self.func_sort_folder.__doc__
-        self.check_args(1, 1, err, folder, *args)
+        self.check_args(1, 0, err, folder, *args)
         sorter = FileSorting(folder)
         sorter.sorting()
 
