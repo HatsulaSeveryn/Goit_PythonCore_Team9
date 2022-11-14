@@ -16,7 +16,7 @@ class Birthday(Field):
             date_birthday = datetime.strptime(value, date_format)
             self.__value = date_birthday
 
-        except:
+        except TypeError:
 
             raise TypeError(
                 "Incorrect data format for birthday, should be DD.MM.YYYY")
