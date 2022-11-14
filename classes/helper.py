@@ -624,10 +624,10 @@ class Helper:
         table_width = get_terminal_size().columns - 3
         column_width = (get_terminal_size().columns - 2) // 5 - 1
         print('-' * table_width)
-        string = '|'
+        _string = '|'
         for col in columns:
-            string += ' {:^' + str(column_width - 2) + '} |'
-        print(string.format(*columns))
+            _string += ' {:^' + str(column_width - 2) + '} |'
+        print(_string.format(*columns))
         print('-' * table_width)
         for contact in contacts:
             cnt_rows = 0
@@ -657,7 +657,7 @@ class Helper:
                     contact['birthday']) else ''
                 phones = contact['phones'][i] if i < len(
                     contact['phones']) else ''
-                print(string.format(
+                print(_string.format(
                     name,
                     address,
                     email,
@@ -671,22 +671,22 @@ class Helper:
             {'title': 'note 1', 'tags': ['1', '2'], 'text': 'text ' * 120}
         ]
         table_width = get_terminal_size().columns - 2
-        string = ''
+        _string = ''
         if not notes:
             print('-' * table_width)
-            string = "|{:^" + str(table_width - 2) + "}|"
-            print(string.format('No notes'))
+            _string = "|{:^" + str(table_width - 2) + "}|"
+            print(_string.format('No notes'))
             print('-' * table_width)
         for note in notes:
             print('-' * table_width)
-            string = "|{:^" + str(table_width - 2) + "}|"
-            print(string.format(note['title']))
+            _string = "|{:^" + str(table_width - 2) + "}|"
+            print(_string.format(note['title']))
             print('-' * table_width)
-            string = "|{:^" + str(table_width - 2) + "}|"
-            print(string.format(', '.join(note['tags'])))
+            _string = "|{:^" + str(table_width - 2) + "}|"
+            print(_string.format(', '.join(note['tags'])))
             print('-' * table_width)
             texts = self.delimiter_text(note['text'], table_width - 4)
             for text in texts:
-                string = "| {:<" + str(table_width - 4) + "} |"
-                print(string.format(text))
+                _string = "| {:<" + str(table_width - 4) + "} |"
+                print(_string.format(text))
             print('-' * table_width, '\n\n')
