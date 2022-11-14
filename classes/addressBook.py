@@ -14,29 +14,24 @@ class AddressBook(UserDict):
         """
         Adding <address> to the contact <name>
         """
-        try:
-            if self.data[name].address:
-                raise ValueError(
-                    f'Contact already have address. Did you want to change it? Use change address command instead')
-
-            self.data[name].address = addr
-
-        except KeyError:
+        if not name in self.data:
             raise ValueError(f'Contact {name} has not been found')
+        if self.data[name].address:
+            raise ValueError(
+                    f'Contact already have address. Did you want to change it? Use change address command instead')
+        self.data[name].address = addr
 
     def add_birthday(self, name, birthday):
         """
         Adding <birthday> to the contact <name>
         """
-        try:
-            if self.data[name].birthday:
-                raise ValueError(
-                    f'Contact already have birthday. Did you want to change it? Use change birthday command instead')
-
-            self.data[name].birthday = Birthday(birthday)
-
-        except KeyError:
+        if not name in self.data:
             raise ValueError(f'Contact {name} has not been found')
+        if self.data[name].birthday:
+            raise ValueError(
+                f'Contact already have birthday. Did you want to change it? Use change birthday command instead')
+        try:
+            self.data[name].birthday = Birthday(birthday)
 
         except TypeError:
             raise TypeError(
@@ -58,16 +53,13 @@ class AddressBook(UserDict):
         """
         Adding <email> to the contact <name>
         """
-        try:
-            if self.data[name].email:
-                raise ValueError(
-                    f'Contact already have email. Did you want to change it? Use change email command instead')
-
-            self.data[name].email = Email(email)
-
-        except KeyError:
+        if not name in self.data:
             raise ValueError(f'Contact {name} has not been found')
-
+        if self.data[name].email:
+            raise ValueError(
+                    f'Contact already have email. Did you want to change it? Use change email command instead')
+        try:
+            self.data[name].email = Email(email)
         except ValueError:
             raise ValueError("Mistake in email, example: my_email@python.com")
 
@@ -75,16 +67,14 @@ class AddressBook(UserDict):
         """
         Adding <phone> to the contact <name>
         """
-        try:
-            for ph in self.data[name].phones:
-                if ph.value == phone:
-                    raise ValueError(
-                        f'Contact already have that phone. Did you want to change it? Use change phone command instead')
-
-            self.data[name].add_new_phone(phone)
-
-        except KeyError:
+        if not name in self.data:
             raise ValueError(f'Contact {name} has not been found')
+        for ph in self.data[name].phones:
+            if ph.value == phone:
+                raise ValueError(
+                        f'Contact already have that phone. Did you want to change it? Use change phone command instead')
+        try:
+            self.data[name].add_new_phone(phone)
         except ValueError:
             raise ValueError("Use only number for phone. Example: 32457")
 
@@ -151,8 +141,8 @@ class AddressBook(UserDict):
         """
         Find all contact with give <key>
         """
-        print(f'Results of search by the key "{key}" :')
-
+        #print(f'Results of search by the key "{key}" :')
+        self.print_contacts_head()
         key_all = False
 
         for name, data in self.data.items():
@@ -172,10 +162,11 @@ class AddressBook(UserDict):
             key_all = key_all or key_is
 
             if key_is:
-                print(f'{self.data[name]}')
+                #print(f'{self.data[name]}')
+                self.print_contacts([self.data[name]])
 
         if not key_all:
-            print(f'Contacts for {key} not found')
+            raise ValueError(f'Contacts for {key} not found')
 
     def remove_address(self, name):
         """
