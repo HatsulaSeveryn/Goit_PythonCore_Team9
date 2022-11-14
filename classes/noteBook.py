@@ -11,8 +11,13 @@ def check_title(func):
 
 
 class NoteBook(UserDict):
+
     def add_note(self, title):
-        self.data[title] = Note(title)
+        flag = self.data.get(title, None)
+        if not flag:
+            self.data[title] = Note(title)
+        else:
+            raise IndexError('This title is already exist')
 
     def show_note(self, title):
         print(self.data.get(title, 'this note doesnt exist'))
@@ -21,7 +26,8 @@ class NoteBook(UserDict):
         flag = True if flag == '-r' else False
         count = 0
         constant_number = 5
-        data_new = sorted(list(self.data.items()), reverse=flag)
+        data_new = sorted(list(self.data.items()),
+                          key=lambda x: x[0].lower(), reverse=flag)
         while count < len(data_new):
             print(data_new[count:count + constant_number])
             if len(data_new[count + constant_number + 1:]) == 0:
@@ -58,7 +64,11 @@ class NoteBook(UserDict):
 
     @ check_title
     def add_tag(self, title, new_tag):
-        self.data[title].tags.append(new_tag)
+        existing_tags = [x.lower() for x in self.data[title].tags]
+        if new_tag.lower() not in existing_tags:
+            self.data[title].tags.append(new_tag)
+        else:
+            raise ValueError('This tag is exist')
 
     @ check_title
     def remove_tag(self, title, target_tag):
@@ -119,4 +129,5 @@ notebook.add_tag('3', 'People')
 notebook.add_tag('4', 'People')
 
 notebook.change_tag('3', 'people', 'human')
-notebook.show_all_notes()
+notebook.add_note('apple')
+notebook.show_all_notes('-r')
