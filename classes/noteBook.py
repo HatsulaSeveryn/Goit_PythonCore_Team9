@@ -20,7 +20,7 @@ class NoteBook(UserDict):
             raise IndexError('This title is already exist')
 
     def show_note(self, title):
-        print(self.data.get(title, 'This note doesnt exist'))
+        return self.data.get(title, 'This note doesnt exist')
 
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
@@ -60,7 +60,10 @@ class NoteBook(UserDict):
 
     @check_title
     def add_text(self, title, new_words):
-        self.data[title].text += '. ' + new_words
+        if self.data[title].text:
+            self.data[title].text += ' ' + new_words
+        else:
+            self.data[title].text = new_words
 
     @check_title
     def add_tag(self, title, new_tag):
@@ -102,4 +105,4 @@ class Note:
         self.tags = []
 
     def __repr__(self):
-        return f'{self.title}, {self.text}, {self.tags}'
+        return f'| Title: {self.title} | Text: {self.text} | Tags: {self.tags} |'
