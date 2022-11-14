@@ -44,30 +44,30 @@ class NoteBook(UserDict):
             x.lower() for x in note.tags]]
         return sorted(result, key=lambda x: x.title.lower(), reverse=flag)
 
-    @ check_title
+    @check_title
     def delete_note(self, title):
         self.data.pop(title)
 
-    @ check_title
+    @check_title
     def edit_text(self, title, new_text):
         self.data[title].text = new_text
 
-    @ check_title
+    @check_title
     def add_text(self, title, new_words):
         self.data[title].text += '. ' + new_words
 
-    @ check_title
+    @check_title
     def add_tag(self, title, new_tag):
         self.data[title].tags.append(new_tag)
 
-    @ check_title
+    @check_title
     def remove_tag(self, title, target_tag):
         result = ''.join(list(filter(lambda x: target_tag.lower()
                                      == x.lower(), self.data[title].tags)))
         if result:
             self.data[title].tags.remove(result)
 
-    @ check_title
+    @check_title
     def change_tag(self, title, old_tag, new_tag):
         result = ''.join(list(filter(lambda x: old_tag.lower()
                                      == x.lower(), self.data[title].tags)))
