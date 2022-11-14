@@ -688,5 +688,5 @@ class Helper:
             texts = self.delimiter_text(note['text'], table_width - 4)
             for text in texts:
                 _string = "| {:<" + str(table_width - 4) + "} |"
-                print(_string.format(text))
+                print(_string.format(text))  
             print('-' * table_width, '\n\n')
