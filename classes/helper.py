@@ -315,7 +315,7 @@ class Helper:
         """
         if args:
             raise ValueError(self.func_show_birthdays.__doc__)
-        self.addressbook.show_birthdays(days)
+        self.addressbook.show_birthdays(int(days))
 
     def func_add_note(self, title=None, *args):
         """

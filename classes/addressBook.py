@@ -160,13 +160,6 @@ class AddressBook(UserDict):
 
             print(f'Contacts for {key} not found')
 
-    def how_many_days_to_birthday(self, name):
-
-        record = self.data[name]
-        days_to_birthday = record.days_to_birthday()
-#        print(name,  days_to_birthday)
-        return days_to_birthday
-
     def remove_address(self, name):
         try:
             self.data[name].address = ''
@@ -226,9 +219,6 @@ class AddressBook(UserDict):
 
         list_birthday = []
 
-       # self.data[name].birthday
-
-        # for rec in self.data.values():
         for rec in self.data.values():
 
             if rec.birthday:
@@ -236,18 +226,8 @@ class AddressBook(UserDict):
 
                 if days_to <= days:
                     list_birthday.append(rec)
-                    print(f'Day to birthday {rec.name} is {str(days_to)}')
-
-        return list_birthday
-
-        # for name in self.data:
-        #
-        #         days_to = self.how_many_days_to_birthday(name)
-        #         if days_to <= days:
-        #             list_birthday.append(name)
-        #             print(f'Day to birthday {name} is {days_to}')
-
-        # return list_birthday
+                    print(
+                        f"{rec.name}'s birthday is in {str(days_to)} days")
 
     def show_contact(self, name):
 

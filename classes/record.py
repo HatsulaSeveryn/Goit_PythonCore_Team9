@@ -13,7 +13,7 @@ class Record:
 
     def __str__(self):
 
-        return f'Name {self.name.value} - tel:  {", ".join([phone.value for phone in self.phones])}; birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address} '
+        return f'Name {self.name.value.capitalize()} - tel:  {", ".join([phone.value for phone in self.phones])}; birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address} '
 
     def add_new_phone(self, phone_new):
 
