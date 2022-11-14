@@ -366,7 +366,7 @@ class Helper:
         self.check_args(2, 0, err, title, *args)
         text = ' '.join(args)
         self.notebook.add_text(title, text)
-        print(f'Text for note with "{title}" added')
+        print(f"Added text to the note titled {title}")
 
     def func_remove_text(self, title=None, *args):
         """
@@ -377,7 +377,7 @@ class Helper:
         err = self.func_remove_text.__doc__
         self.check_args(1, 0, err, title, *args)
         self.notebook.edit_text(title, '')
-        print(f'Text for note with "{title}" removed')
+        print(f"Text removed from the note with title '{title}'")
 
     def func_change_text(self, title=None, *args):
         """
@@ -390,7 +390,7 @@ class Helper:
         self.check_args(2, 0, err, title, *args)
         text = ' '.join(args)
         self.notebook.edit_text(title, text)
-        print(f'Text for note with "{title}" added')
+        print(f"Text changed in the note titled '{title}'")
 
     def func_add_tag(self, title=None, tag=None, *args):
         """
@@ -401,7 +401,7 @@ class Helper:
         err = self.func_add_tag.__doc__
         self.check_args(2, 0, err, title, tag, *args)
         self.notebook.add_tag(title, tag)
-        print(f'Tag {tag} added for note with title "{title}"')
+        print(f"Added '{tag}' to the note titled {title}")
 
     def func_remove_tag(self, title=None, tag=None, *args):
         """
@@ -412,7 +412,7 @@ class Helper:
         err = self.func_remove_tag.__doc__
         self.check_args(2, 0, err, title, tag, *args)
         self.notebook.remove_tag(title, tag)
-        print(f'Tag {tag} removed for note with title "{title}"')
+        print(f"Tag '{tag}' removed from the note with title '{title}'")
 
     def func_change_tag(self, title=None, old_tag=None, new_tag=None, *args):
         """
@@ -423,7 +423,7 @@ class Helper:
         err = self.func_change_tag.__doc__
         self.check_args(3, 0, err, title, old_tag, new_tag, *args)
         self.notebook.change_tag(title, old_tag, new_tag)
-        print(f'Tag {old_tag} changed for note with title "{title}"')
+        print(f"The tag '{old_tag}' has been changed to '{new_tag}' in the note titled '{title}'")
 
     def func_show_all_notes(self):
         """
