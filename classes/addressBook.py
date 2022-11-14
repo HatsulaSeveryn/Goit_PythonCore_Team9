@@ -230,7 +230,7 @@ class AddressBook(UserDict):
             print(self.data[name])
         else:
             print(
-                f'Contact with name {name} not exist. Try other name or other command')
+                f"Contact with the name '{name}' does not exist. Try a different name.")
 
 
 '''

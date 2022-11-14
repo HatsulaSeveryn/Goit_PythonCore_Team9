@@ -19,6 +19,7 @@
 # 3. List of commands:
     # add contact <name>                                 - adding new contact with given name
     # remove/delete contact <name>                       - deleting contact with given name
+    # change contact <old name> <new name>               - changing contact's name
     
     # add adress <name> <adress>                         - adding adress to the contact with given name
     # remove/delete adress <name>                        - deleting adress from the contact with given name
@@ -37,12 +38,13 @@
     # change phone <name> <old phone> <new phone>        - changing email in the contact with given name
     
     # show contact <name>                                - printing information about contact
-    # show all contact                                   - printing information about all contacts
+    # show all contacts                                  - printing information about all contacts
     # show birhdays <days>                               - printing contacts who will celebrate birthday in nearest amount of days
     # find contact <key>                                 - printing contacts by given key
     
     # add note <title>                                   - adding new note with given title
     # remove/delete note <title>                         - deleting note with given title
+    # change note <old title> <new title>                - changing title of the note
     
     # add text <title> <text>                            - adding text to the note with given title
     # remove/delete text <title>                         - deleting text from the note with given title
@@ -53,7 +55,9 @@
     # change tag <title> <old tag> <new tag>             - changing tag in the note with given title
     
     # show note <title>                                  - printing note with given title
-    # show all note {-r}                                 - printing all notes in alpabetical order 
+    # show all notes {-r}                                - printing all notes in alpabetical order 
                                                            (-r is optional parameter for reversed order)
     # find note <key> {-r}                               - printing all notes that contain the key in alpabetical order 
+                                                           (-r is optional parameter for reversed order)
+    # find tag <tag> {-r}                                - printing all notes that contain the tag in alpabetical order 
                                                            (-r is optional parameter for reversed order)
