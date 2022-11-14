@@ -368,7 +368,7 @@ class Helper:
         self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
         self.notebook.add_text(title, text)
-        print(f"Added text to the note titled {title}")
+        print(f"Added text to the note titled '{title}'")
 
     def func_remove_text(self, title=None, *args):
         """
@@ -403,7 +403,7 @@ class Helper:
         err = self.func_add_tag.__doc__
         self.check_args(2, 0, err, title, tag, *args)
         self.notebook.add_tag(title, tag)
-        print(f"Added '{tag}' to the note titled {title}")
+        print(f"Added '{tag}' to the note titled '{title}'")
 
     def func_remove_tag(self, title=None, tag=None, *args):
         """
