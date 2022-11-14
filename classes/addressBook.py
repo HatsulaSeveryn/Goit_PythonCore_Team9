@@ -273,29 +273,29 @@ class AddressBook(UserDict):
             print_string += ' {:^' + str(column_width - 2) + '} |'
         for contact in contacts:
             cnt_rows = 0
-            contact.name = self.delimiter_text(str(contact.name), column_width - 2)
-            if len(contact.name) > cnt_rows:
-                cnt_rows = len(contact.name)
-            contact.address = self.delimiter_text(contact.address, column_width - 2)
-            if len(contact.address) > cnt_rows:
-                cnt_rows = len(contact.address)
-            contact.email = self.delimiter_text(str(contact.email), column_width - 2)
-            if len(contact.email) > cnt_rows:
-                cnt_rows = len(contact.email)
-            contact.birthday = self.delimiter_text(str(contact.birthday), column_width - 2)
-            if len(contact.birthday) > cnt_rows:
-                cnt_rows = len(contact.birthday)
+            name = self.delimiter_text(str(contact.name), column_width - 2)
+            if len(name) > cnt_rows:
+                cnt_rows = len(name)
+            address = self.delimiter_text(contact.address, column_width - 2)
+            if len(address) > cnt_rows:
+                cnt_rows = len(address)
+            email = self.delimiter_text(str(contact.email), column_width - 2)
+            if len(email) > cnt_rows:
+                cnt_rows = len(email)
+            birthday = self.delimiter_text(str(contact.birthday), column_width - 2)
+            if len(birthday) > cnt_rows:
+                cnt_rows = len(birthday)
             phones = []
             for phone in contact.phones:
                 if phone:
                     phones.append(phone.value)
-            contact.phones = phones if phones else ['']
+            phones = phones if phones else ['']
             for i in range(0, cnt_rows):
-                name = contact.name[i] if i < len(contact.name) else ''
-                address = contact.address[i] if i < len(contact.address) else ''
-                email = contact.email[i] if i < len(contact.email) else ''
-                birthday = contact.birthday[i] if i < len(str(contact.birthday)) else ''
-                phones = contact.phones[i] if i < len(contact.phones) else ''
+                name = name[i] if i < len(name) else ''
+                address = address[i] if i < len(address) else ''
+                email = email[i] if i < len(email) else ''
+                birthday = birthday[i] if i < len(str(birthday)) else ''
+                phones = phones[i] if i < len(phones) else ''
                 print(print_string.format(
                     name,
                     address,
