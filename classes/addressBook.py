@@ -11,12 +11,11 @@ class AddressBook(UserDict):
             yield record
 
     def add_address(self, name, addr):
-
-        if self.data[name].address:
-            raise ValueError(
-                f'Contact already have address. Did you want to change it? Use change address command instead')
-
         try:
+            if self.data[name].address:
+                raise ValueError(
+                    f'Contact already have address. Did you want to change it? Use change address command instead')
+
             self.data[name].address = addr
 
         except KeyError:
@@ -24,11 +23,11 @@ class AddressBook(UserDict):
 
     def add_birthday(self, name, birthday):
 
-        if self.data[name].birthday:
-            raise ValueError(
-                f'Contact already have birthday. Did you want to change it? Use change birthday command instead')
-
         try:
+            if self.data[name].birthday:
+                raise ValueError(
+                    f'Contact already have birthday. Did you want to change it? Use change birthday command instead')
+
 
             self.data[name].birthday = Birthday(birthday)
 
@@ -51,11 +50,11 @@ class AddressBook(UserDict):
 
     def add_email(self, name, email):
 
-        if self.data[name].email:
-            raise ValueError(
-                f'Contact already have email. Did you want to change it? Use change email command instead')
-
         try:
+            if self.data[name].email:
+                raise ValueError(
+                    f'Contact already have email. Did you want to change it? Use change email command instead')
+
 
             self.data[name].email = Email(email)
 
@@ -67,12 +66,12 @@ class AddressBook(UserDict):
 
     def add_phone(self, name, phone):
 
-        for ph in self.data[name].phones:
-            if ph.value == phone:
-                raise ValueError(
-                    f'Contact already have that phone. Did you want to change it? Use change phone command instead')
-
         try:
+            for ph in self.data[name].phones:
+                if ph.value == phone:
+                    raise ValueError(
+                        f'Contact already have that phone. Did you want to change it? Use change phone command instead')
+
 
             self.data[name].add_new_phone(phone)
 

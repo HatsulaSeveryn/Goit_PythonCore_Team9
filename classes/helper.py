@@ -86,7 +86,7 @@ class Helper:
 
     def check_args(self, count_args=None, more=None, text_err='Invalid number of arguments.', *args):
         args = [value for value in args if value and value != '']
-        if (more == 0 and (len(args) != count_args)) or (more == 1 and (len(args) <= count_args)):
+        if (more == 0 and (len(args) != count_args)) or (more == 1 and (len(args) < count_args)):
             raise ValueError(text_err)
 
     def func_hello(self, *args):
