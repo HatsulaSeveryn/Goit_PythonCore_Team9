@@ -12,11 +12,25 @@ class Record:
         self.email = ''
 
     def __str__(self):
-        str_name = f'Name {self.name.value} -'
-        str_tel = f'tel:  {", ".join([phone.value for phone in self.phones])}; '
-        str_bday = f'birthday: {str(self.birthday)}; '
-        str_email = f'email: {str(self.email)}; address: {self.address} '
-        return f'{str_name}{str_tel}{str_bday}{str_email}'
+        return f'Name {self.name.value} - tel:  {", ".join([phone.value for phone in self.phones])}; birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address} '
+
+    # def __repr__(self):
+    #     self.dict = {
+    #         'name': '',
+    #         'email': '',
+    #         'address': '',
+    #         'birthday': '',
+    #         'phones': ''
+    #     }
+    #     self.dict['name'] = self.name.value
+    #     self.dict['email'] = str(self.email)
+    #     self.dict['address'] = self.address
+    #     self.dict['birthday'] = str(self.birthday)
+    #     self.dict['phones'] = ", ".join([phone.value for phone in self.phones])
+
+    #     return self.dict
+
+      #  return f'Name {self.name.value} - tel:  {", ".join([phone.value for phone in self.phones])}; birthday: {str(self.birthday)}; email: {str(self.email)}; address: {self.address} '
 
     def add_new_phone(self, phone_new):
 
@@ -38,7 +52,7 @@ class Record:
                 year=current_date.year, month=self.birthday.value.month, day=self.birthday.value.day)
         except ValueError:
             next_birthday = datetime(
-                year=current_date.year, month=self.birthday.value.month, day=self.birthday.value.day-1)
+                year=current_date.year, month=self.birthday.value.month, day=self.birthday.value.day-1)  # for date 29.02
 
         if next_birthday < current_date:
             try:
