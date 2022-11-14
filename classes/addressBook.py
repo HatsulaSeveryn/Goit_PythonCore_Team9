@@ -255,7 +255,7 @@ class AddressBook(UserDict):
         Printing all contacts who will have birthday in <days>
         """
         list_birthday = []
-
+        self.print_contacts_head()
         for rec in self.data.values():
 
             if rec.birthday:
@@ -263,15 +263,18 @@ class AddressBook(UserDict):
 
                 if days_to <= days:
                     list_birthday.append(rec)
-                    print(
-                        f"{rec.name}'s birthday is in {str(days_to)} days")
+                    # print(
+                    #     f"{rec.name}'s birthday is in {str(days_to)} days")
+        self.print_contacts(list_birthday)
 
     def show_contact(self, name):
         """
         Printing contact with given <name>
         """
+        self.print_contacts_head()
         if name in self.data:
-            print(self.data[name])
+            # print(self.data[name])
+            self.print_contacts([self.data[name]])
         else:
             raise ValueError(
                 f"Contact with the name '{name}' does not exist. Try a different name.")
@@ -323,18 +326,18 @@ class AddressBook(UserDict):
                 if phone:
                     phones.append(phone.value)
             phones = phones if phones else ['']
-            for i in range(0, cnt_rows):
-                name = name[i] if i < len(name) else ''
-                address = address[i] if i < len(address) else ''
-                email = email[i] if i < len(email) else ''
-                birthday = birthday[i] if i < len(str(birthday)) else ''
-                phones = phones[i] if i < len(phones) else ''
+            for i in range(cnt_rows):
+                name_print = name[i] if i < len(name) else ''
+                address_print = address[i] if i < len(address) else ''
+                email_print = email[i] if i < len(email) else ''
+                birthday_print = birthday[i] if i < len(birthday) else ''
+                phones_print = phones[i] if i < len(phones) else ''
                 print(print_string.format(
-                    name,
-                    address,
-                    email,
-                    birthday,
-                    phones
+                    name_print,
+                    address_print,
+                    email_print,
+                    birthday_print,
+                    phones_print
                 ))
             print('-' * table_width)
 
