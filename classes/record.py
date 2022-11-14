@@ -12,11 +12,12 @@ class Record:
         self.email = ''
 
     def __str__(self):
-        str_name = f'Name {self.name.value} -'
-        str_tel = f'tel:  {", ".join([phone.value for phone in self.phones])}; '
-        str_bday = f'birthday: {str(self.birthday)}; '
-        str_email = f'email: {str(self.email)}; address: {self.address} '
-        return f'{str_name}{str_tel}{str_bday}{str_email}'
+        str_name = f'| Name {self.name.value} |'
+        str_tel = f'| tel:{", ".join([phone.value for phone in self.phones])} |'
+        str_bday = f'| birthday: {str(self.birthday)} |'
+        str_email = f'| email: {str(self.email)}  |'
+        str_address = f'| address: {self.address} |'
+        return f'{str_name}{str_tel}{str_bday}{str_email}{str_address}'
 
     def add_new_phone(self, phone_new):
 

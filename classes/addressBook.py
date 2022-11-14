@@ -2,7 +2,7 @@ from collections import UserDict
 from classes.birthday import Birthday
 from classes.email import Email
 from classes.record import Record
-
+from shutil import get_terminal_size
 
 class AddressBook(UserDict):
 
@@ -69,7 +69,7 @@ class AddressBook(UserDict):
             raise ValueError(f'Contact {name} has not been found')
 
         except ValueError:
-            raise ValueError("Mistake in email, example: my_email@pyton.com")
+            raise ValueError("Mistake in email, example: my_email@python.com")
 
     def add_phone(self, name, phone):
         """
@@ -236,16 +236,18 @@ class AddressBook(UserDict):
 
         stock = self.iterator()
         page = 1
-
+        self.print_contacts_head()
         while True:
             try:
-                print(f"Page:   {page}")
+                #print(f"Page:   {page}")
                 for _ in range(number_on_page):
-                    print(next(stock))
+                    # print(next(stock))
+                    self.print_contacts([next(stock)])
+                    # print(next(stock))
 
                 page += 1
             except StopIteration:
-                print("it's end.No contacts in book")
+                #print("it's end.No contacts in book")
                 break
 
     def show_birthdays(self, days):
@@ -274,29 +276,65 @@ class AddressBook(UserDict):
             raise ValueError(
                 f"Contact with the name '{name}' does not exist. Try a different name.")
 
+    def delimiter_text(self, text, length):
+        idx_begin = 0
+        idx_end = length
+        lists = []
+        while idx_begin <= len(text):
+            lists.append(text[idx_begin: idx_end])
+            idx_begin = idx_end
+            idx_end += length
+        return lists
 
-'''
-    def __init__(self, filename='address_book.txt'):
-        super().__init__()
-        self.filename = filename
-        self.read_address_book_from_file()
+    def print_contacts_head(self):
+        columns = ['Name', 'Address', 'Email', 'Birthday', 'Phones']
+        table_width = get_terminal_size().columns - 3
+        column_width = (get_terminal_size().columns - 2) // 5 - 1
+        print('-' * table_width)
+        print_string = '|'
+        for col in columns:
+            print_string += ' {:^' + str(column_width - 2) + '} |'
+        print(print_string.format(*columns))
+        print('-' * table_width)
 
-   def quit_func(self):
-        self.write_address_book_file()
-        return 'Good bye!'
-    def write_address_book_file(self):
-        with open('address_book.txt', 'wb') as file:
-            pickle.dump(self.data, file)
+    def print_contacts(self, contacts=[]):
+        columns = ['Name', 'Address', 'Email', 'Birthday', 'Phones']
+        table_width = get_terminal_size().columns - 3
+        column_width = (get_terminal_size().columns - 2) // 5 - 1
+        print_string = '|'
+        for col in columns:
+            print_string += ' {:^' + str(column_width - 2) + '} |'
+        for contact in contacts:
+            cnt_rows = 0
+            name = self.delimiter_text(str(contact.name), column_width - 2)
+            if len(name) > cnt_rows:
+                cnt_rows = len(name)
+            address = self.delimiter_text(contact.address, column_width - 2)
+            if len(address) > cnt_rows:
+                cnt_rows = len(address)
+            email = self.delimiter_text(str(contact.email), column_width - 2)
+            if len(email) > cnt_rows:
+                cnt_rows = len(email)
+            birthday = self.delimiter_text(str(contact.birthday), column_width - 2)
+            if len(birthday) > cnt_rows:
+                cnt_rows = len(birthday)
+            phones = []
+            for phone in contact.phones:
+                if phone:
+                    phones.append(phone.value)
+            phones = phones if phones else ['']
+            for i in range(0, cnt_rows):
+                name = name[i] if i < len(name) else ''
+                address = address[i] if i < len(address) else ''
+                email = email[i] if i < len(email) else ''
+                birthday = birthday[i] if i < len(str(birthday)) else ''
+                phones = phones[i] if i < len(phones) else ''
+                print(print_string.format(
+                    name,
+                    address,
+                    email,
+                    birthday,
+                    phones
+                ))
+            print('-' * table_width)
 
-    def read_address_book_from_file(self):
-        try:
-            with open('address_book.txt', 'rb') as file:
-                self.data = pickle.load(file)
-                return self.data
-        except FileNotFoundError:
-            pass
-    def save_to_file(self, file_name):
-        self.write_address_book_file()
-        print('Data has been saved')
-
-         '''

@@ -163,7 +163,7 @@ class Helper:
         self.check_args(1, 0, err, name, *args)
         address = ' '.join(args)
         self.addressbook.remove_address(name)
-        print(f"Address '{address}' removed from {name}'s contact")
+        print(f"Address removed from {name}'s contact")
 
     def func_change_address(self, name=None, *args):
         """
