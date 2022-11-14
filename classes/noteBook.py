@@ -19,6 +19,9 @@ class NoteBook(UserDict):
         else:
             raise IndexError('This title is already exist')
 
+    def clear_notes(self):
+        self.data.clear()
+
     def show_note(self, title):
         print(self.data.get(title, 'This note doesnt exist'))
 
