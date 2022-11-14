@@ -28,7 +28,6 @@ class AddressBook(UserDict):
                 raise ValueError(
                     f'Contact already have birthday. Did you want to change it? Use change birthday command instead')
 
-
             self.data[name].birthday = Birthday(birthday)
 
         except KeyError:
@@ -55,7 +54,6 @@ class AddressBook(UserDict):
                 raise ValueError(
                     f'Contact already have email. Did you want to change it? Use change email command instead')
 
-
             self.data[name].email = Email(email)
 
         except KeyError:
@@ -71,7 +69,6 @@ class AddressBook(UserDict):
                 if ph.value == phone:
                     raise ValueError(
                         f'Contact already have that phone. Did you want to change it? Use change phone command instead')
-
 
             self.data[name].add_new_phone(phone)
 
@@ -156,7 +153,6 @@ class AddressBook(UserDict):
                 print(f'{self.data[name]}')
 
         if not key_all:
-
             print(f'Contacts for {key} not found')
 
     def remove_address(self, name):

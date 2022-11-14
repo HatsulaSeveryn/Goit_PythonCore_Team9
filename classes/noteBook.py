@@ -80,7 +80,7 @@ class NoteBook(UserDict):
             raise ValueError('This tag doesnt exist!')
 
     @check_title
-    def change_title(self, old_title, new_title):
+    def change_note(self, old_title, new_title):
         self.data[new_title] = self.data.pop(old_title)
         self.data[new_title].title = new_title
 

@@ -38,7 +38,7 @@ class Helper:
             'add note': self.func_add_note,
             'remove note': self.func_remove_note,
             'delete note': self.func_remove_note,
-            'change title': self.func_change_title,
+            'change note': self.func_change_note,
             'add text': self.func_add_text,
             'remove text': self.func_remove_text,
             'delete text': self.func_remove_text,
@@ -344,7 +344,7 @@ class Helper:
         self.notebook.delete_note(title)
         print(f"The note with the title '{title}' has been deleted")
 
-    def func_change_title(self, title_old=None, title_new=None, *args):
+    def func_change_note(self, title_old=None, title_new=None, *args):
         """
         Command: change note <old title> <new title>
         Changing <old title> to the <new title> in the note
@@ -451,7 +451,7 @@ class Helper:
         """
         if (flag and flag != '-r') or args:
             raise ValueError(self.func_find_note.__doc__)
-        self.notebook.find_note_by_title(key, flag)
+        self.notebook.find_note_by_word(key, flag)
 
     def func_find_tag(self, tag=None, flag=None, *args):
         """
