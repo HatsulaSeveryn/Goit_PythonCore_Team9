@@ -5,6 +5,7 @@ import pickle
 from classes.addressBook import AddressBook
 from classes.file_sorting import FileSorting
 from classes.noteBook import NoteBook
+from data.constants import COMMANDS_HELP
 
 
 class Helper:
@@ -55,6 +56,7 @@ class Helper:
             'exit': self.func_exit,
             'close': self.func_exit,
             'goodbye': self.func_exit,
+            'quit': self.func_exit,
             'help': self.func_help
         }
         self.max_length_cmd = 3
@@ -366,7 +368,7 @@ class Helper:
         self.check_args(2, 1, err, title, *args)
         text = ' '.join(args)
         self.notebook.add_text(title, text)
-        print(f"Added text to the note titled {title}")
+        print(f"Added text to the note titled '{title}'")
 
     def func_remove_text(self, title=None, *args):
         """
@@ -401,7 +403,7 @@ class Helper:
         err = self.func_add_tag.__doc__
         self.check_args(2, 0, err, title, tag, *args)
         self.notebook.add_tag(title, tag)
-        print(f"Added '{tag}' to the note titled {title}")
+        print(f"Added '{tag}' to the note titled '{title}'")
 
     def func_remove_tag(self, title=None, tag=None, *args):
         """
@@ -481,52 +483,8 @@ class Helper:
         Command: help
         Print the list of commands
         """
-        print('Commands:')
-        print(' - hello')
-        print(" - add contact <name> ")
-        print(' - remove contact <name>  |  delete contact <name>')
-        print(' - change contact <name old> <name new>')
-
-        print(" - add address <name> <address>")
-        print(' - remove address <name>  |  delete address <name>')
-        print(' - change address <name> <address>')
-
-        print(" - add email <name> <email>")
-        print(' - remove email <name>  |  delete email <name>')
-        print(' - change email <name> <email>')
-
-        print(' - add birthday <name> <birthday>')
-        print(' - remove birthday <name>  |  delete birthday <name>')
-        print(' - change birthday <name> <birthday>')
-
-        print(' - add phone <name> <phone>')
-        print(' - remove phone <name> <phone>  |  delete phone <name> <phone>')
-        print(' - change phone <name> <old phone> <new phone>')
-
-        print(' - show all contacts')
-        print(' - show contact <name>')
-        print(' - show birthdays <days>')
-        print(' - find contact <keys characters>')
-
-        print(" - add note <title>")
-        print(' - remove note <title>  |  delete note <title>')
-        print(' - change note <old title> <new title>')
-
-        print(' - add text <title> <text>')
-        print(' - remove text <title>  |  delete text <title>')
-        print(' - change text <title> <text>')
-
-        print(' - add tag <name> <tag>')
-        print(' - remove tag <name> <tag>  |  delete tag <name> <tag>')
-        print(' - change tag <name> <old tag> <new tag>')
-
-        print(' - show all notes')
-        print(' - show note <title>')
-        print(' - find note <keys characters> {-r (for reverse sort)}')
-        print(' - find tag <tag> {-r (for reverse sort)}')
-
-        print(' - sort folder <folder>')
-        print(' - good by || close || exit')
+        for command in COMMANDS_HELP:
+            print(command)
 
     def handler(self, cmd):
         command = cmd.strip().split(' ')
@@ -594,7 +552,7 @@ class Helper:
             previous_row, current_row = current_row, [i] + [0] * n
             for j in range(1, n + 1):
                 add, delete, change = previous_row[j] + \
-                    1, current_row[j - 1] + 1, previous_row[j - 1]
+                                      1, current_row[j - 1] + 1, previous_row[j - 1]
                 if str_1[j - 1] != str_2[i - 1]:
                     change += 1
                 current_row[j] = min(add, delete, change)
