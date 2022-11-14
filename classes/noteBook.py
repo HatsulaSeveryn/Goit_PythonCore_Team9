@@ -1,6 +1,7 @@
 from collections import UserDict
 from shutil import get_terminal_size
 
+
 def check_title(func):
     def inner(self, *args):
         flag = self.data.get(args[0], None)
@@ -11,7 +12,6 @@ def check_title(func):
 
 
 class NoteBook(UserDict):
-
     def add_note(self, title):
         flag = self.data.get(title, None)
         if not flag:
@@ -116,7 +116,7 @@ class NoteBook(UserDict):
         if not notes:
             print('-' * table_width)
             string = "|{:^" + str(table_width - 2) + "}|"
-            print(string.format('No notes'))
+            print(string.format('No  notes'))
             print('-' * table_width)
         for note in notes:
             print('-' * table_width)
@@ -141,16 +141,3 @@ class Note:
 
     def __repr__(self):
         return f'| Title: {self.title} : Text: {self.text} : Tags: {self.tags} |'
-
-
-notebook = NoteBook()
-notebook.add_note('Bob')
-notebook.add_note('ceotan')
-notebook.add_note('alex')
-notebook.add_note('Don')
-notebook.add_text('Don', 'Its a good boy')
-notebook.add_tag('alex', 'Human')
-notebook.add_tag('ceotan', 'Human')
-notebook.add_tag('Bob', 'Human')
-notebook.add_tag('Don', 'Human')
-notebook.show_all_notes()
