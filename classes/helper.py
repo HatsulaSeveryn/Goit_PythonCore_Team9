@@ -62,6 +62,11 @@ class Helper:
         self.max_length_cmd = 3
         self.sorter = None
         self.addressbook_path = os.path.join('data', 'addressbook.bin')
+        self.notebook_path = os.path.join('data', 'notebook.bin')
+        self.addressbook_load()
+        self.notebook_load()
+
+    def addressbook_load(self):
         if os.path.exists(self.addressbook_path) and os.path.isfile(self.addressbook_path) and os.stat(
                 self.addressbook_path).st_size > 0:
             with open(self.addressbook_path, 'rb') as f:
@@ -69,7 +74,7 @@ class Helper:
         else:
             self.addressbook = AddressBook()
 
-        self.notebook_path = os.path.join('data', 'notebook.bin')
+    def notebook_load(self):
         if os.path.exists(self.notebook_path) and os.path.isfile(self.notebook_path) and os.stat(
                 self.notebook_path).st_size > 0:
             with open(self.notebook_path, 'rb') as f:
@@ -87,7 +92,7 @@ class Helper:
             pickle.dump(self.notebook, f)
 
     def check_args(self, count_args=None, more=None, text_err='Invalid number of arguments.', *args):
-        args = [value for value in args if value and value != '']
+        args = [value for value in args if value]
         if (more == 0 and (len(args) != count_args)) or (more == 1 and (len(args) < count_args)):
             raise ValueError(text_err)
 
