@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b579be4-2b9e-4369-9f33-fca51a48e8b1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/addressBook.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/birthday.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/email.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/field.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/file_sorting.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/helper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/name.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/noteBook.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/phone.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/record.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/constants.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+    <list default="true" id="8b579be4-2b9e-4369-9f33-fca51a48e8b1" name="Changes" comment="Bot Beta 1.0.1.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/power9bot/data/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/power9bot/data/constants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,13 +28,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\User02\Documents\GitHub\power9bot\power9bot\classes2" />
@@ -92,6 +78,21 @@
       <option name="presentableId" value="Default" />
       <updated>1668515279768</updated>
     </task>
+    <task id="LOCAL-00001" summary="Bot Beta 1.0.1.">
+      <created>1668522319660</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668522319660</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Bot Beta 1.0.1.">
+      <created>1668522370447</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668522370447</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,5 +105,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Bot Beta 1.0.1." />
+    <option name="LAST_COMMIT_MESSAGE" value="Bot Beta 1.0.1." />
   </component>
 </project>
