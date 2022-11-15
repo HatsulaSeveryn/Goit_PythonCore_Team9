@@ -21,7 +21,7 @@ class NoteBook(UserDict):
             raise IndexError('This title is already exist')
 
     def show_note(self, title):
-        self.print_notes(self.data.get(title, 'This note doesnt exist'))
+        self.print_notes([self.data.get(title, 'This note doesnt exist')])
 
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
@@ -110,9 +110,6 @@ class NoteBook(UserDict):
         return lists
 
     def print_notes(self, notes=[]):
-        notes = [
-            {'title': 'note 1', 'tags': ['1', '2'], 'text': 'text ' * 120}
-        ]
         table_width = get_terminal_size().columns - 2
         string = ''
         if not notes:
@@ -121,14 +118,22 @@ class NoteBook(UserDict):
             print(string.format('No notes'))
             print('-' * table_width)
         for note in notes:
+            if type(note) == tuple:
+                titles = note[1].title
+                tags = note[1].tags
+                texts = note[1].text
+            else:
+                titles = note.title
+                tags = note.tags
+                texts = note.text
             print('-' * table_width)
             string = "|{:^" + str(table_width - 2) + "}|"
-            print(string.format(note['title']))
+            print(string.format(titles))
             print('-' * table_width)
             string = "|{:^" + str(table_width - 2) + "}|"
-            print(string.format(', '.join(note['tags'])))
+            print(string.format(', '.join(tags)))
             print('-' * table_width)
-            texts = self.delimiter_text(note['text'], table_width - 4)
+            texts = self.delimiter_text(texts, table_width - 4)
             for text in texts:
                 string = "| {:<" + str(table_width - 4) + "} |"
                 print(string.format(text))
