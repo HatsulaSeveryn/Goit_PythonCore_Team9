@@ -51,6 +51,7 @@ class Helper:
             'show note': self.func_show_note,
             'find note': self.func_find_note,
             'find tag': self.func_find_tag,
+            'clear notes': self.func_clear_notes,
             'sort folder': self.func_sort_folder,
             'exit': self.func_exit,
             'close': self.func_exit,
@@ -471,6 +472,20 @@ class Helper:
         if (flag and flag != '-r') or args:
             raise ValueError(self.func_find_tag.__doc__)
         self.notebook.find_note_by_tag(tag, flag)
+
+    def func_clear_notes(self):
+        """
+        Command: clear notes 
+        """
+        while True:
+            is_remove = input('Do you realy want remove all notes? (y / n):')
+            if is_remove == 'y':
+                self.notebook.clear_notes()
+                break
+            if is_remove == 'n':
+                break
+            
+
 
     def func_sort_folder(self, folder=None, *args):
         """

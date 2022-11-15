@@ -61,6 +61,7 @@ COMMANDS_HELP = [
     ' - show note <title>',
     ' - find note <keys characters> {-r (for reverse sort)}',
     ' - find tag <tag> {-r (for reverse sort)}',
+    ' - clear note',
     '____________________________________________________',
     ' - sort folder <folder>',
     ' - goodbye || close || exit || quit'
