@@ -21,7 +21,7 @@ class NoteBook(UserDict):
             raise IndexError('This title is already exist')
 
     def show_note(self, title):
-        return self.data.get(title, 'This note doesnt exist')
+        self.print_notes(self.data.get(title, 'This note doesnt exist'))
 
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
