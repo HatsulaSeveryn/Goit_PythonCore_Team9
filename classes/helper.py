@@ -523,7 +523,7 @@ class Helper:
                 if element.startswith(check_cmd[0:cnt]) or element.split(' ')[0] in check_cmd:
                     list_cmd.add(element)
                 result = self.levenshtein(element.split(
-                    ' ')[0], check_cmd[0:cnt]) * 100 / len(el)
+                    ' ')[0], check_cmd[0:cnt]) * 100 / len(element)
                 if result < 40:
                     list_cmd.add(element)
             if list_cmd:
