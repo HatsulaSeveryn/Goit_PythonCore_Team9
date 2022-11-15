@@ -473,10 +473,13 @@ class Helper:
             raise ValueError(self.func_find_tag.__doc__)
         self.notebook.find_note_by_tag(tag, flag)
 
-    def func_clear_notes(self):
+    def func_clear_notes(self, *args):
         """
-        Command: clear notes 
+        Command: clear notes
+        Clear all notes.
         """
+        if args:
+            raise ValueError(self.func_clear_notes.__doc__)
         while True:
             is_remove = input('Do you realy want remove all notes? (y / n):')
             if is_remove == 'y':
@@ -540,7 +543,7 @@ class Helper:
                 if element.startswith(check_cmd[0:cnt]) or element.split(' ')[0] in check_cmd:
                     list_cmd.add(element)
                 result = self.levenshtein(element.split(
-                    ' ')[0], check_cmd[0:cnt]) * 100 / len(element)
+                    ' ')[0], check_cmd[0:cnt]) * 100 / len(element.split(' ')[0])
                 if result < 40:
                     list_cmd.add(element)
             if list_cmd:
