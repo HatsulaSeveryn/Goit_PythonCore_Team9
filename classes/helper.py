@@ -220,7 +220,7 @@ class Helper:
         Command: add birthday <name> <birthday>
         Adding <birthday> to the contact with given <name>
         <name> is string without spaces
-        <birthday> formats: dd/mm/yyyy, dd.mm.yyyy
+        <birthday> format: dd.mm.yyyy
         """
         err = self.func_add_birthday.__doc__
         self.check_args(2, 0, err, name, birthday, *args)
@@ -243,7 +243,7 @@ class Helper:
         Command: change birthday <name> <birthday>
         Changing <birthday> in the contact with given <name>
         <name> is string without spaces
-        <birthday> formats: dd/mm/yyyy, dd.mm.yyyy
+        <birthday> format: dd.mm.yyyy
         """
         err = self.func_change_birthday.__doc__
         self.check_args(2, 0, err, name, birthday, *args)
@@ -540,7 +540,7 @@ class Helper:
 
     def running(self):
         while True:
-            cmd = input('Enter command (help - show all commands): ')
+            cmd = input('Enter command (help - show all commands): ').lower()
             try:
                 self.handler(cmd)
             except Exception as e:

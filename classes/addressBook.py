@@ -142,7 +142,6 @@ class AddressBook(UserDict):
         """
         Find all contact with give <key>
         """
-        # print(f'Results of search by the key "{key}" :')
         self.print_contacts_head()
         key_all = False
 
@@ -163,7 +162,6 @@ class AddressBook(UserDict):
             key_all = key_all or key_is
 
             if key_is:
-                # print(f'{self.data[name]}')
                 self.print_contacts([self.data[name]])
 
         if not key_all:
@@ -231,15 +229,11 @@ class AddressBook(UserDict):
         self.print_contacts_head()
         while True:
             try:
-                # print(f"Page:   {page}")
                 for _ in range(number_on_page):
-                    # print(next(stock))
                     self.print_contacts([next(stock)])
-                    # print(next(stock))
 
                 page += 1
             except StopIteration:
-                # print("it's end.No contacts in book")
                 break
 
     def show_birthdays(self, days):
@@ -255,8 +249,6 @@ class AddressBook(UserDict):
 
                 if days_to <= days:
                     list_birthday.append(rec)
-                    # print(
-                    #     f"{rec.name}'s birthday is in {str(days_to)} days")
         self.print_contacts(list_birthday)
 
     def show_contact(self, name):
@@ -265,7 +257,6 @@ class AddressBook(UserDict):
         """
         self.print_contacts_head()
         if name in self.data:
-            # print(self.data[name])
             self.print_contacts([self.data[name]])
         else:
             raise ValueError(
@@ -287,7 +278,7 @@ class AddressBook(UserDict):
         column_width = (get_terminal_size().columns - 2) // 5 - 1
         print('-' * table_width)
         print_string = '|'
-        for col in columns:
+        for _ in columns:
             print_string += ' {:^' + str(column_width - 2) + '} |'
         print(print_string.format(*columns))
         print('-' * table_width)
@@ -297,11 +288,11 @@ class AddressBook(UserDict):
         table_width = get_terminal_size().columns - 3
         column_width = (get_terminal_size().columns - 2) // 5 - 1
         print_string = '|'
-        for col in columns:
+        for _ in columns:
             print_string += ' {:^' + str(column_width - 2) + '} |'
         for contact in contacts:
             cnt_rows = 0
-            name = self.delimiter_text(str(contact.name), column_width - 2)
+            name = self.delimiter_text(str(contact.name).capitalize(), column_width - 2)
             if len(name) > cnt_rows:
                 cnt_rows = len(name)
             address = self.delimiter_text(contact.address, column_width - 2)

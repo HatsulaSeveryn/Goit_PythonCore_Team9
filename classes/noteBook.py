@@ -122,11 +122,11 @@ class NoteBook(UserDict):
             return True
         for note in notes:
             if type(note) == tuple:
-                titles = note[1].title
+                titles = note[1].title.capitalize()
                 tags = note[1].tags
                 texts = note[1].text
             else:
-                titles = note.title
+                titles = note.title.capitalize()
                 tags = note.tags
                 texts = note.text
             print('-' * table_width)
