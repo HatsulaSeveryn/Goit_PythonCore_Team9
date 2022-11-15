@@ -446,7 +446,7 @@ class Helper:
         """
         err = self.func_show_note.__doc__
         self.check_args(1, 0, err, title, *args)
-        print(self.notebook.show_note(title))
+        self.notebook.show_note(title)
 
     def func_find_note(self, key=None, flag=None, *args):
         """
@@ -523,7 +523,7 @@ class Helper:
                 if element.startswith(check_cmd[0:cnt]) or element.split(' ')[0] in check_cmd:
                     list_cmd.add(element)
                 result = self.levenshtein(element.split(
-                    ' ')[0], check_cmd[0:cnt]) * 100 / len(el)
+                    ' ')[0], check_cmd[0:cnt]) * 100 / len(element)
                 if result < 40:
                     list_cmd.add(element)
             if list_cmd:

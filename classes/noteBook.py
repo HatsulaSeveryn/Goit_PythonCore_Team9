@@ -12,13 +12,15 @@ def check_title(func):
 
 
 class NoteBook(UserDict):
-
     def add_note(self, title):
         flag = self.data.get(title, None)
         if not flag:
             self.data[title] = Note(title)
         else:
             raise IndexError('This title is already exist')
+
+    def clear_notes(self):
+        self.data.clear()
 
     def show_note(self, title):
         self.print_notes([self.data.get(title, 'This note doesnt exist')])
@@ -27,13 +29,13 @@ class NoteBook(UserDict):
         flag = True if flag == '-r' else False
         count = 0
         constant_number = 5
-        data_new = sorted(list(self.data.items()),
-                          key=lambda x: x[0].lower(), reverse=flag)
+        data_new = sorted(list(self.data.values()),
+                          key=lambda x: x.title.lower(), reverse=flag)
         while count < len(data_new):
             self.print_notes(data_new[count:count + constant_number])
             if len(data_new[count + constant_number + 1:]) == 0:
                 break
-            user_input = input('enter -> exit\nelse -> next 5 notes   ')
+            user_input = input('Press any button or ''exit''')
             if user_input.lower() == 'exit':
                 break
             else:
@@ -112,11 +114,12 @@ class NoteBook(UserDict):
     def print_notes(self, notes=[]):
         table_width = get_terminal_size().columns - 2
         string = ''
-        if not notes:
+        if not notes or type(notes[0]) == str:
             print('-' * table_width)
             string = "|{:^" + str(table_width - 2) + "}|"
             print(string.format('No notes'))
             print('-' * table_width)
+            return True
         for note in notes:
             if type(note) == tuple:
                 titles = note[1].title
@@ -147,4 +150,4 @@ class Note:
         self.tags = []
 
     def __repr__(self):
-        return f'| Title: {self.title} | Text: {self.text} | Tags: {self.tags} |'
+        return f'| Title: {self.title} : Text: {self.text} : Tags: {self.tags} |'
