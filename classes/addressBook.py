@@ -4,6 +4,7 @@ from classes.email import Email
 from classes.record import Record
 from shutil import get_terminal_size
 
+
 class AddressBook(UserDict):
 
     def iterator(self):
@@ -14,18 +15,18 @@ class AddressBook(UserDict):
         """
         Adding <address> to the contact <name>
         """
-        if not name in self.data:
+        if name not in self.data:
             raise ValueError(f'Contact {name} has not been found')
         if self.data[name].address:
             raise ValueError(
-                    f'Contact already have address. Did you want to change it? Use change address command instead')
+                f'Contact already have address. Did you want to change it? Use change address command instead')
         self.data[name].address = addr
 
     def add_birthday(self, name, birthday):
         """
         Adding <birthday> to the contact <name>
         """
-        if not name in self.data:
+        if name not in self.data:
             raise ValueError(f'Contact {name} has not been found')
         if self.data[name].birthday:
             raise ValueError(
@@ -53,11 +54,11 @@ class AddressBook(UserDict):
         """
         Adding <email> to the contact <name>
         """
-        if not name in self.data:
+        if name not in self.data:
             raise ValueError(f'Contact {name} has not been found')
         if self.data[name].email:
             raise ValueError(
-                    f'Contact already have email. Did you want to change it? Use change email command instead')
+                f'Contact already have email. Did you want to change it? Use change email command instead')
         try:
             self.data[name].email = Email(email)
         except ValueError:
@@ -67,12 +68,12 @@ class AddressBook(UserDict):
         """
         Adding <phone> to the contact <name>
         """
-        if not name in self.data:
+        if name not in self.data:
             raise ValueError(f'Contact {name} has not been found')
         for ph in self.data[name].phones:
             if ph.value == phone:
                 raise ValueError(
-                        f'Contact already have that phone. Did you want to change it? Use change phone command instead')
+                    f'Contact already have that phone. Did you want to change it? Use change phone command instead')
         try:
             self.data[name].add_new_phone(phone)
         except ValueError:
@@ -141,7 +142,7 @@ class AddressBook(UserDict):
         """
         Find all contact with give <key>
         """
-        #print(f'Results of search by the key "{key}" :')
+        # print(f'Results of search by the key "{key}" :')
         self.print_contacts_head()
         key_all = False
 
@@ -162,7 +163,7 @@ class AddressBook(UserDict):
             key_all = key_all or key_is
 
             if key_is:
-                #print(f'{self.data[name]}')
+                # print(f'{self.data[name]}')
                 self.print_contacts([self.data[name]])
 
         if not key_all:
@@ -230,7 +231,7 @@ class AddressBook(UserDict):
         self.print_contacts_head()
         while True:
             try:
-                #print(f"Page:   {page}")
+                # print(f"Page:   {page}")
                 for _ in range(number_on_page):
                     # print(next(stock))
                     self.print_contacts([next(stock)])
@@ -238,7 +239,7 @@ class AddressBook(UserDict):
 
                 page += 1
             except StopIteration:
-                #print("it's end.No contacts in book")
+                # print("it's end.No contacts in book")
                 break
 
     def show_birthdays(self, days):
@@ -331,4 +332,3 @@ class AddressBook(UserDict):
                     phones_print
                 ))
             print('-' * table_width)
-
