@@ -1,4 +1,5 @@
 from collections import UserDict
+from shutil import get_terminal_size
 
 
 def check_title(func):
@@ -20,7 +21,7 @@ class NoteBook(UserDict):
             raise IndexError('This title is already exist')
 
     def show_note(self, title):
-        return self.data.get(title, 'This note doesnt exist')
+        self.print_notes([self.data.get(title, 'This note doesnt exist')])
 
     def show_all_notes(self, flag=None):
         flag = True if flag == '-r' else False
@@ -29,7 +30,7 @@ class NoteBook(UserDict):
         data_new = sorted(list(self.data.items()),
                           key=lambda x: x[0].lower(), reverse=flag)
         while count < len(data_new):
-            print(data_new[count:count + constant_number])
+            self.print_notes(data_new[count:count + constant_number])
             if len(data_new[count + constant_number + 1:]) == 0:
                 break
             user_input = input('enter -> exit\nelse -> next 5 notes   ')
@@ -42,13 +43,14 @@ class NoteBook(UserDict):
         flag = True if flag == '-r' else False
         result = [note for title, note in self.data.items()
                   if word.lower() in title.lower() or word.lower() in note.text.lower()]
-        print(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
+        self.print_notes(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
 
     def find_note_by_tag(self, tag, flag=None):
         flag = True if flag == '-r' else False
         result = [note for note in self.data.values() if tag.lower() in [
             x.lower() for x in note.tags]]
-        print(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
+        # print(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
+        self.print_notes(sorted(result, key=lambda x: x.title.lower(), reverse=flag))
 
     @check_title
     def delete_note(self, title):
@@ -96,6 +98,46 @@ class NoteBook(UserDict):
     def change_note(self, old_title, new_title):
         self.data[new_title] = self.data.pop(old_title)
         self.data[new_title].title = new_title
+
+    def delimiter_text(self, text, length):
+        idx_begin = 0
+        idx_end = length
+        lists = []
+        while idx_begin <= len(text):
+            lists.append(text[idx_begin: idx_end])
+            idx_begin = idx_end
+            idx_end += length
+        return lists
+
+    def print_notes(self, notes=[]):
+        table_width = get_terminal_size().columns - 2
+        string = ''
+        if not notes:
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
+            print(string.format('No notes'))
+            print('-' * table_width)
+        for note in notes:
+            if type(note) == tuple:
+                titles = note[1].title
+                tags = note[1].tags
+                texts = note[1].text
+            else:
+                titles = note.title
+                tags = note.tags
+                texts = note.text
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
+            print(string.format(titles))
+            print('-' * table_width)
+            string = "|{:^" + str(table_width - 2) + "}|"
+            print(string.format(', '.join(tags)))
+            print('-' * table_width)
+            texts = self.delimiter_text(texts, table_width - 4)
+            for text in texts:
+                string = "| {:<" + str(table_width - 4) + "} |"
+                print(string.format(text))
+            print('-' * table_width, '\n\n')
 
 
 class Note:
