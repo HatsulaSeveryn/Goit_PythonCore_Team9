@@ -446,7 +446,7 @@ class Helper:
         """
         err = self.func_show_note.__doc__
         self.check_args(1, 0, err, title, *args)
-        print(self.notebook.show_note(title))
+        self.notebook.show_note(title)
 
     def func_find_note(self, key=None, flag=None, *args):
         """

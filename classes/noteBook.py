@@ -112,11 +112,12 @@ class NoteBook(UserDict):
     def print_notes(self, notes=[]):
         table_width = get_terminal_size().columns - 2
         string = ''
-        if not notes:
+        if not notes or type(notes[0]) == str:
             print('-' * table_width)
             string = "|{:^" + str(table_width - 2) + "}|"
             print(string.format('No notes'))
             print('-' * table_width)
+            return True
         for note in notes:
             if type(note) == tuple:
                 titles = note[1].title
